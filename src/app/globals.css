@@ -1,0 +1,420 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  color-scheme: dark;
+
+  /* Superficies: el fondo de página pasa a oscuro y el "blanco" es el elevado */
+  --color-bone-50: #0c1210;
+  --color-bone-100: #141c17;
+  --color-bone-200: #202b24;
+  --color-bone-300: #31433a;
+  --color-white: #19221c;
+
+  /* Texto */
+  --color-ink-950: #f7f9f6;
+  --color-ink-900: #f0f3ef;
+  --color-ink-800: #e3e8e2;
+  --color-ink-700: #cfd7d0;
+  --color-ink-600: #b2bdb4;
+  --color-ink-500: #93a095;
+  --color-ink-400: #79877c;
+
+  /* Dorado: más brillante para mantener contraste sobre fondo oscuro */
+  --color-gold-100: #3d3118;
+  --color-gold-200: #4d3d1f;
+  --color-gold-300: #6b552b;
+  --color-gold-400: #9a7b40;
+  --color-gold-500: #d8b26c;
+  --color-gold-600: #c8a45f;
+  --color-gold-700: #b89456;
+
+  /* Pino: los verdes usados como texto se aclaran para leer sobre oscuro */
+  --color-pine-50: #18221c;
+  --color-pine-100: #20332a;
+  --color-pine-200: #2c4a3b;
+  --color-pine-300: #3d6a57;
+  --color-pine-400: #4f8d72;
+  --color-pine-500: #5faa84;
+  --color-pine-600: #7dc09b;
+  --color-pine-700: #95cdb2;
+  --color-pine-800: #abdbc2;
+  --color-pine-900: #c4e5d4;
+  --color-pine-950: #daece4;
+}
+
+/* Fondos profundos de marca: permanecen oscuros aunque cambie el token */
+.dark .bg-pine-800 {
+  background-color: #1e4737;
+}
+.dark .bg-pine-900 {
+  background-color: #173b2e;
+}
+.dark .bg-pine-950 {
+  background-color: #0b2019;
+}
+.dark .bg-pine-950\/30 {
+  background-color: rgb(11 32 25 / 0.3);
+}
+.dark .bg-pine-950\/40 {
+  background-color: rgb(11 32 25 / 0.4);
+}
+.dark .bg-pine-950\/60 {
+  background-color: rgb(11 32 25 / 0.6);
+}
+.dark .bg-pine-950\/70 {
+  background-color: rgb(11 32 25 / 0.7);
+}
+.dark .bg-pine-950\/80 {
+  background-color: rgb(11 32 25 / 0.8);
+}
+.dark .bg-pine-950\/95 {
+  background-color: rgb(11 32 25 / 0.95);
+}
+.dark .from-pine-800 {
+  --tw-gradient-from: #1e4737;
+}
+.dark .from-pine-900 {
+  --tw-gradient-from: #173b2e;
+}
+.dark .from-pine-950 {
+  --tw-gradient-from: #0b2019;
+}
+.dark .from-pine-950\/70 {
+  --tw-gradient-from: rgb(11 32 25 / 0.7);
+}
+.dark .to-pine-800 {
+  --tw-gradient-to: #1e4737;
+}
+.dark .to-pine-950 {
+  --tw-gradient-to: #0b2019;
+}
+.dark .to-pine-950\/80 {
+  --tw-gradient-to: rgb(11 32 25 / 0.8);
+}
+.dark .bg-ink-950\/40 {
+  background-color: rgb(0 0 0 / 0.4);
+}
+
+/* Texto claro sobre los fondos de marca: se conserva claro */
+.dark .text-bone-50 {
+  color: #fbfaf6;
+}
+.dark .text-bone-50\/60 {
+  color: rgb(251 250 246 / 0.6);
+}
+.dark .text-bone-50\/70 {
+  color: rgb(251 250 246 / 0.7);
+}
+.dark .text-bone-100\/70 {
+  color: rgb(244 240 231 / 0.7);
+}
+.dark .text-bone-100\/75 {
+  color: rgb(244 240 231 / 0.75);
+}
+.dark .text-bone-100\/85 {
+  color: rgb(244 240 231 / 0.85);
+}
+.dark .text-bone-100\/90 {
+  color: rgb(244 240 231 / 0.9);
+}
+.dark .text-bone-200 {
+  color: #e8e2d3;
+}
+.dark .text-bone-200\/60 {
+  color: rgb(232 226 211 / 0.6);
+}
+.dark .text-bone-200\/70 {
+  color: rgb(232 226 211 / 0.7);
+}
+.dark .text-bone-200\/80 {
+  color: rgb(232 226 211 / 0.8);
+}
+
+/* El blanco como texto/iconos se conserva blanco */
+.dark .text-white {
+  color: #fff;
+}
+.dark .text-white\/75 {
+  color: rgb(255 255 255 / 0.75);
+}
+
+/* Hover y anillos blancos sobre fondos de marca */
+.dark .bg-white\/5 {
+  background-color: rgb(255 255 255 / 0.05);
+}
+.dark .bg-white\/10 {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.dark .bg-white\/15 {
+  background-color: rgb(255 255 255 / 0.15);
+}
+.dark .bg-white\/20 {
+  background-color: rgb(255 255 255 / 0.2);
+}
+.dark .ring-white\/30 {
+  --tw-ring-color: rgb(255 255 255 / 0.3);
+}
+
+/* Bordes blancos sobre fondos de marca: se conservan claros */
+.dark .border-white\/10 {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.dark .border-white\/25 {
+  border-color: rgb(255 255 255 / 0.25);
+}
+
+/* Hover blancos sobre fondos de marca */
+.dark .hover\:bg-white\/10:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.dark .hover\:bg-white\/20:hover {
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+@theme {
+  /* Fyrama — paleta premium: pino profundo (confianza/patrimonio)
+     + dorado apagado (calidez) + neutros cálidos. */
+  --color-pine-50: #f1f7f3;
+  --color-pine-100: #ddeee1;
+  --color-pine-200: #baddc4;
+  --color-pine-300: #8ec3a1;
+  --color-pine-400: #5fa47e;
+  --color-pine-500: #3c8863;
+  --color-pine-600: #2b6e4e;
+  --color-pine-700: #245941;
+  --color-pine-800: #1e4737;
+  --color-pine-900: #173b2e;
+  --color-pine-950: #0b2019;
+
+  --color-gold-200: #f2e3c0;
+  --color-gold-300: #eacf9d;
+  --color-gold-400: #ddb677;
+  --color-gold-500: #cfa25a;
+  --color-gold-600: #b38541;
+  --color-gold-700: #8f6832;
+
+  --color-bone-50: #fbfaf6;
+  --color-bone-100: #f4f0e7;
+  --color-bone-200: #e8e2d3;
+  --color-bone-300: #d7cdb8;
+
+  --color-ink-900: #1b211c;
+  --color-ink-700: #39413b;
+  --color-ink-500: #5c655d;
+  --color-ink-400: #79827a;
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  --shadow-fyrama: 0 1px 2px rgba(11, 32, 25, 0.05),
+    0 8px 24px rgba(11, 32, 25, 0.07);
+  --shadow-fyrama-lg: 0 2px 4px rgba(11, 32, 25, 0.06),
+    0 18px 48px rgba(11, 32, 25, 0.12);
+
+  --radius-fyrama: 1rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bone-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+::selection {
+  background-color: var(--color-pine-950);
+  color: var(--color-bone-50);
+}
+
+/* --- Accesibilidad: focus visible ---------------------------------- */
+*:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Microinteracciones --------------------------------------------- */
+@keyframes fyrama-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fyrama-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fyrama-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.animate-fade-up {
+  animation: fyrama-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fyrama-fade-in 0.4s ease both;
+}
+
+/* --- Skeleton loading ------------------------------------------------ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bone-100) 0%,
+    var(--color-bone-50) 50%,
+    var(--color-bone-100) 100%
+  );
+  background-size: 800px 100%;
+  animation: fyrama-shimmer 1.4s linear infinite;
+}
+
+/* --- Contenido markdown (blog, servicios) ----------------------------- */
+.fyrama-prose {
+  line-height: 1.75;
+  color: var(--color-ink-700);
+  font-size: 1.0625rem;
+}
+.fyrama-prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-ink-900);
+  margin: 2rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.fyrama-prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-ink-900);
+  margin: 1.5rem 0 0.5rem;
+}
+.fyrama-prose p {
+  margin: 0 0 1rem;
+}
+.fyrama-prose ul,
+.fyrama-prose ol {
+  margin: 0 0 1rem 1.25rem;
+}
+.fyrama-prose ul {
+  list-style: disc;
+}
+.fyrama-prose ol {
+  list-style: decimal;
+}
+.fyrama-prose li {
+  margin-bottom: 0.35rem;
+}
+.fyrama-prose a {
+  color: var(--color-pine-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.fyrama-prose strong {
+  color: var(--color-ink-900);
+  font-weight: 600;
+}
+.fyrama-prose blockquote {
+  border-left: 3px solid var(--color-gold-500);
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  color: var(--color-ink-500);
+  font-style: italic;
+}
+.fyrama-prose img {
+  border-radius: 1rem;
+  margin: 1.5rem 0;
+  width: 100%;
+  height: auto;
+}
+.fyrama-prose hr {
+  border: none;
+  border-top: 1px solid var(--color-bone-200);
+  margin: 2rem 0;
+}
+.fyrama-prose pre,
+.fyrama-prose :not(pre) > code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.fyrama-prose pre {
+  border-radius: 0.75rem;
+  background: #0f172a;
+  color: #f1f5f9;
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+.fyrama-prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  white-space: nowrap;
+  margin: 1.5rem 0;
+}
+.fyrama-prose th,
+.fyrama-prose td {
+  border: 1px solid var(--color-bone-200);
+  padding: 0.5rem 0.75rem;
+}
+
+/* --- Scrollbar sutil ------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

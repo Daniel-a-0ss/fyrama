@@ -1,0 +1,300 @@
+// Prisma — Fyrama (PostgreSQL)
+// Copia gestionada para producción (Vercel). Se mantiene en sincronía con schema.prisma (SQLite)..
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// Usuarios administrativos (roles ADMIN / EDITOR)
+// ============================================================
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  name         String
+  passwordHash String
+  role           Role        @default(EDITOR)
+  active         Boolean     @default(true)
+  lastLoginAt    DateTime?
+  totpSecret     String?
+  totpEnabled    Boolean     @default(false)
+  totpConfirmedAt DateTime?
+  recoveryCodes  String? // JSON: array de hashes bcrypt de códigos de recuperación
+  createdAt      DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  sessions     Session[]
+  auditLogs    AuditLog[]
+}
+
+model Session {
+  id         String    @id @default(cuid())
+  tokenHash  String    @unique
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
+}
+
+// ============================================================
+// Viviendas
+// ============================================================
+enum Operation {
+  VENTA
+  ARRIENDO
+}
+
+enum PropertyType {
+  APARTAMENTO
+  CASA
+  OFICINA
+  LOCAL
+  BODEGA
+  LOTE
+  EDIFICIO
+  CASA_CAMPO
+}
+
+enum PropertyStatus {
+  DRAFT
+  PUBLISHED
+  HIDDEN
+}
+
+model Property {
+  id            String          @id @default(cuid())
+  slug          String          @unique
+  title         String
+  description   String          @default("")
+  operation     Operation
+  type          PropertyType
+  price         Int?
+  currency      String          @default("COP")
+  status        PropertyStatus  @default(DRAFT)
+  featured      Boolean         @default(false)
+  city          String?
+  zone          String?
+  neighborhood  String?
+  address       String?
+  latitude      Float?
+  longitude     Float?
+  area          Float?
+  builtArea     Float?
+  bedrooms      Int?
+  bathrooms     Int?
+  parking       Int?
+  estrato       Int?
+  features      PropertyFeature[]
+  images        PropertyImage[]
+  contactRequests ContactRequest[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  deletedAt     DateTime?
+}
+
+model PropertyImage {
+  id           String      @id @default(cuid())
+  propertyId   String
+  property     Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  mediaAssetId String
+  mediaAsset   MediaAsset  @relation(fields: [mediaAssetId], references: [id], onDelete: Cascade)
+  alt          String?
+  sortOrder    Int         @default(0)
+  isCover      Boolean     @default(false)
+  createdAt    DateTime    @default(now())
+}
+
+model PropertyFeature {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  name       String
+}
+
+// ============================================================
+// Blog / Contenido
+// ============================================================
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model ArticleCategory {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  articles Article[]
+}
+
+model Article {
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  excerpt         String          @default("")
+  content         String          @default("")
+  coverMediaId    String?
+  coverMedia      MediaAsset?     @relation(fields: [coverMediaId], references: [id])
+  coverAlt        String?
+  categoryId      String?
+  category        ArticleCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  author          String          @default("Fyrama")
+  publishedAt     DateTime?
+  updatedAt       DateTime        @updatedAt
+  status          ArticleStatus   @default(DRAFT)
+  seoTitle        String?
+  metaDescription String?
+}
+
+// ============================================================
+// Media (biblioteca de imágenes)
+// ============================================================
+enum MediaKind {
+  PROPERTY
+  ARTICLE
+  GENERAL
+}
+
+model MediaAsset {
+  id            String          @id @default(cuid())
+  originalName  String
+  filename      String
+  mime          String
+  size          Int
+  width         Int
+  height        Int
+  url           String
+  thumbUrl      String?
+  cardUrl       String?
+  variants      String?
+  alt           String?
+  kind          MediaKind       @default(PROPERTY)
+  propertyImages PropertyImage[]
+  articleCover  Article[]
+  createdAt     DateTime        @default(now())
+  deletedAt     DateTime?
+}
+
+// ============================================================
+// Asesoría jurídica
+// ============================================================
+model LegalService {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @default("")
+  content     String   @default("")
+  icon        String?  @default("scale")
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// Solicitudes de contacto (viviendas, asesoría jurídica, general)
+// ============================================================
+enum ContactType {
+  PROPERTY
+  LEGAL
+  GENERAL
+}
+
+enum ContactStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+model ContactRequest {
+  id                String         @id @default(cuid())
+  type              ContactType
+  name              String
+  email             String
+  phone             String?
+  message           String
+  propertyId        String?
+  property          Property?      @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  legalTopic        String?
+  contactPreference String?
+  status            ContactStatus  @default(NEW)
+  ipAddress         String?
+  createdAt         DateTime       @default(now())
+}
+
+// ============================================================
+// Auditoría
+// ============================================================
+enum AuditAction {
+  LOGIN
+  LOGIN_FAILED
+  LOGOUT
+  CREATE_PROPERTY
+  UPDATE_PROPERTY
+  DELETE_PROPERTY
+  UPLOAD_MEDIA
+  DELETE_MEDIA
+  CREATE_ARTICLE
+  UPDATE_ARTICLE
+  DELETE_ARTICLE
+  CREATE_LEGAL_SERVICE
+  UPDATE_LEGAL_SERVICE
+  DELETE_LEGAL_SERVICE
+  UPDATE_CONTACT_STATUS
+  DELETE_CONTACT_REQUEST
+  CREATE_USER
+  UPDATE_USER
+  DELETE_USER
+  USER_PERMISSION_CHANGE
+  UPDATE_SETTINGS
+  CHANGE_PASSWORD
+  TWO_FACTOR_ENABLED
+  TWO_FACTOR_DISABLED
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  action     AuditAction
+  userId     String?
+  user       User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  entityType String?
+  entityId   String?
+  details    String?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime    @default(now())
+}
+
+// ============================================================
+// Configuración del sitio (clave/valor, JSON en string)
+// ============================================================
+model SiteSetting {
+  key    String @id
+  value  String
+}
+
+// ============================================================
+// Páginas de aterrizaje local (SEO): /viviendas/[ciudad]/[operacion]
+// ============================================================
+model CityLanding {
+  id           String  @id @default(cuid())
+  citySlug     String
+  cityName     String
+  department   String?
+  operation    Operation?
+  title        String
+  intro        String
+  body         String?
+  imageUrl     String?
+  active       Boolean @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

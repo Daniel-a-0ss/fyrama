@@ -1,0 +1,11 @@
+node_modules
+.next
+prisma/*.db
+prisma/*.db-journal
+tests
+coverage
+.env
+.env.*
+.vercel
+*.log
+.DS_Store

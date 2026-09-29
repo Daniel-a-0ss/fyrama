@@ -1,0 +1,100 @@
+@keyframes fyrama-wa-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fyrama-wa-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fyrama-wa-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+.fyrama-wa-pop {
+  transform-origin: center;
+  animation: fyrama-wa-pop 0.35s ease-out;
+}
+
+.fyrama-wa-panel-in {
+  transform-origin: bottom right;
+  animation: fyrama-wa-panel-in 0.22s ease-out;
+}
+
+.fyrama-wa-halo {
+  transform-origin: center;
+  animation: fyrama-wa-glow 3.2s ease-in-out infinite;
+}
+
+.fyrama-wa-avatar {
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 6px 20px rgba(10, 46, 36, 0.3),
+    0 0 28px rgba(212, 175, 55, 0.35);
+}
+
+.fyrama-wa-avatar-ring {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 14px rgba(212, 175, 55, 0.25);
+}
+
+@media (hover: hover) {
+  button.fyrama-wa-pop {
+    transition: transform 0.2s ease;
+  }
+  button.fyrama-wa-pop:hover {
+    transform: scale(1.08);
+  }
+  button.fyrama-wa-pop:hover .fyrama-wa-halo {
+    filter: brightness(1.4);
+    transition: filter 0.2s ease;
+  }
+  button.fyrama-wa-pop:hover .fyrama-wa-avatar {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 8px 22px rgba(10, 46, 36, 0.35),
+      0 0 34px rgba(212, 175, 55, 0.6);
+    transition: box-shadow 0.2s ease;
+  }
+}
+
+.fyrama-wa-texture {
+  background-color: #f0f2f5;
+  background-image: radial-gradient(rgba(33, 43, 54, 0.045) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fyrama-wa-pop,
+  .fyrama-wa-panel-in,
+  .fyrama-wa-halo {
+    animation: none;
+  }
+  .fyrama-wa-halo {
+    opacity: 0.6;
+    transform: none;
+  }
+}
