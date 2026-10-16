@@ -1,0 +1,38 @@
+-- ============================================================================
+-- Fyrama — operación "Permuta" para los inmuebles
+-- ----------------------------------------------------------------------------
+-- El enum "Operation" solo admitía VENTA y ARRIENDO, así que desde el panel no
+-- era posible publicar un inmueble en permuta. Este script añade el valor
+-- PERMUTA.
+--
+-- Solo sentencias ADITIVAS: no modifica ni borra datos existentes.
+-- Es idempotente (IF NOT EXISTS): se puede ejecutar las veces que sea necesario.
+--
+-- IMPORTANTE: el orden importa. Ejecutar este script ANTES de desplegar el
+-- código que incluye PERMUTA; si la base no conoce el valor, guardar un
+-- inmueble de tipo permuta fallará.
+--
+-- Desde Vercel:  Proyecto fyrama > Storage > Postgres > pestaña "Data"
+--                (o la consola de Neon) > pegar este bloque > Run
+-- ============================================================================
+
+-- 1) Nuevo valor del enum de operación
+ALTER TYPE "Operation" ADD VALUE IF NOT EXISTS 'PERMUTA';
+
+-- ---------------------------------------------------------------------------
+-- Verificación (debe devolver 3):
+--   SELECT unnest(enum_range(NULL::"Operation")) AS operacion;
+--
+-- Esperado:
+--   VENTA
+--   ARRIENDO
+--   PERMUTA
+--
+-- Para deshacer si hiciera falta (solo si no hay inmuebles con PERMUTA):
+--   -- PostgreSQL no permite borrar valores de un enum; crear uno nuevo:
+--   -- BEGIN; ALTER TYPE "Operation" RENAME TO "Operation_old";
+--   -- CREATE TYPE "Operation" AS ENUM ('VENTA', 'ARRIENDO');
+--   -- ALTER TABLE "Property" ALTER COLUMN "operation" TYPE "Operation"
+--   --   USING ("operation"::text)::"Operation";
+--   -- DROP TYPE "Operation_old"; COMMIT;
+-- ---------------------------------------------------------------------------

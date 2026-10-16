@@ -217,9 +217,7 @@ export default function AdminLoginPage() {
             </form>
           )}
 
-          <p className="mt-5 text-center text-xs text-ink-400">
-            Demo seed: admin@fyrama.co · Fyrama!2026 · editor@fyrama.co · Fyrama!2026
-          </p>
+          {/* Demo credentials removed for production security */}
         </div>
         <Link href="/" className="mt-4 block text-center text-sm text-bone-50/70 hover:text-bone-50">
           ← Volver al sitio
