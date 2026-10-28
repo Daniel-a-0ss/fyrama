@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-bone-50 px-4 text-center">
       <BrandMark className="mb-6" />
-      <p className="font-display text-7xl font-semibold tracking-tight text-pine-950">
+      <p className="font-display text-5xl sm:text-7xl font-semibold tracking-tight text-pine-950">
         4<span className="text-gold-500">0</span>4
       </p>
       <h1 className="mt-4 font-display text-2xl font-semibold text-ink-900">

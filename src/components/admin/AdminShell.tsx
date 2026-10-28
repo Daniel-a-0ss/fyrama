@@ -9,11 +9,13 @@ export function AdminShell({
   userName,
   userEmail,
   userRole,
+  counts,
   children,
 }: {
   userName: string;
   userEmail: string;
   userRole: string;
+  counts?: { requests: number; reviews: number };
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -47,6 +49,7 @@ export function AdminShell({
           userName={userName}
           userEmail={userEmail}
           userRole={userRole}
+          counts={counts}
           onClose={() => setOpen(false)}
         />
       </aside>

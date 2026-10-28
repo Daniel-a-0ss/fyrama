@@ -76,12 +76,12 @@ export default async function ArticlePage({ params }: Props) {
 
       <article className="mt-6">
         {article.category && (
-          <a href={`/blog/categoria/${article.category.slug}`}>
+          <Link href={`/blog/categoria/${article.category.slug}`}>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-200 px-3 py-1 text-xs font-semibold text-gold-700">
               <Tag className="size-3" aria-hidden />
               {article.category.name}
             </span>
-          </a>
+          </Link>
         )}
 
         <h1 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-ink-900 sm:text-4xl">
@@ -127,12 +127,12 @@ export default async function ArticlePage({ params }: Props) {
           Solicita asesoría jurídica o plan de visita a un inmueble.
         </p>
         <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
-          <a
+          <Link
             href="/asesoria-juridica"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-pine-950 px-6 text-sm font-medium text-bone-50 hover:bg-pine-800"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-pine-950 px-6 text-sm font-medium text-bone-50 hover:bg-pine-800 active:scale-[0.99]"
           >
             Solicitar asesoría
-          </a>
+          </Link>
           <Link
             href="/viviendas"
             className="inline-flex h-11 items-center justify-center rounded-xl border border-ink-900/15 px-6 text-sm font-medium text-ink-800 hover:bg-white"

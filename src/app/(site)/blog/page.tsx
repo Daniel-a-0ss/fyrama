@@ -61,20 +61,20 @@ export default async function BlogPage() {
             Todos
           </Link>
           {categories.map((c) => (
-            <a
+            <Link
               key={c.id}
               href={`/blog/categoria/${c.slug}`}
               className="rounded-full border border-ink-900/12 px-4 py-1.5 text-sm font-medium text-ink-600 transition-colors hover:border-pine-900 hover:text-pine-900"
             >
               {c.name}
-            </a>
+            </Link>
           ))}
         </nav>
       )}
 
       {/* Destacado */}
       <article className="group mt-10 grid overflow-hidden rounded-3xl border border-bone-200/80 bg-white shadow-fyrama lg:grid-cols-2">
-        <a
+        <Link
           href={`/blog/${latest.slug}`}
           className="relative block aspect-video overflow-hidden bg-bone-100 lg:aspect-auto"
           tabIndex={-1}
@@ -90,28 +90,28 @@ export default async function BlogPage() {
               <span className="font-display text-2xl text-bone-50/60">Fyrama</span>
             </div>
           )}
-        </a>
-        <div className="flex flex-col justify-center p-8 sm:p-10">
+        </Link>
+        <div className="flex flex-col justify-center p-6 sm:p-10">
           {latest.category && (
-            <a href={`/blog/categoria/${latest.category.slug}`}>
+            <Link href={`/blog/categoria/${latest.category.slug}`}>
               <span className="rounded-full bg-gold-200 px-3 py-1 text-xs font-semibold text-gold-700">
                 {latest.category.name}
               </span>
-            </a>
+            </Link>
           )}
           <h2 className="mt-4 font-display text-2xl font-semibold leading-snug text-ink-900 sm:text-3xl">
-            <a href={`/blog/${latest.slug}`} className="group-hover:text-pine-800">
+            <Link href={`/blog/${latest.slug}`} className="group-hover:text-pine-800">
               {latest.title}
-            </a>
+            </Link>
           </h2>
           <p className="mt-3 leading-relaxed text-ink-500">{latest.excerpt}</p>
           <div className="mt-6">
-            <a
+            <Link
               href={`/blog/${latest.slug}`}
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-pine-950 px-6 text-sm font-medium text-bone-50 transition-colors hover:bg-pine-800"
+              className="inline-flex h-11 items-center justify-center rounded-xl bg-pine-950 px-6 text-sm font-medium text-bone-50 transition-colors hover:bg-pine-800 active:scale-[0.99]"
             >
               Leer artículo
-            </a>
+            </Link>
           </div>
         </div>
       </article>

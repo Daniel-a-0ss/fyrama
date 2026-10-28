@@ -17,7 +17,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
           ? "en permuta"
           : "";
   const ciudad = sp.ciudad;
-  const hayFiltros = Object.keys(sp).length > 0;
+  // Solo la operación (enlaces del menú) merece indexarse; el resto de filtros
+  // genera variantes que no aportan valor SEO.
+  const noindex = Object.keys(sp).some((k) => k !== "operacion");
 
   const title = ciudad
     ? `Inmuebles ${opLabel} en ${ciudad}`
@@ -26,7 +28,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: title + " — Casas y apartamentos",
     description: `Conoce ${opLabel ? `inmuebles ${opLabel}` : "inmuebles disponibles"}${ciudad ? ` en ${ciudad}` : " en Colombia"}. Fyrama selecciona inmuebles con acompañamiento jurídico profesional.`,
     path: "/viviendas",
-    noindex: hayFiltros,
+    noindex,
   });
 }
 

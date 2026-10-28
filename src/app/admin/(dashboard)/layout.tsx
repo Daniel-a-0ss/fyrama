@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { getSessionFromCookies } from "@/lib/auth/session";
+import { prisma } from "@/lib/prisma";
 import { AdminShell } from "@/components/admin/AdminShell";
 
 export const metadata = {
@@ -9,7 +10,11 @@ export const metadata = {
 };
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const session = await getSessionFromCookies();
+  const [session, newRequests, pendingReviews] = await Promise.all([
+    getSessionFromCookies(),
+    prisma.contactRequest.count({ where: { status: "NEW" } }),
+    prisma.review.count({ where: { status: "PENDING" } }),
+  ]);
   if (!session) redirect("/admin/login");
 
   return (
@@ -17,6 +22,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       userName={session.user.name}
       userEmail={session.user.email}
       userRole={session.user.role}
+      counts={{ requests: newRequests, reviews: pendingReviews }}
     >
       {children}
     </AdminShell>

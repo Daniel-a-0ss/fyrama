@@ -304,7 +304,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               propertyId={property.id}
               submitLabel="Enviar solicitud"
               title="¡Recibimos tu solicitud!"
-              description="Te contactaremos pronto con la información de este inmueble. (DEMO: la solicitud se almacena en el dashboard.)"
+              description="Te contactaremos pronto con la información de este inmueble."
             />
           </div>
         </aside>

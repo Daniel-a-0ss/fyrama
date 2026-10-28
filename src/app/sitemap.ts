@@ -20,7 +20,7 @@ const STATIC_ROUTES: Array<[string, string]> = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [properties, articles] = await Promise.all([
+  const [properties, articles, categories] = await Promise.all([
     prisma.property.findMany({
       where: { status: "PUBLISHED", deletedAt: null },
       select: { slug: true, updatedAt: true },
@@ -28,6 +28,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     prisma.article.findMany({
       where: { status: "PUBLISHED", publishedAt: { lte: new Date() } },
       select: { slug: true, updatedAt: true },
+    }),
+    prisma.articleCategory.findMany({
+      where: { articles: { some: { status: "PUBLISHED", publishedAt: { lte: new Date() } } } },
+      select: { slug: true },
     }),
   ]);
 
@@ -51,6 +55,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: absoluteUrl(`/blog/${a.slug}`),
       lastModified: a.updatedAt,
       priority: 0.7,
+      changeFrequency: "monthly",
+    });
+  }
+
+  for (const c of categories) {
+    entries.push({
+      url: absoluteUrl(`/blog/categoria/${c.slug}`),
+      priority: 0.5,
       changeFrequency: "monthly",
     });
   }

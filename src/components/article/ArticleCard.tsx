@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, CalendarDays, UserRound } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
@@ -18,7 +19,7 @@ export function ArticleCard({ article }: { article: ArticleCardView }) {
   const href = `/blog/${article.slug}`;
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-bone-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-fyrama-lg">
-      <a href={href} className="relative block aspect-video overflow-hidden bg-bone-100" tabIndex={-1}>
+      <Link href={href} className="relative block aspect-video overflow-hidden bg-bone-100" tabIndex={-1}>
         {article.coverUrl ? (
           <img
             src={article.coverUrl}
@@ -32,17 +33,17 @@ export function ArticleCard({ article }: { article: ArticleCardView }) {
             <span className="font-display text-lg text-bone-50/60">Fyrama</span>
           </div>
         )}
-      </a>
+      </Link>
       <div className="flex flex-1 flex-col p-5">
         {article.categoryName && (
-          <a href={`/blog/categoria/${article.categorySlug}`}>
+          <Link href={`/blog/categoria/${article.categorySlug}`}>
             <Badge tone="gold">{article.categoryName}</Badge>
-          </a>
+          </Link>
         )}
         <h2 className="mt-3 font-display text-lg font-semibold leading-snug text-ink-900">
-          <a href={href} className="focus-visible:outline-none group-hover:text-pine-800">
+          <Link href={href} className="focus-visible:outline-none group-hover:text-pine-800">
             {article.title}
-          </a>
+          </Link>
         </h2>
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500">
           {article.excerpt}
@@ -55,13 +56,13 @@ export function ArticleCard({ article }: { article: ArticleCardView }) {
             <CalendarDays className="size-3.5" aria-hidden />
             {formatDate(article.publishedAt)}
           </span>
-          <a
+          <Link
             href={href}
             className="ml-auto inline-flex items-center gap-1 text-pine-800 hover:underline underline-offset-2"
             aria-label={`Leer ${article.title}`}
           >
             Leer <ArrowUpRight className="size-3.5" aria-hidden />
-          </a>
+          </Link>
         </div>
       </div>
     </article>

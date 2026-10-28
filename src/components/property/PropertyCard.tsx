@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Bath, BedDouble, Grid3X3, MapPin, SquareDashed } from "lucide-react";
 import type { PropertyCardView } from "@/lib/services/property";
 import { buildSrcSet, formatArea, formatCurrency } from "@/lib/utils";
@@ -62,7 +63,7 @@ export function PropertyCard({ property }: { property: PropertyCardView }) {
           {formatCurrency(property.price, property.currency)}
         </p>
 
-        <ul className="mt-4 flex items-center gap-4 border-t border-bone-100 pt-3 text-sm text-ink-600">
+        <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-bone-100 pt-3 text-sm text-ink-600">
           <li className="inline-flex items-center gap-1.5" title={`${property.bedrooms ?? 0} habitaciones`}>
             <BedDouble className="size-4" aria-hidden />
             {property.bedrooms ?? "—"}
@@ -87,12 +88,12 @@ export function PropertyCard({ property }: { property: PropertyCardView }) {
         </ul>
 
         <div className="mt-4">
-          <a
+          <Link
             href={href}
-            className="inline-flex h-10 w-full items-center justify-center rounded-xl border border-pine-900/15 text-sm font-medium text-pine-900 transition-colors group-hover:bg-pine-950 group-hover:text-bone-50"
+            className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-pine-900/15 text-sm font-medium text-pine-900 transition-colors hover:bg-pine-950 hover:text-bone-50 active:scale-[0.99] group-hover:bg-pine-950 group-hover:text-bone-50"
           >
             Ver detalles
-          </a>
+          </Link>
         </div>
       </div>
     </article>

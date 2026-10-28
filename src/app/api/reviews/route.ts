@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { scheduleAdminNotification } from "@/lib/notifications";
 import { reviewLimiter } from "@/lib/security/rate-limit";
 import { reviewSchema } from "@/lib/validation/schemas";
 import { ok, fail, failValidation, handle } from "@/lib/api";
@@ -55,6 +56,18 @@ async function doReview(request: Request) {
         content,
         ipAddress: ip,
       },
+    });
+
+    scheduleAdminNotification({
+      subject: "Nueva opinión pendiente de aprobación",
+      lines: [
+        `De: ${data.name.trim()} (${data.rating}/5)`,
+        data.title?.trim() ? `Título: ${data.title.trim()}` : "",
+        "",
+        content,
+        "",
+        "Revisar en /admin/opiniones",
+      ],
     });
   } catch (err) {
     console.error("[fyrama-reviews] no se pudo guardar la opinión:", err);

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
@@ -22,8 +23,9 @@ const sizes: Record<Size, string> = {
 
 export function buttonClasses(variant: Variant = "primary", size: Size = "md") {
   return cn(
-    "inline-flex items-center justify-center font-medium transition-colors duration-150",
-    "disabled:opacity-50 disabled:pointer-events-none cursor-pointer select-none",
+    "inline-flex items-center justify-center font-medium transition-[color,background-color,border-color,box-shadow,transform] duration-150",
+    "active:scale-[0.98] touch-manipulation select-none",
+    "disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 cursor-pointer",
     variants[variant],
     sizes[size]
   );
@@ -45,6 +47,7 @@ export function Button({
     <button
       className={cn(buttonClasses(variant, size), className)}
       disabled={props.disabled || loading}
+      aria-busy={loading || undefined}
       {...props}
     >
       {loading && <Loader2 className="size-4 animate-spin" aria-hidden />}
@@ -65,8 +68,22 @@ export function LinkButton({
   variant?: Variant;
   size?: Size;
 }) {
+  const classes = cn(buttonClasses(variant, size), className);
+
+  if (href.startsWith("/") && !href.startsWith("//")) {
+    return (
+      <Link
+        href={href}
+        className={classes}
+        {...(props as Omit<React.ComponentProps<typeof Link>, "href">)}
+      >
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <a href={href} className={cn(buttonClasses(variant, size), className)} {...props}>
+    <a href={href} className={classes} {...props}>
       {children}
     </a>
   );

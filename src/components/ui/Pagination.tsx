@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -46,13 +47,13 @@ export function Pagination({
       className={cn("flex flex-wrap items-center justify-center gap-1.5", className)}
     >
       {current > 1 ? (
-        <a
+        <Link
           href={buildPageUrl(basePath, params, current - 1)}
-          className="inline-flex size-9 items-center justify-center rounded-xl border border-ink-900/10 text-ink-700 hover:bg-bone-100 sm:size-10"
+          className="inline-flex size-9 items-center justify-center rounded-xl border border-ink-900/10 text-ink-700 transition-colors hover:bg-bone-100 active:scale-95 sm:size-10"
           aria-label="Página anterior"
         >
           <ChevronLeft className="size-4" aria-hidden />
-        </a>
+        </Link>
       ) : (
         <span
           className="inline-flex size-9 items-center justify-center rounded-xl text-ink-400 opacity-50 sm:size-10"
@@ -67,29 +68,29 @@ export function Pagination({
             …
           </span>
         ) : (
-          <a
+          <Link
             key={n}
             href={buildPageUrl(basePath, params, n)}
             aria-current={n === current ? "page" : undefined}
             className={cn(
-              "inline-flex size-9 items-center justify-center rounded-xl text-sm font-medium sm:size-10",
+              "inline-flex size-9 items-center justify-center rounded-xl text-sm font-medium transition-colors active:scale-95 sm:size-10",
               n === current
                 ? "bg-pine-900 text-bone-50"
                 : "border border-ink-900/10 text-ink-700 hover:bg-bone-100"
             )}
           >
             {n}
-          </a>
+          </Link>
         )
       )}
       {current < total ? (
-        <a
+        <Link
           href={buildPageUrl(basePath, params, current + 1)}
-          className="inline-flex size-9 items-center justify-center rounded-xl border border-ink-900/10 text-ink-700 hover:bg-bone-100 sm:size-10"
+          className="inline-flex size-9 items-center justify-center rounded-xl border border-ink-900/10 text-ink-700 transition-colors hover:bg-bone-100 active:scale-95 sm:size-10"
           aria-label="Página siguiente"
         >
           <ChevronRight className="size-4" aria-hidden />
-        </a>
+        </Link>
       ) : (
         <span
           className="inline-flex size-9 items-center justify-center rounded-xl text-ink-400 opacity-50 sm:size-10"

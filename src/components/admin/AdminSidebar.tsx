@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Building2, ClipboardList, Gauge, Images, Inbox, KeyRound, LogOut, MessageSquareQuote, Newspaper, Scale, Settings, ShieldCheck, Users } from "lucide-react";
 import { api, errorMessage } from "@/lib/client/api";
@@ -20,7 +21,19 @@ const ITEMS = [
   { href: "/admin/configuracion", label: "Configuración", icon: Settings },
 ];
 
-export function AdminSidebar({ userName, userEmail, userRole, onClose }: { userName: string; userEmail: string; userRole: string; onClose?: () => void }) {
+export function AdminSidebar({
+  userName,
+  userEmail,
+  userRole,
+  counts,
+  onClose,
+}: {
+  userName: string;
+  userEmail: string;
+  userRole: string;
+  counts?: { requests: number; reviews: number };
+  onClose?: () => void;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
@@ -42,20 +55,27 @@ export function AdminSidebar({ userName, userEmail, userRole, onClose }: { userN
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r border-bone-200 bg-white">
       <div className="border-b border-bone-200 px-6 py-5">
-        <a href="/admin" onClick={onClose} className="font-display text-xl font-semibold tracking-tight text-pine-950">
+        <Link href="/admin" onClick={onClose} className="font-display text-xl font-semibold tracking-tight text-pine-950">
           fyrama<span className="text-gold-600">.</span>{" "}
           <span className="text-sm font-normal text-ink-400">Admin</span>
-        </a>
+        </Link>
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto p-3" aria-label="Panel administrativo">
         {ITEMS.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          const badge =
+            item.href === "/admin/solicitudes"
+              ? counts?.requests
+              : item.href === "/admin/opiniones"
+                ? counts?.reviews
+                : 0;
           return (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
+              prefetch
               aria-current={active ? "page" : undefined}
               className={
                 active
@@ -64,8 +84,13 @@ export function AdminSidebar({ userName, userEmail, userRole, onClose }: { userN
               }
             >
               <item.icon className={active ? "size-4.5 text-gold-500" : "size-4.5 text-ink-400"} aria-hidden />
-              {item.label}
-            </a>
+              <span className="flex-1">{item.label}</span>
+              {badge ? (
+                <span className="rounded-full bg-gold-500 px-2 py-0.5 text-[11px] font-semibold text-pine-950">
+                  {badge > 99 ? "99+" : badge}
+                </span>
+              ) : null}
+            </Link>
           );
         })}
       </nav>

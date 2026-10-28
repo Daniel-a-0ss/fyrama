@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Check, Star, X } from "lucide-react";
 import { api, errorMessage } from "@/lib/client/api";
 import { DeleteButton } from "@/components/admin/DeleteButton";
@@ -49,6 +50,7 @@ export function ReviewRow({
     createdAt: string;
   };
 }) {
+  const router = useRouter();
   const [review, setReview] = useState(initial);
   const [busy, setBusy] = useState(false);
 
@@ -111,7 +113,7 @@ export function ReviewRow({
             url={`/api/admin/reviews/${review.id}`}
             confirmText={`¿Eliminar la opinión de ${review.name}?`}
             label={`Eliminar opinión de ${review.name}`}
-            onDeleted={() => window.location.reload()}
+            onDeleted={() => router.refresh()}
           />
         </div>
       </div>

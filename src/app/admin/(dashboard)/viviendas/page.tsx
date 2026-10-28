@@ -64,7 +64,7 @@ export default async function AdminViviendasPage({
 
       <div className="mb-4 flex flex-wrap items-center gap-2">
         {statusTabs.map((t) => (
-          <a
+          <Link
             key={t.key}
             href={t.key === "ALL" ? "/admin/viviendas" : `/admin/viviendas?status=${t.key}`}
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -74,7 +74,7 @@ export default async function AdminViviendasPage({
             }`}
           >
             {t.label}
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -159,15 +159,15 @@ export default async function AdminViviendasPage({
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-center gap-3" aria-label="Paginación">
           {page > 1 && (
-            <a href={`/admin/viviendas?page=${page - 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">
+            <Link href={`/admin/viviendas?page=${page - 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">
               ← Anterior
-            </a>
+            </Link>
           )}
           <span className="text-sm text-ink-500">Página {page} de {totalPages}</span>
           {page < totalPages && (
-            <a href={`/admin/viviendas?page=${page + 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">
+            <Link href={`/admin/viviendas?page=${page + 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">
               Siguiente →
-            </a>
+            </Link>
           )}
         </nav>
       )}

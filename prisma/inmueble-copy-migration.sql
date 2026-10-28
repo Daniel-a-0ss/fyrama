@@ -143,8 +143,8 @@ END $$;
 -- ---------------------------------------------------------------------------
 SELECT 'Article'           AS tabla, count(*) FROM "Article"
   WHERE title ILIKE '%vivienda%' OR excerpt ILIKE '%vivienda%'
-     OR content ILIKE '%vivienda%' OR coverAlt ILIKE '%vivienda%'
-     OR seoTitle ILIKE '%vivienda%' OR metaDescription ILIKE '%vivienda%';
+     OR content ILIKE '%vivienda%' OR "coverAlt" ILIKE '%vivienda%'
+     OR "seoTitle" ILIKE '%vivienda%' OR "metaDescription" ILIKE '%vivienda%';
 SELECT 'ArticleCategory'   AS tabla, count(*) FROM "ArticleCategory"
   WHERE name ILIKE '%vivienda%';
 SELECT 'Property'          AS tabla, count(*) FROM "Property"
@@ -158,7 +158,7 @@ SELECT 'LegalService'      AS tabla, count(*) FROM "LegalService"
   WHERE title ILIKE '%vivienda%' OR description ILIKE '%vivienda%'
      OR content ILIKE '%vivienda%';
 SELECT 'CityLanding'       AS tabla, count(*) FROM "CityLanding"
-  WHERE cityName ILIKE '%vivienda%' OR title ILIKE '%vivienda%'
+  WHERE "cityName" ILIKE '%vivienda%' OR title ILIKE '%vivienda%'
      OR intro ILIKE '%vivienda%' OR body ILIKE '%vivienda%';
 SELECT 'Review'            AS tabla, count(*) FROM "Review"
   WHERE name ILIKE '%vivienda%' OR title ILIKE '%vivienda%'

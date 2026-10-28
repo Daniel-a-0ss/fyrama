@@ -245,3 +245,37 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+/* --- Interacción táctil y responsive -------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Evita el zoom automático de iOS al enfocar campos en móvil. */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Textos largos (URLs, correos, slugs) no deben romper el layout. */
+.fyrama-prose {
+  overflow-wrap: anywhere;
+}

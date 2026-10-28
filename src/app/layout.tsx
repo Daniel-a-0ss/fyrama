@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(absoluteUrl("/")),
   title: {
     default: `${SITE_NAME} | Inmueble y asesoría inmobiliaria`,
     template: `%s | ${SITE_NAME}`,

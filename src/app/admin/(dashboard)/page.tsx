@@ -7,6 +7,7 @@ import {
   FileText,
   Images,
   Inbox,
+  MessageSquareQuote,
   Scale,
 } from "lucide-react";
 
@@ -19,6 +20,7 @@ export default async function AdminDashboardPage() {
     propertyCounts,
     requestCounts,
     articleCounts,
+    pendingReviews,
     mediaCount,
     adminCount,
     editorCount,
@@ -37,6 +39,7 @@ export default async function AdminDashboardPage() {
       prisma.contactRequest.count(),
     ]),
     prisma.article.count({ where: { status: "PUBLISHED" } }),
+    prisma.review.count({ where: { status: "PENDING" } }),
     prisma.mediaAsset.count({ where: { deletedAt: null } }),
     prisma.user.count({ where: { role: "ADMIN", active: true } }),
     prisma.user.count({ where: { role: "EDITOR", active: true } }),
@@ -56,6 +59,7 @@ export default async function AdminDashboardPage() {
     { label: "Borradores", value: drafts, href: "/admin/viviendas?status=DRAFT", icon: ClipboardList, accent: "bg-bone-100 text-ink-600" },
     { label: "Solicitudes nuevas", value: newRequests, href: "/admin/solicitudes?status=NEW", icon: Inbox, accent: "bg-gold-100 text-gold-700" },
     { label: "Artículos publicados", value: articleCounts, href: "/admin/contenido?status=PUBLISHED", icon: FileText, accent: "bg-bone-100 text-ink-600" },
+    { label: "Opiniones pendientes", value: pendingReviews, href: "/admin/opiniones", icon: MessageSquareQuote, accent: "bg-gold-100 text-gold-700" },
     { label: "Imágenes en biblioteca", value: mediaCount, href: "/admin/media", icon: Images, accent: "bg-pine-50 text-pine-800" },
     { label: "Servicios", value: serviceCount, href: "/admin/asesoria", icon: Scale, accent: "bg-gold-100 text-gold-700" },
   ];
@@ -68,7 +72,7 @@ export default async function AdminDashboardPage() {
             Panel principal
           </h1>
           <p className="mt-1 text-sm text-ink-500">
-            Resumen de la plataforma. (Contenido de demostración generado por el seed.)
+            Resumen de la plataforma y de la actividad reciente.
           </p>
         </div>
         <Link href="/viviendas" className="inline-flex h-10 items-center gap-1.5 rounded-xl bg-pine-950 px-4 text-sm font-medium text-bone-50 hover:bg-pine-800">

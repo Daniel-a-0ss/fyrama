@@ -65,7 +65,7 @@ export default async function AdminContenidoPage({
           { key: "PUBLISHED", label: "Publicados" },
           { key: "DRAFT", label: "Borradores" },
         ].map((t) => (
-          <a
+          <Link
             key={t.key}
             href={t.key === "ALL" ? "/admin/contenido" : `/admin/contenido?status=${t.key}`}
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -73,7 +73,7 @@ export default async function AdminContenidoPage({
             }`}
           >
             {t.label}
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -143,11 +143,11 @@ export default async function AdminContenidoPage({
       {totalPages > 1 && (
         <nav className="mt-4 flex items-center justify-center gap-3" aria-label="Paginación">
           {page > 1 && (
-            <a href={`/admin/contenido?page=${page - 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">← Anterior</a>
+            <Link href={`/admin/contenido?page=${page - 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">← Anterior</Link>
           )}
           <span className="text-sm text-ink-500">Página {page} de {totalPages}</span>
           {page < totalPages && (
-            <a href={`/admin/contenido?page=${page + 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">Siguiente →</a>
+            <Link href={`/admin/contenido?page=${page + 1}&status=${status}&q=${encodeURIComponent(q)}`} className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white">Siguiente →</Link>
           )}
         </nav>
       )}

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { scheduleAdminNotification } from "@/lib/notifications";
 import { contactLimiter } from "@/lib/security/rate-limit";
 import { contactSchema } from "@/lib/validation/schemas";
 import { ok, fail, failValidation, handle } from "@/lib/api";
@@ -48,6 +49,23 @@ async function doContact(request: Request) {
   };
 
   await prisma.contactRequest.create({ data: normalized });
+
+  scheduleAdminNotification({
+    subject: `Nueva solicitud: ${data.type}`,
+    replyTo: email,
+    lines: [
+      `Nombre: ${name.trim()}`,
+      `Correo: ${email.trim().toLowerCase()}`,
+      `Teléfono: ${data.phone?.trim() || "-"}`,
+      `Preferencia: ${data.contactPreference || "-"}`,
+      data.legalTopic ? `Tema legal: ${data.legalTopic}` : "",
+      data.propertyId ? `Inmueble: ${data.propertyId}` : "",
+      "",
+      data.message.trim(),
+      "",
+      "Revisar en /admin/solicitudes",
+    ],
+  });
 
   return ok({ received: true });
 }

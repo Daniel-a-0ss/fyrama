@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getSiteSettings, mergeSettings } from "@/lib/services/settings";
 import { buildMetadata } from "@/lib/seo";
@@ -77,9 +78,9 @@ export default async function ContactoPage() {
           <p className="mt-2 text-sm text-ink-500">
             Responderemos lo antes posible. Si tu consulta es jurídica, usa el
             formulario de{" "}
-            <a href="/asesoria-juridica" className="text-pine-800 underline underline-offset-2">
+            <Link href="/asesoria-juridica" className="text-pine-800 underline underline-offset-2">
               asesoría jurídica
-            </a>
+            </Link>
             .
           </p>
           <ContactForm

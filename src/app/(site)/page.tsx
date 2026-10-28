@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   ArrowRight,
   Check,
@@ -10,6 +11,9 @@ import {
   Star,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { buildMetadata } from "@/lib/seo";
+import { getSiteSettings, mergeSettings } from "@/lib/services/settings";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 import { Hero } from "@/components/home/Hero";
 import { ArticleCard } from "@/components/article/ArticleCard";
 import { LinkButton } from "@/components/ui/Button";
@@ -18,6 +22,18 @@ import { Reviews } from "@/components/home/Reviews";
 import { PqrsSection } from "@/components/home/PqrsSection";
 import { getCities, listProperties } from "@/lib/services/property";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = mergeSettings(await getSiteSettings());
+  return buildMetadata({
+    title:
+      settings.seo_title?.trim() ||
+      `${SITE_NAME} | Inmueble y asesoría inmobiliaria`,
+    description: settings.seo_description?.trim() || SITE_DESCRIPTION,
+    path: "/",
+    ogImage: settings.og_image?.trim() || undefined,
+  });
+}
 
 async function getHomeData() {
   const cities = await getCities();

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { api, errorMessage } from "@/lib/client/api";
 import { DeleteButton } from "@/components/admin/DeleteButton";
 
@@ -28,6 +29,7 @@ export function RequestRow({
     property?: { id: string; title: string; slug: string } | null;
   };
 }) {
+  const router = useRouter();
   const [request, setRequest] = useState(initial);
 
   async function setStatus(status: string) {
@@ -72,8 +74,7 @@ export function RequestRow({
             confirmText={`¿Eliminar la solicitud de ${request.name}?`}
             label={`Eliminar solicitud de ${request.name}`}
             onDeleted={() => {
-              // Forzar recarga del listado en la página server.
-              window.location.reload();
+              router.refresh();
             }}
           />
         </div>

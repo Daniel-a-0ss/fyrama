@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { CONTACT_PREFERENCES, LEGAL_TOPICS } from "@/lib/constants";
 import { FieldError, Input, Label, Select, Textarea } from "@/components/ui/Field";
@@ -250,12 +251,12 @@ export function ContactForm({
           />
           <span>
             Autorizo el tratamiento de mis datos personales conforme a la{" "}
-            <a
+            <Link
               href="/tratamiento-de-datos-personales"
               className="text-pine-800 underline underline-offset-2"
             >
               política de tratamiento de datos de Fyrama
-            </a>
+            </Link>
             .
           </span>
         </label>

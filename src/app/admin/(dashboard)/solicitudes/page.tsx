@@ -1,4 +1,5 @@
 import { ContactStatus, ContactType, Prisma } from "@prisma/client";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { RequestRow } from "@/components/admin/RequestRow";
 
@@ -59,7 +60,7 @@ export default async function AdminRequestsPage({
           if (status !== "ALL") qs.set("status", status);
           if (t.key !== "ALL") qs.set("type", t.key);
           return (
-            <a
+            <Link
               key={t.key}
               href={"/admin/solicitudes?" + qs.toString()}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -67,7 +68,7 @@ export default async function AdminRequestsPage({
               }`}
             >
               {t.label}
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -79,7 +80,7 @@ export default async function AdminRequestsPage({
           if (f.key !== "ALL") qs.set("status", f.key);
           if (type !== "ALL") qs.set("type", type);
           return (
-            <a
+            <Link
               key={f.key}
               href={`/admin/solicitudes?${qs.toString()}`}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -87,7 +88,7 @@ export default async function AdminRequestsPage({
               }`}
             >
               {f.label}
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -122,21 +123,21 @@ export default async function AdminRequestsPage({
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-center gap-3" aria-label="Paginación">
           {page > 1 && (
-            <a
+            <Link
               href={`/admin/solicitudes?page=${page - 1}&status=${status}&type=${type}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               ← Anterior
-            </a>
+            </Link>
           )}
           <span className="text-sm text-ink-500">Página {page} de {totalPages}</span>
           {page < totalPages && (
-            <a
+            <Link
               href={`/admin/solicitudes?page=${page + 1}&status=${status}&type=${type}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               Siguiente →
-            </a>
+            </Link>
           )}
         </nav>
       )}

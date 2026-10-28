@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { AuditAction } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getSessionFromCookies } from "@/lib/auth/session";
@@ -149,21 +150,21 @@ export default async function AdminAuditoriaPage({
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-center gap-3" aria-label="Paginación">
           {page > 1 && (
-            <a
+            <Link
               href={`/admin/auditoria?page=${page - 1}${allowed ? `&action=${rawAction}` : ""}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               ← Anterior
-            </a>
+            </Link>
           )}
           <span className="text-sm text-ink-500">Página {page} de {totalPages}</span>
           {page < totalPages && (
-            <a
+            <Link
               href={`/admin/auditoria?page=${page + 1}${allowed ? `&action=${rawAction}` : ""}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               Siguiente →
-            </a>
+            </Link>
           )}
         </nav>
       )}

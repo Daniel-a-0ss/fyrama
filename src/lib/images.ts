@@ -1,7 +1,8 @@
 import { randomUUID } from "crypto";
-import { rm } from "fs/promises";
+import { mkdir, rm, writeFile } from "fs/promises";
 import path from "path";
 import sharp from "sharp";
+import { del as deleteBlob, put } from "@vercel/blob";
 import { clamp } from "./utils";
 
 /**
@@ -124,30 +125,53 @@ export type ProcessedImage = {
 };
 
 const MEDIA_ROOT = path.join(process.cwd(), "public", "media");
+const BLOB_PREFIX = "media/images";
+const BLOB_ENABLED = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
 function webPathOf(fsPath: string): string {
   return "/" + path.relative(process.cwd(), fsPath).replace(/\\/g, "/");
 }
 
 async function ensureDir(p: string) {
-  const { mkdir } = await import("fs/promises");
   await mkdir(p, { recursive: true });
 }
 
 const VARIANT_WIDTHS = [320, 480, 800, 1200, 1600] as const;
+
+/**
+ * Guarda una variante en Vercel Blob cuando hay token configurado (producción)
+ * o en `public/media` en local. En Vercel el filesystem es de solo lectura,
+ * por lo que sin Blob las subidas fallan.
+ */
+async function storeFile(
+  relPath: string,
+  data: Buffer,
+  contentType: string
+): Promise<string> {
+  if (BLOB_ENABLED) {
+    const { url } = await put(`${BLOB_PREFIX}/${relPath}`, data, {
+      access: "public",
+      contentType,
+      addRandomSuffix: false,
+    });
+    return url;
+  }
+  const fsPath = path.join(MEDIA_ROOT, relPath);
+  await ensureDir(path.dirname(fsPath));
+  await writeFile(fsPath, data);
+  return webPathOf(fsPath);
+}
 
 export async function processAndSaveImage(
   buffer: Buffer,
   meta: { width: number; height: number }
 ): Promise<ProcessedImage> {
   const now = new Date();
-  const dir = path.join(
-    MEDIA_ROOT,
+  const folder = path.posix.join(
     "images",
     String(now.getFullYear()),
     String(now.getMonth() + 1).padStart(2, "0")
   );
-  await ensureDir(dir);
   const uuid = randomUUID();
 
   const originalW = meta.width;
@@ -157,34 +181,41 @@ export async function processAndSaveImage(
     : base;
 
   const variants: VariantMap = {};
-  const out: string[] = [];
 
   for (const w of VARIANT_WIDTHS) {
     if (originalW < 400 && w > 1200) break;
-    const name = `${uuid}-${w}.webp`;
-    const fsPath = path.join(dir, name);
-    await basePipeline
+    const data = await basePipeline
       .clone()
       .resize({ width: w, withoutEnlargement: true })
       .webp({ quality: 76, effort: 4 })
-      .toFile(fsPath);
-    variants[String(w)] = webPathOf(fsPath);
-    out.push(webPathOf(fsPath));
+      .toBuffer();
+    variants[String(w)] = await storeFile(
+      path.posix.join(folder, `${uuid}-${w}.webp`),
+      data,
+      "image/webp"
+    );
   }
 
-  const mainName = `${uuid}.webp`;
-  const mainFs = path.join(dir, mainName);
-  await basePipeline.clone().webp({ quality: 80, effort: 4 }).toFile(mainFs);
-  const mainUrl = webPathOf(mainFs);
+  const mainData = await basePipeline
+    .clone()
+    .webp({ quality: 80, effort: 4 })
+    .toBuffer();
+  const mainUrl = await storeFile(
+    path.posix.join(folder, `${uuid}.webp`),
+    mainData,
+    "image/webp"
+  );
 
-  const avifName = `${uuid}-1600.avif`;
-  const avifFs = path.join(dir, avifName);
   try {
-    await basePipeline
+    const avifData = await basePipeline
       .clone()
       .avif({ quality: 55, effort: 4 })
-      .toFile(avifFs);
-    variants["avif"] = webPathOf(avifFs);
+      .toBuffer();
+    variants["avif"] = await storeFile(
+      path.posix.join(folder, `${uuid}-1600.avif`),
+      avifData,
+      "image/avif"
+    );
   } catch {
     // AVIF es best-effort; no bloquea la subida.
   }
@@ -212,16 +243,22 @@ export async function processAndSaveImage(
 
 export async function deleteMediaFiles(url: string, variants?: VariantMap | null) {
   const fsPaths = new Set<string>();
+  const blobUrls = new Set<string>();
   const all = [url, ...(variants ? Object.values(variants) : [])];
   for (const u of all) {
+    if (/^https?:\/\//i.test(u)) {
+      if (u.includes(".blob.vercel-storage.com")) blobUrls.add(u);
+      continue;
+    }
     const rel = u.replace(/^\//, "");
     const p = path.join(process.cwd(), rel);
     if (!p.startsWith(MEDIA_ROOT)) continue; // nunca borrar fuera de public/media
     fsPaths.add(p);
   }
-  await Promise.all(
-    [...fsPaths].map((p) => rm(p, { force: true }).catch(() => {}))
-  );
+  await Promise.all([
+    ...[...fsPaths].map((p) => rm(p, { force: true }).catch(() => {})),
+    ...[...blobUrls].map((u) => deleteBlob(u).catch(() => {})),
+  ]);
 }
 
 export function isValidDimension(w: number, h: number) {

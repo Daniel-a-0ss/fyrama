@@ -56,10 +56,16 @@ export function formatDateTime(date: Date | string | null | undefined): string {
   }).format(new Date(date));
 }
 
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.NODE_ENV === "production"
+    ? "https://fyrama.com"
+    : "http://localhost:3000")
+).replace(/\/$/, "");
+
 export function absoluteUrl(path = ""): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  if (!path) return base.replace(/\/$/, "");
-  return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
+  if (!path) return SITE_URL;
+  return `${SITE_URL}/${path.replace(/^\//, "")}`;
 }
 
 export function getClientIp(headers: Headers): string | null {

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MapPin, Search } from "lucide-react";
+import { Loader2, MapPin, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OPERATIONS, PROPERTY_TYPES } from "@/lib/constants";
 import { searchUrl, type SearchParamsRecord } from "@/lib/search";
@@ -11,12 +11,18 @@ import { searchUrl, type SearchParamsRecord } from "@/lib/search";
 type Props = {
   cities: string[];
   initial?: SearchParamsRecord;
+  formId?: string;
 };
 
 const clean = (v: string) => v.trim();
 
-export function FilterBar({ cities, initial }: Props) {
+export function FilterBar({
+  cities,
+  initial,
+  formId = "fyrama-filter-form",
+}: Props) {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const [operation, setOperation] = useState<"VENTA" | "ARRIENDO">(
     (initial?.operacion as "VENTA" | "ARRIENDO") ?? "VENTA"
   );
@@ -33,7 +39,9 @@ export function FilterBar({ cities, initial }: Props) {
     };
     set("ciudad", ciudad);
     set("tipo", tipo);
-    router.push(searchUrl("/viviendas", params));
+    startTransition(() => {
+      router.push(searchUrl("/viviendas", params));
+    });
   };
 
   const reset = () => {
@@ -47,9 +55,11 @@ export function FilterBar({ cities, initial }: Props) {
 
   return (
     <form
+      id={formId}
       onSubmit={submit}
-      className="mx-auto w-full max-w-3xl rounded-3xl border border-bone-200/70 bg-white/95 p-5 shadow-fyrama-lg backdrop-blur-sm sm:p-7"
+      className="mx-auto w-full max-w-3xl rounded-3xl border border-bone-200/70 bg-white/95 p-4 shadow-fyrama-lg backdrop-blur-sm sm:p-7"
       aria-label="Buscador de inmuebles"
+      aria-busy={pending || undefined}
     >
       {/* Encabezado del buscador */}
       <p className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-ink-500">
@@ -70,11 +80,13 @@ export function FilterBar({ cities, initial }: Props) {
               role="radio"
               aria-checked={operation === op.value}
               onClick={() => setOperation(op.value)}
+              disabled={pending}
               className={cn(
-                "rounded-full px-7 py-3 text-base font-medium transition-all",
+                "rounded-full px-5 py-2.5 text-sm font-medium transition-all sm:px-7 sm:py-3 sm:text-base",
                 operation === op.value
                   ? "bg-pine-950 text-bone-50 shadow-sm"
-                  : "text-ink-600 hover:text-ink-900"
+                  : "text-ink-600 hover:text-ink-900",
+                pending && "cursor-wait opacity-70"
               )}
             >
               {op.label}
@@ -83,7 +95,7 @@ export function FilterBar({ cities, initial }: Props) {
         </div>
         <Link
           href="/permuta"
-          className="rounded-full px-7 py-3 text-base font-medium text-ink-600 transition-all hover:bg-bone-100 hover:text-ink-900"
+          className="rounded-full px-5 py-2.5 text-sm font-medium text-ink-600 transition-all hover:bg-bone-100 hover:text-ink-900 sm:px-7 sm:py-3 sm:text-base"
         >
           Permuta
         </Link>
@@ -138,15 +150,21 @@ export function FilterBar({ cities, initial }: Props) {
         <div className="flex flex-1 flex-col gap-3 sm:flex-row">
           <button
             type="submit"
-            className="inline-flex h-14 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-gold-500 px-8 text-lg font-semibold text-pine-950 shadow-sm transition-colors hover:bg-gold-400 active:bg-gold-600"
+            disabled={pending}
+            className="inline-flex h-14 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-gold-500 px-8 text-base font-semibold text-pine-950 shadow-sm transition-colors hover:bg-gold-400 active:bg-gold-600 disabled:cursor-wait disabled:opacity-80 sm:text-lg"
           >
-            <Search className="size-6" aria-hidden />
-            Buscar
+            {pending ? (
+              <Loader2 className="size-6 animate-spin" aria-hidden />
+            ) : (
+              <Search className="size-6" aria-hidden />
+            )}
+            {pending ? "Buscando…" : "Buscar"}
           </button>
           <button
             type="button"
             onClick={reset}
-            className="inline-flex h-14 items-center justify-center rounded-2xl border border-ink-900/10 px-7 text-base font-medium text-ink-600 transition-colors hover:bg-bone-100"
+            disabled={pending}
+            className="inline-flex h-14 items-center justify-center rounded-2xl border border-ink-900/10 px-7 text-base font-medium text-ink-600 transition-colors hover:bg-bone-100 disabled:opacity-60"
           >
             Limpiar
           </button>

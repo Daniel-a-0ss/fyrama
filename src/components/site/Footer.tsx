@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 import { SOCIAL_LINKS } from "@/lib/constants";
@@ -52,11 +53,19 @@ export function Footer() {
               <MapPin className="size-5 text-gold-500" aria-hidden /> Armenia, Quindío
             </p>
             <p className="flex items-center gap-2">
-              <Mail className="size-5 text-gold-500" aria-hidden />{" "}
-              fyramajuridicoeinmobiliario@gmail.com
+              <Mail className="size-5 shrink-0 text-gold-500" aria-hidden />
+              <a
+                href="mailto:fyramajuridicoeinmobiliario@gmail.com"
+                className="min-w-0 break-all hover:text-white"
+              >
+                fyramajuridicoeinmobiliario@gmail.com
+              </a>
             </p>
             <p className="flex items-center gap-2">
-              <Phone className="size-5 text-gold-500" aria-hidden /> +57 321 7241455
+              <Phone className="size-5 shrink-0 text-gold-500" aria-hidden />
+              <a href="tel:+573217241455" className="hover:text-white">
+                +57 321 7241455
+              </a>
             </p>
           </div>
           <div className="flex gap-2 pt-1">
@@ -84,9 +93,9 @@ export function Footer() {
           <ul className="space-y-2.5 text-sm">
             {explore.map((l) => (
               <li key={l.href + l.label}>
-                <a href={l.href} className="text-bone-200/80 hover:text-white">
+                <Link href={l.href} className="text-bone-200/80 hover:text-white">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -99,9 +108,9 @@ export function Footer() {
           <ul className="space-y-2.5 text-sm">
             {legalServices.map((l) => (
               <li key={l.href + l.label}>
-                <a href={l.href} className="text-bone-200/80 hover:text-white">
+                <Link href={l.href} className="text-bone-200/80 hover:text-white">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -114,9 +123,9 @@ export function Footer() {
           <ul className="space-y-2.5 text-sm">
             {content.map((l) => (
               <li key={l.href + l.label}>
-                <a href={l.href} className="text-bone-200/80 hover:text-white">
+                <Link href={l.href} className="text-bone-200/80 hover:text-white">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

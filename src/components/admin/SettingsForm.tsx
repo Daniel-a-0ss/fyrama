@@ -12,7 +12,6 @@ const FIELDS: { key: string; label: string; hint?: string; textarea?: boolean }[
   { key: "seo_title", label: "Título genérico SEO" },
   { key: "seo_description", label: "Meta descripción genérica", textarea: true },
   { key: "legal_disclaimer", label: "Aviso legal (asesoría jurídica)", textarea: true },
-  { key: "demo_banner_enabled", label: "Banner de demo", hint: "Muestra el aviso de sitio demo en vivo." },
 ];
 
 export function SettingsForm({ initial }: { initial: Record<string, string> }) {

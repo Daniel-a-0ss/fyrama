@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/lib/utils";
@@ -27,9 +28,9 @@ export function Breadcrumbs({
           <li key={i} className="flex items-center gap-1.5">
             {i === 0 && <Home className="size-3.5" aria-hidden />}
             {c.href && i < crumbs.length - 1 ? (
-              <a href={c.href} className="hover:text-pine-800 hover:underline underline-offset-2">
+              <Link href={c.href} className="hover:text-pine-800 hover:underline underline-offset-2">
                 {c.label}
-              </a>
+              </Link>
             ) : (
               <span aria-current="page" className="text-ink-700 font-medium">
                 {c.label}

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { ReviewStatus } from "@prisma/client";
 import { ReviewRow } from "@/components/admin/ReviewRow";
 
@@ -65,7 +66,7 @@ export default async function AdminReviewsPage({
           const qs = new URLSearchParams();
           if (f.key !== "PENDING") qs.set("status", f.key);
           return (
-            <a
+            <Link
               key={f.key}
               href={f.key === "PENDING" ? "/admin/opiniones" : `/admin/opiniones?${qs.toString()}`}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -75,7 +76,7 @@ export default async function AdminReviewsPage({
               }`}
             >
               {f.label}
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -120,21 +121,21 @@ export default async function AdminReviewsPage({
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-center gap-3" aria-label="Paginación">
           {page > 1 && (
-            <a
+            <Link
               href={`/admin/opiniones?page=${page - 1}&status=${status}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               ← Anterior
-            </a>
+            </Link>
           )}
           <span className="text-sm text-ink-500">Página {page} de {totalPages}</span>
           {page < totalPages && (
-            <a
+            <Link
               href={`/admin/opiniones?page=${page + 1}&status=${status}`}
               className="rounded-lg border border-ink-900/12 px-3 py-1.5 text-sm hover:bg-white"
             >
               Siguiente →
-            </a>
+            </Link>
           )}
         </nav>
       )}
