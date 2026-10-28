@@ -45,7 +45,7 @@ export function Logo({
 }) {
   // md: header; lg: footer (208px / 256px en pantallas muy grandes).
   const logo = LOGOS[variant];
-  const height = size === "lg" ? 112 : 96;
+  const height = 112;
   return (
     <span className={cn("inline-flex items-center", className)}>
       <img
@@ -55,7 +55,7 @@ export function Logo({
         height={height}
         className={cn(
           "w-auto",
-          size === "lg" ? "h-20 sm:h-24 xl:h-28" : "h-14 sm:h-16 lg:h-20 2xl:h-24"
+          size === "lg" ? "h-20 sm:h-24 xl:h-28" : "h-16 sm:h-20 lg:h-24 2xl:h-28"
         )}
       />
     </span>
