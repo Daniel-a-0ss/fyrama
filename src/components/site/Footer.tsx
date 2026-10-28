@@ -138,13 +138,12 @@ export function Footer() {
             © {new Date().getFullYear()} Fyrama. Todos los derechos reservados.
           </p>
           <p className="flex items-center gap-1.5">
-            Sitio de demostración — contenido de prueba.
-            <a
+            <Link
               href="/admin/login"
-              className="ml-1 text-gold-400 hover:text-gold-300"
+              className="text-gold-400 hover:text-gold-300"
             >
               Acceso administradores
-            </a>
+            </Link>
           </p>
         </div>
       </div>

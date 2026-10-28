@@ -88,7 +88,7 @@ export default async function ContactoPage() {
             type="GENERAL"
             submitLabel="Enviar mensaje"
             title="¡Mensaje enviado!"
-            description="Recibimos tu mensaje. Nos pondremos en contacto contigo. (DEMO)"
+            description="Recibimos tu mensaje. Nos pondremos en contacto contigo pronto."
           />
         </div>
       </div>
