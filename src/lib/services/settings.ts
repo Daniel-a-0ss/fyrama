@@ -13,6 +13,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   contact_city: "Armenia, Quindío",
   legal_disclaimer:
     "El contenido de este sitio tiene fines informativos y no constituye ni reemplaza la asesoría jurídica profesional. Cada operación inmobiliaria es diferente: consulta siempre con un profesional calificado antes de firmar.",
+  hero_image: "/media/brand/hero.webp",
   og_image: "/media/brand/og-fyrama.webp",
   seo_title: "",
   seo_description: "",

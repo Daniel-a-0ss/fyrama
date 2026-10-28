@@ -50,24 +50,24 @@ export function FilterBar({
   };
 
   const inputClass =
-    "w-full rounded-2xl border border-ink-900/10 bg-white px-4 py-3.5 text-lg text-ink-900 shadow-sm placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-pine-600/25 focus:border-pine-700";
+    "w-full rounded-2xl border border-ink-900/10 bg-white px-4 py-2.5 text-base text-ink-900 shadow-sm placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-pine-600/25 focus:border-pine-700";
   const selectClass = `cursor-pointer pr-10 ${inputClass}`;
 
   return (
     <form
       id={formId}
       onSubmit={submit}
-      className="mx-auto w-full max-w-3xl rounded-3xl border border-bone-200/70 bg-white/95 p-4 shadow-fyrama-lg backdrop-blur-sm sm:p-7"
+      className="mx-auto w-full max-w-2xl rounded-3xl border border-bone-200/70 bg-white/95 p-4 shadow-fyrama-lg backdrop-blur-sm sm:p-6"
       aria-label="Buscador de inmuebles"
       aria-busy={pending || undefined}
     >
       {/* Encabezado del buscador */}
-      <p className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-ink-500">
+      <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.25em] text-ink-500">
         Busca tu propiedad
       </p>
 
       {/* Tabs Venta / Arrendamiento + acceso a Permuta */}
-      <div className="mb-5 flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:justify-start">
+      <div className="mb-4 flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:justify-start">
         <div
           className="inline-flex justify-center rounded-full bg-bone-100 p-1"
           role="radiogroup"
@@ -82,7 +82,7 @@ export function FilterBar({
               onClick={() => setOperation(op.value)}
               disabled={pending}
               className={cn(
-                "rounded-full px-5 py-2.5 text-sm font-medium transition-all sm:px-7 sm:py-3 sm:text-base",
+                "rounded-full px-4 py-2 text-sm font-medium transition-all sm:px-6 sm:py-2.5",
                 operation === op.value
                   ? "bg-pine-950 text-bone-50 shadow-sm"
                   : "text-ink-600 hover:text-ink-900",
@@ -94,21 +94,21 @@ export function FilterBar({
           ))}
         </div>
         <Link
-          href="/permuta"
-          className="rounded-full px-5 py-2.5 text-sm font-medium text-ink-600 transition-all hover:bg-bone-100 hover:text-ink-900 sm:px-7 sm:py-3 sm:text-base"
+          href="/viviendas?operacion=permuta"
+          className="rounded-full px-4 py-2 text-sm font-medium text-ink-600 transition-all hover:bg-bone-100 hover:text-ink-900 sm:px-6 sm:py-2.5"
         >
           Permuta
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[2fr_1fr]">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-[2fr_1fr]">
         <div>
           <label htmlFor="f-ciudad" className="sr-only">
             Ciudad
           </label>
           <div className="relative">
             <MapPin
-              className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-ink-400"
+              className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-ink-400"
               aria-hidden
             />
             <input
@@ -117,7 +117,7 @@ export function FilterBar({
               value={ciudad}
               onChange={(e) => setCiudad(e.target.value)}
               placeholder="Ciudad o municipio"
-              className={cn(inputClass, "pl-12")}
+              className={cn(inputClass, "pl-10")}
               autoComplete="off"
             />
             <datalist id="fyrama-cities">
@@ -146,17 +146,17 @@ export function FilterBar({
         </label>
       </div>
 
-      <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
+      <div className="mt-4 flex flex-col-reverse gap-2.5 sm:flex-row sm:items-center">
         <div className="flex flex-1 flex-col gap-3 sm:flex-row">
           <button
             type="submit"
             disabled={pending}
-            className="inline-flex h-14 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-gold-500 px-8 text-base font-semibold text-pine-950 shadow-sm transition-colors hover:bg-gold-400 active:bg-gold-600 disabled:cursor-wait disabled:opacity-80 sm:text-lg"
+            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-gold-500 px-6 text-sm font-semibold text-pine-950 shadow-sm transition-colors hover:bg-gold-400 active:bg-gold-600 disabled:cursor-wait disabled:opacity-80 sm:text-base"
           >
             {pending ? (
-              <Loader2 className="size-6 animate-spin" aria-hidden />
+              <Loader2 className="size-5 animate-spin" aria-hidden />
             ) : (
-              <Search className="size-6" aria-hidden />
+              <Search className="size-5" aria-hidden />
             )}
             {pending ? "Buscando…" : "Buscar"}
           </button>
@@ -164,7 +164,7 @@ export function FilterBar({
             type="button"
             onClick={reset}
             disabled={pending}
-            className="inline-flex h-14 items-center justify-center rounded-2xl border border-ink-900/10 px-7 text-base font-medium text-ink-600 transition-colors hover:bg-bone-100 disabled:opacity-60"
+            className="inline-flex h-12 items-center justify-center rounded-2xl border border-ink-900/10 px-5 text-sm font-medium text-ink-600 transition-colors hover:bg-bone-100 disabled:opacity-60 sm:text-base"
           >
             Limpiar
           </button>

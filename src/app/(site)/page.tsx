@@ -36,6 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 async function getHomeData() {
+  const settings = mergeSettings(await getSiteSettings());
   const cities = await getCities();
 
   const featured = await listProperties({
@@ -52,7 +53,7 @@ async function getHomeData() {
     include: { category: true, coverMedia: true },
   });
 
-  return { cities, featured: featured.items, articles };
+  return { settings, cities, featured: featured.items, articles };
 }
 
 const sellWhatsAppUrl = buildWhatsAppUrl(
@@ -93,12 +94,12 @@ const legalServices = [
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const { cities, featured, articles } = await getHomeData();
+  const { settings, cities, featured, articles } = await getHomeData();
 
   return (
     <>
       {/* 1. Hero */}
-      <Hero cities={cities} />
+      <Hero cities={cities} image={settings.hero_image} />
 
       {/* 2. Propiedades destacadas */}
       <FeaturedProperties properties={featured} />

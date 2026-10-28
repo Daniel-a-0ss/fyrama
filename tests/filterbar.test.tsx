@@ -54,5 +54,5 @@ it("ofrece Venta, Arrendamiento y Permuta en el buscador", () => {
     screen.getByRole("radio", { name: "Arrendamiento", hidden: true })
   ).toBeInTheDocument();
   const permuta = screen.getByRole("link", { name: "Permuta" });
-  expect(permuta).toHaveAttribute("href", "/permuta");
+  expect(permuta).toHaveAttribute("href", "/viviendas?operacion=permuta");
 });

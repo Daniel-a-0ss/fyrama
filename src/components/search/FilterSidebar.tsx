@@ -117,7 +117,7 @@ export function FilterSidebar({ current, cities }: Props) {
             );
           })}
           <Link
-            href="/permuta"
+            href="/viviendas?operacion=permuta"
             className="min-w-0 rounded-lg border border-ink-900/12 px-2 py-1.5 text-center text-sm font-medium text-ink-600 transition-colors hover:border-ink-900/30 hover:bg-bone-100"
           >
             Permuta

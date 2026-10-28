@@ -2,34 +2,27 @@ import { cn } from "@/lib/utils";
 
 /**
  * Logos oficiales de Fyrama.
- * Fuente unica: public/media/logos (archivos entregados por el cliente).
- * Se usan los .png "sin fondo" en todos los fondos, sin recolorear,
- * deformar, rotar ni aplicarles filtros.
+ * Fuente: public/media/logos (archivos entregados por el cliente).
+ * No se recolorean, deforman, rotan ni se les aplican filtros.
  *
- * - horizontal: composicion horizontal (isotipo + wordmark) -> header, footer.
- * - vertical:   composicion vertical (marca + wordmark)     -> 404, espacios cuadrados.
+ * - logo-on-light.webp: tinta oscura, para fondos claros (header, páginas).
+ * - logo-on-dark.webp:  tinta clara, para fondos oscuros (footer).
  *
- * La tinta del archivo oficial es azul marino (#06182a). Se muestra el PNG
- * tal cual, sin fondo añadido, sin recolorear, sin deformar y sin placas: sobre
- * superficies claras se lee; sobre las oscuras queda muy tenue.
- *
- * Archivos originales del cliente, usados tal cual (URL con %20 = espacio):
- *   public/media/logos/LOGO FRANK SIN FONDO-25.png  (horizontal, 18460x5898)
- *   public/media/logos/LOGO FRANK SIN FONDO-10.png  (vertical,   10213x9915)
+ * Ambos son la composición vertical oficial (10213 x 9915 px originales).
+ * Las versiones .webp son una copia optimizada a 512 px de alto.
  */
-const LOGO_HORIZONTAL = "/media/logos/LOGO%20FRANK%20SIN%20FONDO-25.png";
-const LOGO_VERTICAL = "/media/logos/LOGO%20FRANK%20SIN%20FONDO-10.png";
+const LOGO_ON_LIGHT = "/media/logos/logo-on-light.webp";
+const LOGO_ON_DARK = "/media/logos/logo-on-dark.webp";
 
-/** Proporción del lockup horizontal: 18460 x 5898 px. */
-const RATIO = 18460 / 5898; // 3.13 -> alto x 3.13 = ancho
+const RATIO = 10213 / 9915; // 1.03 -> ancho x 1.03 = alto
 
 export function BrandMark({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex items-center", className)}>
       <img
-        src={LOGO_VERTICAL}
+        src={LOGO_ON_LIGHT}
         alt="Fyrama"
-        width={262}
+        width={Math.round(256 * RATIO)}
         height={256}
         className="h-64 w-auto"
       />
@@ -39,19 +32,23 @@ export function BrandMark({ className }: { className?: string }) {
 
 export function Logo({
   size = "md",
+  variant = "on-light",
   className,
 }: {
-  /** "lg" = version grande para el footer. */
+  /** "lg" = versión grande para el footer. */
   size?: "md" | "lg";
+  /** Fondo sobre el que se muestra el logo. */
+  variant?: "on-light" | "on-dark";
   className?: string;
 }) {
   // md: header (96px hasta 1536px / 112px en pantallas muy grandes),
   // lg: footer (112px / 128px).
   const height = size === "lg" ? 128 : 112;
+  const src = variant === "on-dark" ? LOGO_ON_DARK : LOGO_ON_LIGHT;
   return (
     <span className={cn("inline-flex items-center", className)}>
       <img
-        src={LOGO_HORIZONTAL}
+        src={src}
         alt="Fyrama"
         width={Math.round(height * RATIO)}
         height={height}

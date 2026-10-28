@@ -4,20 +4,27 @@ import { LinkButton } from "@/components/ui/Button";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import type { SearchParamsRecord } from "@/lib/search";
 
-const HERO_IMAGE = process.env.NEXT_PUBLIC_HERO_IMAGE ?? "/media/brand/hero.webp";
+const DEFAULT_HERO_IMAGE = "/media/brand/hero.webp";
 
 export function Hero({
   cities,
   initial,
+  image,
 }: {
   cities: string[];
   initial?: SearchParamsRecord;
+  image?: string;
 }) {
+  const heroImage =
+    image?.trim() ||
+    process.env.NEXT_PUBLIC_HERO_IMAGE?.trim() ||
+    DEFAULT_HERO_IMAGE;
+
   return (
     <section className="relative flex min-h-[92svh] items-center overflow-hidden">
       <div className="absolute inset-0 bg-pine-950" aria-hidden>
         <img
-          src={HERO_IMAGE}
+          src={heroImage}
           alt=""
           className="h-full w-full object-cover opacity-85"
           fetchPriority="high"

@@ -16,7 +16,7 @@ export function getSecurityHeaders(_nonce?: string): Record<string, string> {
         // 'unsafe-inline' es el único valor que funciona con prerender.
         "script-src 'self' 'unsafe-inline'",
         "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: blob:",
+        "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com",
         "font-src 'self' data:",
         "connect-src 'self'",
         "frame-src 'self'",
@@ -31,7 +31,7 @@ export function getSecurityHeaders(_nonce?: string): Record<string, string> {
         "default-src 'self'",
         "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
         "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: blob:",
+        "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com",
         "font-src 'self' data:",
         "connect-src 'self'",
         "frame-src 'self'",
