@@ -50,7 +50,15 @@ export function Footer() {
           </p>
           <div className="space-y-2 text-sm text-bone-200/70">
             <p className="flex items-center gap-2">
-              <MapPin className="size-5 text-gold-500" aria-hidden /> Armenia, Quindío
+              <MapPin className="size-5 shrink-0 text-gold-500" aria-hidden />
+              <a
+                href={SOCIAL_LINKS.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
+                Armenia, Quindío
+              </a>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="size-5 shrink-0 text-gold-500" aria-hidden />

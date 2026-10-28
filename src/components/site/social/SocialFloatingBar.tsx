@@ -1,4 +1,5 @@
-import { Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram, MapPin } from "lucide-react";
+import { SOCIAL_LINKS } from "@/lib/constants";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/site/whatsapp/WhatsAppIcon";
 import { TikTokIcon } from "@/components/site/social/TikTokIcon";
@@ -12,21 +13,27 @@ const items = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/fyrama.co",
+    href: SOCIAL_LINKS.facebook,
     brand: "#1877f2",
     Icon: Facebook,
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/fyrama.co",
+    href: SOCIAL_LINKS.instagram,
     brand: "#e4405f",
     Icon: Instagram,
   },
   {
     label: "TikTok",
-    href: "https://www.tiktok.com/@fyrama.co",
+    href: SOCIAL_LINKS.tiktok,
     brand: "#111111",
     Icon: TikTokIcon,
+  },
+  {
+    label: "Google Maps",
+    href: SOCIAL_LINKS.maps,
+    brand: "#1a73e8",
+    Icon: MapPin,
   },
 ];
 

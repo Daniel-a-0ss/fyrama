@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getSiteSettings, mergeSettings } from "@/lib/services/settings";
 import { buildMetadata } from "@/lib/seo";
+import { SOCIAL_LINKS } from "@/lib/constants";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 
@@ -43,20 +44,51 @@ export default async function ContactoPage() {
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">
           {[
-            { icon: Mail, label: "Correo", value: settings.contact_email },
-            { icon: Phone, label: "Teléfono", value: settings.contact_phone },
-            { icon: MapPin, label: "Ubicación", value: settings.contact_city },
+            {
+              icon: Mail,
+              label: "Correo",
+              value: settings.contact_email,
+              href: `mailto:${settings.contact_email}`,
+              external: false,
+            },
+            {
+              icon: Phone,
+              label: "Teléfono",
+              value: settings.contact_phone,
+              href: `tel:${settings.contact_phone.replace(/[^\d+]/g, "")}`,
+              external: false,
+            },
+            {
+              icon: MapPin,
+              label: "Ubicación",
+              value: settings.contact_city,
+              href: SOCIAL_LINKS.maps,
+              external: true,
+            },
           ].map((c) => (
             <div
               key={c.label}
               className="flex items-center gap-4 rounded-2xl border border-bone-200/80 bg-white p-5 shadow-sm"
             >
-              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-pine-100 text-pine-800">
+              <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-pine-100 text-pine-800">
                 <c.icon className="size-5" aria-hidden />
               </span>
-              <div>
+              <div className="min-w-0">
                 <p className="text-sm text-ink-500">{c.label}</p>
-                <p className="font-medium text-ink-900">{c.value}</p>
+                <p className="font-medium text-ink-900">
+                  <a
+                    href={c.href}
+                    {...(c.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="break-words hover:text-pine-800 hover:underline underline-offset-2"
+                  >
+                    {c.value}
+                  </a>
+                </p>
+                {c.external && (
+                  <span className="text-xs text-ink-500">Ver en Google Maps</span>
+                )}
               </div>
             </div>
           ))}

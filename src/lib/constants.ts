@@ -22,9 +22,11 @@ export const SOCIAL_LINKS = {
   whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     "Hola, buen día. Quiero información de Fyrama."
   )}`,
-  facebook: "https://www.facebook.com/fyrama.co",
-  instagram: "https://www.instagram.com/fyrama.co",
-  tiktok: "https://www.tiktok.com/@fyrama.co",
+  facebook: "https://www.facebook.com/profile.php?id=61594678014552",
+  instagram: "https://www.instagram.com/fyrama_juridicoeinmobiliario",
+  tiktok: "https://www.tiktok.com/@fyrama.s.a.s",
+  maps:
+    "https://www.google.com/maps/place/FYRAMA+GRUPO+JURIDICO+E+INMOBILIARIO/@4.5422715,-75.6805496,17z/data=!3m1!4b1!4m6!3m5!1s0xa6a0e0f0b675aed7:0xe0ff360cc482bc74!8m2!3d4.5422715!4d-75.6805496!16s%2Fg%2F11zf8dqjk7",
 } as const;
 
 export const PENDING_2FA_COOKIE = "fyrama_2fa_pending";
