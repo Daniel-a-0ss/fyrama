@@ -50,7 +50,7 @@ export function WhatsAppWidget() {
         <div
           role="dialog"
           aria-labelledby="fyrama-wa-title"
-          className="fyrama-wa-panel-in pointer-events-auto absolute bottom-[calc(5.75rem+env(safe-area-inset-bottom))] left-2.5 flex h-[400px] max-h-[calc(100dvh-6.5rem)] w-[calc(100vw-1.25rem)] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:left-auto sm:right-[calc(1.25rem+env(safe-area-inset-right))] sm:w-[340px]"
+          className="fyrama-wa-panel-in pointer-events-auto absolute bottom-[calc(6.25rem+env(safe-area-inset-bottom))] left-2.5 flex h-[400px] max-h-[calc(100dvh-7.5rem)] sm:bottom-[calc(6.75rem+env(safe-area-inset-bottom))] w-[calc(100vw-1.25rem)] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:left-auto sm:right-[calc(1.25rem+env(safe-area-inset-right))] sm:w-[340px]"
         >
           <header className="flex h-[60px] shrink-0 items-center gap-3 bg-pine-950 px-4">
             <span className="fyrama-wa-avatar-ring grid size-10 shrink-0 place-items-center overflow-hidden rounded-full ring-2 ring-white/30">
@@ -131,7 +131,7 @@ export function WhatsAppWidget() {
         aria-expanded={open}
         aria-controls="fyrama-wa-chat"
         onClick={() => setOpen((v) => !v)}
-        className="fyrama-wa-pop pointer-events-auto absolute bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))] grid size-16 place-items-center sm:size-[72px]"
+        className="fyrama-wa-pop pointer-events-auto absolute bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))] grid size-18 place-items-center sm:size-20"
       >
         <span
           aria-hidden
