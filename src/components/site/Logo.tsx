@@ -42,8 +42,8 @@ export function Logo({
   className?: string;
 }) {
   // md: header (96px hasta 1536px / 112px en pantallas muy grandes),
-  // lg: footer (112px / 128px).
-  const height = size === "lg" ? 128 : 112;
+  // lg: footer (160px / 192px en pantallas muy grandes).
+  const height = size === "lg" ? 192 : 112;
   const src = variant === "on-dark" ? LOGO_ON_DARK : LOGO_ON_LIGHT;
   return (
     <span className={cn("inline-flex items-center", className)}>
@@ -54,7 +54,7 @@ export function Logo({
         height={height}
         className={cn(
           "w-auto",
-          size === "lg" ? "h-28 xl:h-32" : "h-24 2xl:h-28"
+          size === "lg" ? "h-40 xl:h-48" : "h-24 2xl:h-28"
         )}
       />
     </span>
