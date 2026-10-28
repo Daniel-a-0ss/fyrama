@@ -29,8 +29,8 @@ los contenido JSON se envían con `Content-Type: application/json`.
 | POST | `/api/auth/change-password` | `{currentPassword, newPassword}` (autenticado) |
 | POST | `/api/contact` | Crea una solicitud de contacto (ver más abajo) |
 | GET | `/api/filters` | Valores disponibles para los filtros del catálogo |
-| GET | `/api/properties` | Lista de viviendas (mismos filtros que `/viviendas`) |
-| GET | `/api/properties/:slug` | Detalle de vivienda publicado |
+| GET | `/api/properties` | Lista de inmuebles (mismos filtros que `/viviendas`) |
+| GET | `/api/properties/:slug` | Detalle de inmueble publicado |
 | GET | `/api/articles` | Artículos publicados |
 | GET | `/api/articles/:slug` | Detalle de artículo |
 | GET | `/api/legal-services` | Servicios de asesoría activos |
@@ -41,13 +41,13 @@ Body: `{type?, name, email, phone?, message, propertyId?, legalTopic?, contactPr
 - `company` es un honeypot (debe quedar vacío); si llega relleno, se rechaza la validación.
 - Rate limit: `CONTACT_RATE_LIMIT_MAX` solicitudes por IP cada 10 min.
 - Guarda `ipAddress` (de `X-Forwarded-For`/`X-Real-IP`).
-- `propertyId` referencia una vivienda existente (opcional).
+- `propertyId` referencia un inmueble existente (opcional).
 
 ## Admin (todas exigen `requireAdmin`)
 
 | Método | Ruta | Descripción |
 | --- | --- | --- |
-| GET/POST | `/api/admin/properties` | Listar/crear viviendas |
+| GET/POST | `/api/admin/properties` | Listar/crear inmuebles |
 | GET/PUT/DELETE | `/api/admin/properties/:id` | Leer/actualizar/borrar (baja lógica) |
 | PUT | `/api/admin/properties/:id/images` | Reordenar y fijar portada |
 | GET/POST | `/api/admin/articles` | Listar/crear artículos |

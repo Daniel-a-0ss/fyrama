@@ -14,7 +14,7 @@ import { Label, Input, Select, Textarea, FieldError } from "@/components/ui/Fiel
 import { api, errorMessage, ApiError } from "@/lib/client/api";
 import {
   FEATURE_PRESETS,
-  OPERATIONS,
+  PROPERTY_OPERATIONS,
   PROPERTY_TYPES,
   STRATO_OPTIONS,
 } from "@/lib/constants";
@@ -185,7 +185,7 @@ export function PropertyForm({
           <div>
             <Label htmlFor="operation">Operación *</Label>
             <Select id="operation" value={values.operation} onChange={set("operation")} invalid={Boolean(fieldsError.operation)}>
-              {OPERATIONS.map((o) => (
+              {PROPERTY_OPERATIONS.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
             </Select>
@@ -210,7 +210,9 @@ export function PropertyForm({
             <FieldError message={fieldsError.status?.[0]} />
           </div>
           <div>
-            <Label htmlFor="price">Precio {values.operation === "VENTA" ? "de venta" : "de arrendamiento"} (COP)</Label>
+            <Label htmlFor="price">
+              Precio {values.operation === "VENTA" ? "de venta" : values.operation === "ARRIENDO" ? "de arrendamiento" : "de permuta"} (COP)
+            </Label>
             <Input id="price" type="number" min={0} step={10000} value={values.price} onChange={set("price")} placeholder="450000000" invalid={Boolean(fieldsError.price)} />
             <FieldError message={fieldsError.price?.[0]} />
           </div>
@@ -370,7 +372,7 @@ export function PropertyForm({
           className="inline-flex h-11 items-center gap-2 rounded-xl bg-pine-950 px-7 text-sm font-medium text-bone-50 transition-colors hover:bg-pine-800 disabled:opacity-60"
         >
           {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Save className="size-4" aria-hidden />}
-          {isEdit ? "Guardar cambios" : "Crear vivienda"}
+          {isEdit ? "Guardar cambios" : "Crear inmueble"}
         </button>
       </div>
 

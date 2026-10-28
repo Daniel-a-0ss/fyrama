@@ -84,6 +84,12 @@ describe("propertySchema", () => {
     expect(propertySchema.safeParse({ ...base, type: "NAVE" }).success).toBe(false);
   });
 
+  it("acepta permuta como operación de inmueble", () => {
+    const ok = propertySchema.safeParse({ ...base, operation: "PERMUTA" });
+    expect(ok.success).toBe(true);
+    if (ok.success) expect(ok.data.operation).toBe("PERMUTA");
+  });
+
   it("permite dejar vacíos opcionales", () => {
     const ok = propertySchema.safeParse({ ...base, price: "", area: "", bedrooms: null });
     expect(ok.success).toBe(true);
@@ -97,7 +103,7 @@ describe("propertySchema", () => {
 describe("articleSchema y categorías", () => {
   it("acepta un artículo mínimo", () => {
     expect(
-      articleSchema.safeParse({ title: "Cómo comprar tu primera vivienda" }).success
+      articleSchema.safeParse({ title: "Cómo comprar tu primera inmueble" }).success
     ).toBe(true);
   });
 

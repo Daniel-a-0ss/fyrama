@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -59,7 +60,7 @@ export function FilterSidebar({ current, cities }: Props) {
     <select
       value={current[key] ?? ""}
       onChange={(e) => setParam(key, e.target.value)}
-      className="w-full cursor-pointer rounded-xl border border-ink-900/12 bg-white px-3 py-2 text-sm text-ink-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-pine-600/25"
+      className="w-full min-w-0 cursor-pointer rounded-xl border border-ink-900/12 bg-white px-3 py-2 text-sm text-ink-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-pine-600/25"
     >
       <option value="">{placeholder}</option>
       {options.map((o) => (
@@ -90,7 +91,7 @@ export function FilterSidebar({ current, cities }: Props) {
       </div>
 
       <Field label="Operación">
-        <div className="flex gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {[
             { value: "", label: "Todas" },
             { value: "venta", label: "Venta" },
@@ -105,7 +106,7 @@ export function FilterSidebar({ current, cities }: Props) {
                 aria-pressed={active}
                 onClick={() => setParam("operacion", value)}
                 className={cn(
-                  "flex-1 rounded-lg border px-2 py-1.5 text-sm font-medium transition-colors",
+                  "min-w-0 rounded-lg border px-2 py-1.5 text-center text-sm font-medium transition-colors",
                   active
                     ? "border-pine-950 bg-pine-950 text-bone-50"
                     : "border-ink-900/12 text-ink-600 hover:border-ink-900/30"
@@ -115,6 +116,12 @@ export function FilterSidebar({ current, cities }: Props) {
               </button>
             );
           })}
+          <Link
+            href="/permuta"
+            className="min-w-0 rounded-lg border border-ink-900/12 px-2 py-1.5 text-center text-sm font-medium text-ink-600 transition-colors hover:border-ink-900/30 hover:bg-bone-100"
+          >
+            Permuta
+          </Link>
         </div>
       </Field>
 
@@ -127,7 +134,7 @@ export function FilterSidebar({ current, cities }: Props) {
             onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), setCity())}
             list="fyrama-filter-cities"
             placeholder="Todas"
-            className="w-full rounded-xl border border-ink-900/12 bg-white px-3 py-2 text-sm text-ink-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-pine-600/25"
+            className="min-w-0 flex-1 rounded-xl border border-ink-900/12 bg-white px-3 py-2 text-sm text-ink-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-pine-600/25"
           />
           <datalist id="fyrama-filter-cities">
             {cities.map((c) => (
@@ -196,7 +203,7 @@ export function FilterSidebar({ current, cities }: Props) {
       </Field>
 
       <Field label="Espacios">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 min-[260px]:grid-cols-2">
           {select("habitaciones", numOptions(5), "Habitaciones")}
           {select("banos", numOptions(4), "Baños")}
           {select("parqueaderos", numOptions(4), "Parqueaderos")}
@@ -209,7 +216,7 @@ export function FilterSidebar({ current, cities }: Props) {
       </Field>
 
       <Field label="Área">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 min-[260px]:grid-cols-2">
           {select("area_min", AREA_MIN.map((n) => ({ value: String(n), label: `${n} m² en adelante` })), "Área mínima")}
           {select("area_max", AREA_MAX.map((n) => ({ value: String(n), label: `hasta ${n} m²` })), "Área máxima")}
         </div>

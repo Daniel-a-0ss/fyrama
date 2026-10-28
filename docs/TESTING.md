@@ -18,7 +18,7 @@ tests/
 ├─ utils.test.ts        helpers puros (slugify, formato, IP, srcset…)
 ├─ csrf.test.ts         assertSameOrigin / hasCsrfToken
 ├─ session.test.ts      tokenFromRequest, hashing, cookie header + Secure en prod
-├─ validation.test.ts   schemas Zod (auth, contacto, vivienda, artículo, usuario…)
+├─ validation.test.ts   schemas Zod (auth, contacto, inmueble, artículo, usuario…)
 ├─ search.test.ts       normalizeSearchParams, buildWhereClause/buildOrderBy
 ├─ api-guards.test.ts   requireAdmin: CSRF, 401/403 (requiere BD)
 ├─ contact-api.test.ts  POST /api/contact: persistencia, IP, honeypot, rate-limit

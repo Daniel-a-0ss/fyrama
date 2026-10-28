@@ -52,12 +52,12 @@ export default async function AdminDashboardPage() {
   const [newRequests, contacted, totalRequests] = requestCounts;
 
   const cards = [
-    { label: "Viviendas publicadas", value: published, href: "/admin/viviendas?status=PUBLISHED", icon: ClipboardList, accent: "bg-pine-50 text-pine-800" },
+    { label: "Inmuebles publicados", value: published, href: "/admin/viviendas?status=PUBLISHED", icon: ClipboardList, accent: "bg-pine-50 text-pine-800" },
     { label: "Borradores", value: drafts, href: "/admin/viviendas?status=DRAFT", icon: ClipboardList, accent: "bg-bone-100 text-ink-600" },
     { label: "Solicitudes nuevas", value: newRequests, href: "/admin/solicitudes?status=NEW", icon: Inbox, accent: "bg-gold-100 text-gold-700" },
     { label: "Artículos publicados", value: articleCounts, href: "/admin/contenido?status=PUBLISHED", icon: FileText, accent: "bg-bone-100 text-ink-600" },
     { label: "Imágenes en biblioteca", value: mediaCount, href: "/admin/media", icon: Images, accent: "bg-pine-50 text-pine-800" },
-    { label: "Servicios de asesoría", value: serviceCount, href: "/admin/asesoria", icon: Scale, accent: "bg-gold-100 text-gold-700" },
+    { label: "Servicios", value: serviceCount, href: "/admin/asesoria", icon: Scale, accent: "bg-gold-100 text-gold-700" },
   ];
 
   return (

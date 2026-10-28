@@ -50,7 +50,7 @@ export default async function AdminRequestsPage({
       <div className="mb-4 flex flex-wrap items-center gap-2">
         {[
           { key: "ALL", label: "Todas" },
-          { key: "PROPERTY", label: "Viviendas" },
+          { key: "PROPERTY", label: "Inmuebles" },
           { key: "LEGAL", label: "Asesoría" },
           { key: "GENERAL", label: "General" },
         ].map((t) => {

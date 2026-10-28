@@ -38,7 +38,7 @@ export default async function CategoriaPage({ params }: Props) {
   if (!category) notFound();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">
         Blog Fyrama
       </p>

@@ -6,7 +6,7 @@ import { OperationBadge, StatusBadge } from "@/components/ui/Badge";
 import { formatCurrency } from "@/lib/utils";
 import { PROPERTY_TYPE_LABEL } from "@/lib/constants";
 
-export const metadata = { title: "Viviendas · Fyrama" };
+export const metadata = { title: "Inmuebles · Fyrama" };
 
 export default async function AdminViviendasPage({
   searchParams,
@@ -51,14 +51,14 @@ export default async function AdminViviendasPage({
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-900">Viviendas</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-900">Inmuebles</h1>
           <p className="mt-1 text-sm text-ink-500">{total} inmuebles en total.</p>
         </div>
         <Link
           href="/admin/viviendas/nueva"
           className="inline-flex h-10 items-center gap-2 rounded-xl bg-pine-950 px-4 text-sm font-medium text-bone-50 hover:bg-pine-800"
         >
-          <Plus className="size-4" aria-hidden /> Nueva vivienda
+          <Plus className="size-4" aria-hidden /> Nuevo inmueble
         </Link>
       </div>
 
@@ -98,14 +98,14 @@ export default async function AdminViviendasPage({
 
       {items.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-bone-300 bg-white py-16 text-center">
-          <p className="text-ink-500">No hay viviendas que coincidan.</p>
+          <p className="text-ink-500">No hay inmuebles que coincidan.</p>
         </div>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-bone-200 bg-white shadow-sm">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="border-b border-bone-200 bg-bone-50 text-xs uppercase tracking-wide text-ink-500">
               <tr>
-                <th className="px-4 py-3">Vivienda</th>
+                <th className="px-4 py-3">Inmueble</th>
                 <th className="px-4 py-3">Operación</th>
                 <th className="px-4 py-3">Precio</th>
                 <th className="px-4 py-3">Estado</th>

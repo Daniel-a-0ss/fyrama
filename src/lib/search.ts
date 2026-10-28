@@ -95,15 +95,24 @@ export function normalizeQuery(params: SearchParamsRecord): NormalizedQuery {
   };
 }
 
+/** Quita tildes: los inmuebles se guardan sin ellas ("Armenia", "Bogota"). */
+export function stripAccents(value: string): string {
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+/**
+ * Búsqueda por texto parcial. Compara contra la versión sin tildes del
+ * término, para que "Bogotá" encuentre los inmuebles guardados como "Bogota".
+ */
 const contains = (value?: string): Prisma.StringFilter | undefined =>
-  value ? { contains: value } : undefined;
+  value ? { contains: stripAccents(value) } : undefined;
 
 export function buildWhereClause(q: NormalizedQuery): Prisma.PropertyWhereInput {
   const where: Prisma.PropertyWhereInput = {
     status: "PUBLISHED",
     deletedAt: null,
   };
-  if (q.operacion) where.operation = q.operacion as "VENTA" | "ARRIENDO";
+  if (q.operacion) where.operation = q.operacion as "VENTA" | "ARRIENDO" | "PERMUTA";
   if (q.tipo) where.type = q.tipo as never;
   where.city = contains(q.ciudad);
   where.zone = contains(q.zona);

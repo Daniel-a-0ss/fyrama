@@ -48,7 +48,7 @@ const BENEFICIOS = [
 
 export default function PermutaPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <Breadcrumbs items={[{ label: "Permuta" }]} />
 
       <div className="mt-5 grid items-center gap-10 lg:grid-cols-2">
@@ -57,7 +57,7 @@ export default function PermutaPage() {
             Permuta de inmuebles
           </p>
           <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
-            Cambia de vivienda sin vender primero
+            Cambia de inmueble sin vender primero
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-ink-600">
             La permuta te permite entregar tu inmueble y recibir otro a cambio,

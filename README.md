@@ -1,6 +1,6 @@
 # Fyrama
 
-Plataforma inmobiliaria profesional para **Fyrama**, con catálogo de viviendas, blog de contenido, servicios de asesoría jurídica y un panel administrativo completo.
+Plataforma inmobiliaria profesional para **Fyrama**, con catálogo de inmuebles, blog de contenido, servicios de asesoría jurídica y un panel administrativo completo.
 
 > Estado: v1 funcional. Sitio público terminado, backend REST y panel `/admin` completos.
 
@@ -25,15 +25,15 @@ Plataforma inmobiliaria profesional para **Fyrama**, con catálogo de viviendas,
 ## Funcionalidades
 
 ### Sitio público
-- **Viviendas**: listado con filtros (operación, ciudad, zona, barrio, tipo, precio, habitaciones, baños, área, parqueaderos, estrato, características), ordenamiento y paginación.
-- **Detalle de vivienda**: galería, mapa (proveedor desacoplado), características, inmuebles relacionados, formulario de interés.
+- **Inmuebles**: listado con filtros (operación, ciudad, zona, barrio, tipo, precio, habitaciones, baños, área, parqueaderos, estrato, características), ordenamiento y paginación.
+- **Detalle de inmueble**: galería, mapa (proveedor desacoplado), características, inmuebles relacionados, formulario de interés.
 - **Blog**: listado, categorías, detalle con Markdown seguro.
 - **Asesoría jurídica**: servicios y formulario de solicitud.
 - **Contacto** con honeypot + rate-limiting, páginas legales, SEO (sitemap, robots, metadata, JSON-LD, Open Graph).
 
 ### Panel administrativo (`/admin`)
 - Dashboard con estadísticas y última actividad.
-- **Viviendas**: crear/editar (borrador → publicado), gestionar imágenes (subida a biblioteca, portada, orden), destacar, filtros por estado.
+- **Inmuebles**: crear/editar (borrador → publicado), gestionar imágenes (subida a biblioteca, portada, orden), destacar, filtros por estado.
 - **Contenido**: artículos del blog, categorías.
 - **Asesoría jurídica**: CRUD de servicios.
 - **Biblioteca de medios**: subida por arrastre, variantes automáticas, búsqueda por tipo, protección de imágenes en uso.
@@ -65,7 +65,7 @@ cp .env.example .env
 # 3. Crear la base de datos (SQLite local)
 npm run db:push
 
-# 4. Sembrar datos demo (usuarios, viviendas, contenido, imágenes)
+# 4. Sembrar datos demo (usuarios, inmuebles, contenido, imágenes)
 npm run db:seed
 
 # 5. Levantar el servidor de desarrollo
@@ -108,11 +108,11 @@ Abre **http://localhost:3000** (el panel está en **http://localhost:3000/admin*
 ```
 src/
 ├── app/
-│   ├── (site)/                 # Páginas públicas (home, viviendas, blog, asesoría, contacto, legales)
+│   ├── (site)/                 # Páginas públicas (home, inmuebles, blog, asesoría, contacto, legales)
 │   ├── admin/
 │   │   ├── login/              # Login del panel
 │   │   └── (dashboard)/        # Panel admin (layout con guard de sesión + sidebar)
-│   │       ├── viviendas/      # Listado, nueva vivienda, edición (con ImageManager)
+│   │       ├── viviendas      # Listado, nuevo inmueble, edición (con ImageManager)
 │   │       ├── contenido/      # Artículos del blog + categorías
 │   │       ├── asesoria/       # Servicios de asesoría jurídica
 │   │       ├── media/          # Biblioteca de imágenes

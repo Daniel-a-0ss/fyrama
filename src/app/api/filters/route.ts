@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { mergeCityOptions } from "@/lib/colombia";
 import { ok, handle } from "@/lib/api";
 
 export const runtime = "nodejs";
@@ -42,7 +43,9 @@ async function doFilters() {
   ]);
 
   return ok({
-    cities: cities.map((c) => c.city).filter(Boolean),
+    cities: mergeCityOptions(
+      cities.map((c) => c.city).filter((c): c is string => !!c)
+    ),
     zones: zones.map((z) => z.zone).filter(Boolean),
     types: types.map((t) => t.type).filter(Boolean),
     features: features.map((f) => f.name).filter(Boolean),

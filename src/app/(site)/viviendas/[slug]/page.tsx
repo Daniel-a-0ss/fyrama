@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const property = await getPropertyBySlug(slug);
   if (!property)
     return buildMetadata({
-      title: "Vivienda no encontrada",
+      title: "Inmueble no encontrada",
       description: "El inmueble que buscas no existe o no está publicado.",
       path: "/viviendas",
     });
@@ -132,11 +132,11 @@ export default async function PropertyDetailPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <JsonLd data={realEstateSchema} />
       <Breadcrumbs
         items={[
-          { label: "Viviendas", href: "/viviendas" },
+          { label: "Inmuebles", href: "/viviendas" },
           { label: property.title },
         ]}
       />
@@ -159,7 +159,11 @@ export default async function PropertyDetailPage({ params }: Props) {
         </div>
         <div className="text-right">
           <p className="text-sm uppercase tracking-wide text-ink-400">
-            {property.operation === "VENTA" ? "Precio de venta" : "Canon de arrendamiento"}
+            {property.operation === "VENTA"
+              ? "Precio de venta"
+              : property.operation === "ARRIENDO"
+                ? "Canon de arrendamiento"
+                : "Valor de permuta"}
           </p>
           <p className="font-display text-3xl font-semibold text-pine-900">
             {formatCurrency(property.price, property.currency)}
@@ -202,7 +206,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               Descripción
             </h2>
             <p className="mt-3 whitespace-pre-line leading-relaxed text-ink-700">
-              {property.description || "Esta vivienda no tiene descripción todavía."}
+              {property.description || "Este inmueble no tiene descripción todavía."}
             </p>
           </section>
 
@@ -273,7 +277,11 @@ export default async function PropertyDetailPage({ params }: Props) {
             <div className="flex items-end justify-between gap-2">
               <div>
                 <p className="text-xs uppercase tracking-wide text-ink-400">
-                  {property.operation === "VENTA" ? "Precio" : "Arrendamiento mensual"}
+                  {property.operation === "VENTA"
+                  ? "Precio"
+                  : property.operation === "ARRIENDO"
+                    ? "Arrendamiento mensual"
+                    : "Valor de permuta"}
                 </p>
                 <p className="font-display text-2xl font-semibold text-pine-900">
                   {formatCurrency(property.price, property.currency)}
@@ -288,7 +296,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               Quiero información
             </h2>
             <p className="mt-1.5 text-sm text-ink-500">
-              Déjanos tus datos y te contactaremos con los detalles de esta vivienda.
+              Déjanos tus datos y te contactaremos con los detalles de este inmueble.
             </p>
             <ContactForm
               className="mt-4"
@@ -296,20 +304,20 @@ export default async function PropertyDetailPage({ params }: Props) {
               propertyId={property.id}
               submitLabel="Enviar solicitud"
               title="¡Recibimos tu solicitud!"
-              description="Te contactaremos pronto con la información de esta vivienda. (DEMO: la solicitud se almacena en el dashboard.)"
+              description="Te contactaremos pronto con la información de este inmueble. (DEMO: la solicitud se almacena en el dashboard.)"
             />
           </div>
         </aside>
       </div>
 
-      {/* Viviendas relacionadas */}
+      {/* Inmuebles relacionadas */}
       {related.length > 0 && (
         <section aria-labelledby="relacionadas-title" className="mt-16">
           <h2
             id="relacionadas-title"
             className="mb-6 font-display text-2xl font-semibold text-ink-900"
           >
-            Viviendas similares
+            Inmuebles similares
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((p) => (

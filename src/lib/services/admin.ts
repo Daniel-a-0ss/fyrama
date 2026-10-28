@@ -1,7 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { slugify } from "@/lib/utils";
 
-export type SlugKind = "property" | "article" | "category" | "legal-service";
+export type SlugKind =
+  | "property"
+  | "article"
+  | "category"
+  | "legal-service"
+  | "real-estate-service";
 
 export async function uniqueSlug(
   kind: SlugKind,
@@ -22,6 +27,8 @@ export async function uniqueSlug(
           return prisma.articleCategory.findUnique({ where: { slug }, select: { id: true } });
         case "legal-service":
           return prisma.legalService.findUnique({ where: { slug }, select: { id: true } });
+        case "real-estate-service":
+          return prisma.realEstateService.findUnique({ where: { slug }, select: { id: true } });
       }
     };
     const existing = await find(candidate);

@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { ClipboardList, Gauge, Images, Inbox, KeyRound, LogOut, Newspaper, Scale, Settings, ShieldCheck, Users } from "lucide-react";
+import { Building2, ClipboardList, Gauge, Images, Inbox, KeyRound, LogOut, MessageSquareQuote, Newspaper, Scale, Settings, ShieldCheck, Users } from "lucide-react";
 import { api, errorMessage } from "@/lib/client/api";
 
 const ITEMS = [
   { href: "/admin", label: "Dashboard", icon: Gauge },
-  { href: "/admin/viviendas", label: "Viviendas", icon: ClipboardList },
+  { href: "/admin/viviendas", label: "Inmuebles", icon: ClipboardList },
   { href: "/admin/contenido", label: "Contenido", icon: Newspaper },
   { href: "/admin/asesoria", label: "Asesoría jurídica", icon: Scale },
+  { href: "/admin/servicios", label: "Servicios inmobiliarios", icon: Building2 },
+  { href: "/admin/opiniones", label: "Opiniones", icon: MessageSquareQuote },
   { href: "/admin/media", label: "Medios", icon: Images },
   { href: "/admin/solicitudes", label: "Solicitudes", icon: Inbox },
   { href: "/admin/auditoria", label: "Auditoría", icon: ShieldCheck },

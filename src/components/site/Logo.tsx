@@ -1,59 +1,65 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * Logos oficiales de Fyrama.
+ * Fuente unica: public/media/logos (archivos entregados por el cliente).
+ * Se usan los .png "sin fondo" en todos los fondos, sin recolorear,
+ * deformar, rotar ni aplicarles filtros.
+ *
+ * - horizontal: composicion horizontal (isotipo + wordmark) -> header, footer.
+ * - vertical:   composicion vertical (marca + wordmark)     -> 404, espacios cuadrados.
+ *
+ * La tinta del archivo oficial es azul marino (#06182a). Se muestra el PNG
+ * tal cual, sin fondo añadido, sin recolorear, sin deformar y sin placas: sobre
+ * superficies claras se lee; sobre las oscuras queda muy tenue.
+ *
+ * Archivos originales del cliente, usados tal cual (URL con %20 = espacio):
+ *   public/media/logos/LOGO FRANK SIN FONDO-25.png  (horizontal, 18460x5898)
+ *   public/media/logos/LOGO FRANK SIN FONDO-10.png  (vertical,   10213x9915)
+ */
+const LOGO_HORIZONTAL = "/media/logos/LOGO%20FRANK%20SIN%20FONDO-25.png";
+const LOGO_VERTICAL = "/media/logos/LOGO%20FRANK%20SIN%20FONDO-10.png";
+
+/** Proporción del lockup horizontal: 18460 x 5898 px. */
+const RATIO = 18460 / 5898; // 3.13 -> alto x 3.13 = ancho
+
 export function BrandMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 100 100"
-      className={cn("size-8", className)}
-      aria-hidden
-      focusable="false"
-    >
-      <rect width="100" height="100" rx="24" fill="currentColor" />
-      <path
-        d="M26 70 L50 34 L74 70 Z"
-        fill="none"
-        stroke="var(--color-gold-500)"
-        strokeWidth="8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <span className={cn("inline-flex items-center", className)}>
+      <img
+        src={LOGO_VERTICAL}
+        alt="Fyrama"
+        width={262}
+        height={256}
+        className="h-64 w-auto"
       />
-      <line
-        x1="50"
-        y1="34"
-        x2="50"
-        y2="72"
-        stroke="var(--color-bone-50)"
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-    </svg>
+    </span>
   );
 }
 
 export function Logo({
-  tone = "dark",
+  size = "md",
   className,
 }: {
-  tone?: "dark" | "light";
+  /** "lg" = version grande para el footer. */
+  size?: "md" | "lg";
   className?: string;
 }) {
+  // md: header (96px hasta 1536px / 112px en pantallas muy grandes),
+  // lg: footer (112px / 128px).
+  const height = size === "lg" ? 128 : 112;
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <BrandMark
+    <span className={cn("inline-flex items-center", className)}>
+      <img
+        src={LOGO_HORIZONTAL}
+        alt="Fyrama"
+        width={Math.round(height * RATIO)}
+        height={height}
         className={cn(
-          "size-8",
-          tone === "dark" ? "text-pine-950" : "text-bone-50"
+          "w-auto",
+          size === "lg" ? "h-28 xl:h-32" : "h-24 2xl:h-28"
         )}
       />
-      <span
-        className={cn(
-          "font-display text-[1.35rem] font-semibold leading-none tracking-tight",
-          tone === "dark" ? "text-pine-950" : "text-bone-50"
-        )}
-      >
-        fyrama
-        <span className="text-gold-500">.</span>
-      </span>
     </span>
   );
 }

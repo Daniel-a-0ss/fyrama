@@ -96,4 +96,10 @@ export const contactLimiter = new RateLimiter(
   "contact"
 );
 
+export const reviewLimiter = new RateLimiter(
+  60 * 60 * 1000,
+  Number(process.env.REVIEW_RATE_LIMIT_MAX ?? 3),
+  "review"
+);
+
 export const uploadLimiter = new RateLimiter(60 * 1000, 30, "upload");

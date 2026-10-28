@@ -46,11 +46,12 @@ model Session {
 }
 
 // ============================================================
-// Viviendas
+// Inmuebles
 // ============================================================
 enum Operation {
   VENTA
   ARRIENDO
+  PERMUTA
 }
 
 enum PropertyType {
@@ -200,7 +201,24 @@ model LegalService {
 }
 
 // ============================================================
-// Solicitudes de contacto (viviendas, asesoría jurídica, general)
+// Servicios inmobiliarios (los de /servicios-inmobiliarios)
+// ============================================================
+model RealEstateService {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @default("")
+  content     String   @default("")
+  icon        String?  @default("home")
+  href        String?  @default("")
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// Solicitudes de contacto (inmuebles, asesoría jurídica, general)
 // ============================================================
 enum ContactType {
   PROPERTY
@@ -231,6 +249,31 @@ model ContactRequest {
 }
 
 // ============================================================
+// Opiniones de clientes (enviadas desde la sección Opiniones del home)
+// Se moderan: solo las APPROVED se muestran en el sitio.
+// ============================================================
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Review {
+  id         String       @id @default(cuid())
+  name       String
+  rating     Int          @default(5)
+  title      String?
+  content    String
+  status     ReviewStatus @default(PENDING)
+  ipAddress  String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  approvedAt DateTime?
+
+  @@index([status, createdAt])
+}
+
+// ============================================================
 // Auditoría
 // ============================================================
 enum AuditAction {
@@ -248,8 +291,14 @@ enum AuditAction {
   CREATE_LEGAL_SERVICE
   UPDATE_LEGAL_SERVICE
   DELETE_LEGAL_SERVICE
+  CREATE_REAL_ESTATE_SERVICE
+  UPDATE_REAL_ESTATE_SERVICE
+  DELETE_REAL_ESTATE_SERVICE
   UPDATE_CONTACT_STATUS
   DELETE_CONTACT_REQUEST
+  APPROVE_REVIEW
+  REJECT_REVIEW
+  DELETE_REVIEW
   CREATE_USER
   UPDATE_USER
   DELETE_USER

@@ -50,7 +50,7 @@ export default async function EditarViviendaPage({
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <Link href="/admin/viviendas" className="text-sm font-medium text-pine-800 hover:underline">
-            ← Volver a viviendas
+            ← Volver a inmuebles
           </Link>
           <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink-900">
             {property.title}

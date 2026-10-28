@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = buildMetadata({
   title: "Blog inmobiliario",
   description:
-    "Contenido para decidir mejor: compra, arrendamiento, vivienda, mercado inmobiliario y consejos jurídicos para tus operaciones.",
+    "Contenido para decidir mejor: compra, arrendamiento, inmueble, mercado inmobiliario y consejos jurídicos para tus operaciones.",
   path: "/blog",
 });
 
@@ -30,7 +30,7 @@ export default async function BlogPage() {
 
   if (articles.length === 0) {
     return (
-      <div className="mx-auto max-w-7xl px-4 pb-16 pt-32 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-40 sm:px-6 lg:pt-44 lg:px-8">
         <p className="mt-2 text-ink-500">
           Aún no tenemos artículos publicados. Vuelve pronto.
         </p>
@@ -41,7 +41,7 @@ export default async function BlogPage() {
   const [latest, ...rest] = articles;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <div className="max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">
           Blog Fyrama

@@ -25,24 +25,26 @@ export function Hero({
         <div className="absolute inset-0 bg-gradient-to-b from-pine-950/70 via-pine-950/45 to-pine-950/80" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-32 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="animate-fade-up mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-gold-400">
-            Vivienda - Patrimonio - Asesoría jurídica
+      <div className="relative z-10 w-full px-4 pb-16 pt-40 sm:px-6 lg:px-8 lg:pt-44">
+        <div className="max-w-2xl text-left">
+          <p className="animate-fade-up mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-gold-400 sm:text-sm sm:tracking-[0.2em]">
+            Abogados especializados y expertos inmobiliarios
           </p>
           <h1 className="animate-fade-up font-display text-4xl font-semibold leading-[1.06] tracking-tight text-bone-50 sm:text-5xl lg:text-6xl [text-wrap:balance]">
-            Encuentra el lugar donde comienza{" "}
-            <em className="font-light italic text-gold-300">tu próxima historia</em>
+            Estamos contigo en{" "}
+            <em className="font-light italic text-gold-300">cada decisión</em>
           </h1>
           <p
-            className="animate-fade-up mx-auto mt-4 max-w-xl text-base text-bone-100/85 sm:text-lg [text-wrap:pretty]"
+            className="animate-fade-up mt-4 max-w-2xl text-base text-bone-100/85 sm:text-lg [text-wrap:pretty]"
             style={{ animationDelay: "80ms" }}
           >
-            Compra, vende o arrienda con confianza y acompañamiento profesional.
+            Asesoría jurídica y oportunidades inmobiliarias en un solo lugar,
+            con acompañamiento cercano y profesional para proteger tu patrimonio
+            y tomar decisiones con confianza y tranquilidad.
           </p>
 
           <div
-            className="animate-fade-up mt-7 flex flex-col justify-center gap-3 sm:flex-row"
+            className="animate-fade-up mt-7 flex flex-col items-start gap-3 sm:flex-row"
             style={{ animationDelay: "120ms" }}
           >
             <LinkButton href="/viviendas" variant="gold" size="lg">
@@ -65,7 +67,7 @@ export function Hero({
         </div>
 
         <div
-          className="animate-fade-up relative mx-auto mt-10 max-w-4xl"
+          className="animate-fade-up relative mt-12 max-w-5xl"
           style={{ animationDelay: "180ms" }}
         >
           <FilterBar cities={cities} initial={initial} />

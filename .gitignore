@@ -29,6 +29,9 @@ yarn-error.log*
 /coverage/
 /playwright-report/
 
+# TypeScript build info
+tsconfig.tsbuildinfo
+
 # Passwords / Secrets (never commit)
 *.key
 *.p12

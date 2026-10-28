@@ -6,6 +6,8 @@ import {
   MAX_ARTICLE_CONTENT,
   MAX_CONTACT_MESSAGE,
   MAX_PROPERTY_DESCRIPTION,
+  MAX_REVIEW_CONTENT,
+  PROPERTY_OPERATIONS,
   PROPERTY_TYPES,
 } from "@/lib/constants";
 import { isValidPasswordPolicy } from "@/lib/auth/password";
@@ -16,7 +18,7 @@ const str = (max = 2000) => z.string().trim().max(max).optional().or(z.literal("
 const enumFrom = <U extends string, T extends readonly [U, ...U[]]>(values: T) =>
   z.enum(values);
 
-const operationEnum = enumFrom(["VENTA", "ARRIENDO"]);
+const operationEnum = enumFrom(["VENTA", "ARRIENDO", "PERMUTA"]);
 const propertyTypeEnum = enumFrom([
   "APARTAMENTO",
   "CASA",
@@ -76,6 +78,18 @@ export const contactSchema = z.object({
   company: z.string().max(0).optional().or(z.literal("")), // honeypot
 });
 
+export const reviewSchema = z.object({
+  name: z.string().trim().min(2, "Escribe tu nombre").max(60),
+  rating: z.coerce.number().int().min(1, "Elige una puntuación").max(5),
+  title: z.string().trim().max(80).optional().or(z.literal("")),
+  content: z
+    .string()
+    .trim()
+    .min(20, "Cuéntanos un poco más (mínimo 20 caracteres)")
+    .max(MAX_REVIEW_CONTENT),
+  company: z.string().max(0).optional().or(z.literal("")), // honeypot
+});
+
 const cleanFeatures = z
   .array(z.string().trim().max(80))
   .max(60)
@@ -83,13 +97,18 @@ const cleanFeatures = z
   .default([]);
 
 function enumOrFreeString(values: readonly string[]) {
+  // Índice en minúsculas: los enlaces del menú y el pie llegan como
+  // `?operacion=venta`, y con el `includes` exacto se descartaban y el filtro
+  // no se aplicaba. Se devuelve siempre el valor canónico de la lista.
+  const canonico = new Map(values.map((v) => [v.toLowerCase(), v]));
   return z
     .string()
     .trim()
     .optional()
-    .transform((v) =>
-      v === undefined || v.trim() === "" || values.includes(v) ? v : undefined
-    );
+    .transform((v) => {
+      if (v === undefined || v.trim() === "") return undefined;
+      return canonico.get(v.trim().toLowerCase()) ?? undefined;
+    });
 }
 
 export const propertySchema = z.object({
@@ -146,7 +165,7 @@ export const propertyQuerySchema = z.object({
   sort: z
     .enum(["relevancia", "precio-asc", "precio-desc", "area-desc", "recientes"])
     .catch("relevancia"),
-  operacion: enumOrFreeString(["VENTA", "ARRIENDO"]),
+  operacion: enumOrFreeString(PROPERTY_OPERATIONS.map((o) => o.value)),
   ciudad: str(80),
   zona: str(80),
   barrio: str(100),
@@ -193,6 +212,24 @@ export const legalServiceSchema = z.object({
   description: z.string().trim().max(400).default(""),
   content: z.string().trim().max(20000).default(""),
   icon: z.string().trim().max(40).default("scale"),
+  active: z.boolean().default(true),
+  sortOrder: z.coerce.number().int().min(0).max(1000).default(0),
+});
+
+export const realEstateServiceSchema = z.object({
+  title: z.string().trim().min(3).max(120),
+  slug: z.string().trim().max(150).optional(),
+  description: z.string().trim().max(400).default(""),
+  content: z.string().trim().max(20000).default(""),
+  icon: z.string().trim().max(40).default("home"),
+  href: z
+    .string()
+    .trim()
+    .max(300)
+    .refine((v) => v === "" || v.startsWith("/") || v.startsWith("https://"), {
+      message: "El enlace debe empezar por / o por https://",
+    })
+    .default(""),
   active: z.boolean().default(true),
   sortOrder: z.coerce.number().int().min(0).max(1000).default(0),
 });

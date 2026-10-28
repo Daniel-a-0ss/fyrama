@@ -1,3 +1,5 @@
+import { COLOMBIA_CITIES, mergeCityOptions } from "@/lib/colombia";
+import { stripAccents } from "@/lib/search";
 import { describe, it, expect } from "vitest";
 import {
   buildOrderBy,
@@ -189,5 +191,53 @@ describe("buildOrderBy", () => {
     expect(buildOrderBy("area-desc")).toEqual([{ area: "desc" }]);
     expect(buildOrderBy("recientes")).toEqual([{ updatedAt: "desc" }]);
     expect(buildOrderBy("relevancia")).toEqual([{ featured: "desc" }, { updatedAt: "desc" }]);
+  });
+});
+describe("catálogo de ciudades de Colombia", () => {
+  it("ofrece todas las ciudades del país, no solo las que tienen inmuebles", () => {
+    expect(COLOMBIA_CITIES.length).toBeGreaterThan(1000);
+    expect(COLOMBIA_CITIES).toContain("Bogota D.C.");
+    expect(COLOMBIA_CITIES).toContain("Medellin");
+    expect(COLOMBIA_CITIES).toContain("Leticia");
+    expect(COLOMBIA_CITIES).toContain("Mitu");
+  });
+
+  it("no repite ciudades y viene ordenado", () => {
+    expect(new Set(COLOMBIA_CITIES).size).toBe(COLOMBIA_CITIES.length);
+    const orden = [...COLOMBIA_CITIES].sort((a, b) => a.localeCompare(b, "es"));
+    expect(COLOMBIA_CITIES).toEqual(orden);
+  });
+
+  it("usa nombres sin tilde, como los que se guardan en los inmuebles", () => {
+    const conTilde = COLOMBIA_CITIES.filter((c) => c !== stripAccents(c));
+    expect(conTilde).toEqual([]);
+  });
+
+  it("une las ciudades con inventario sin duplicar", () => {
+    const merged = mergeCityOptions(["Armenia", "Bogota D.C.", "Ciudad Inventada"]);
+    expect(merged).toContain("Armenia");
+    expect(merged).toContain("Ciudad Inventada");
+    expect(merged).toContain("Medellin");
+    expect(new Set(merged).size).toBe(merged.length);
+    expect(merged.length).toBe(COLOMBIA_CITIES.length + 1);
+  });
+});
+
+describe("operación: mayúsculas, minúsculas y permuta", () => {
+  it("acepta la operación como llega del menú y del pie (minúsculas)", () => {
+    expect(normalizeQuery({ operacion: "venta" }).operacion).toBe("VENTA");
+    expect(normalizeQuery({ operacion: "arriendo" }).operacion).toBe("ARRIENDO");
+    expect(normalizeQuery({ operacion: "Permuta" }).operacion).toBe("PERMUTA");
+    expect(normalizeQuery({ operacion: "VENTA" }).operacion).toBe("VENTA");
+  });
+
+  it("mapea la operación canónica al where de Prisma", () => {
+    expect(buildWhereClause(normalizeQuery({ operacion: "venta" })).operation).toBe("VENTA");
+    expect(buildWhereClause(normalizeQuery({ operacion: "permuta" })).operation).toBe("PERMUTA");
+  });
+
+  it("sigue descartando operaciones que no existen", () => {
+    expect(normalizeQuery({ operacion: "trueque" }).operacion).toBeUndefined();
+    expect(normalizeQuery({ operacion: "COMPRAR" }).operacion).toBeUndefined();
   });
 });

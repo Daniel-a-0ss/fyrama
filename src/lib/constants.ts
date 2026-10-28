@@ -2,7 +2,7 @@ export const SITE_NAME = "Fyrama";
 export const SITE_TAGLINE =
   "Encuentra el lugar donde comienza tu próxima historia.";
 export const SITE_DESCRIPTION =
-  "Fyrama es la plataforma inmobiliaria para comprar, vender y arrendar vivienda con acompañamiento jurídico profesional. Casas y apartamentos en Colombia.";
+  "Fyrama es la plataforma inmobiliaria para comprar, vender y arrendar inmueble con acompañamiento jurídico profesional. Casas y apartamentos en Colombia.";
 
 export const SESSION_COOKIE = "fyrama_session";
 export const CSRF_HEADER = "x-fyrama-csrf";
@@ -11,9 +11,10 @@ export const DEFAULT_CURRENCY = "COP";
 export const DEFAULT_PAGE_SIZE = 9;
 export const MAX_CONTACT_MESSAGE = 2000;
 export const MAX_PROPERTY_DESCRIPTION = 20000;
+export const MAX_REVIEW_CONTENT = 800;
 export const MAX_ARTICLE_CONTENT = 200000;
 
-export const WHATSAPP_NUMBER = "573118870533"; // +57 311 8870533 (internacional, sin +, espacios ni paréntesis)
+export const WHATSAPP_NUMBER = "573217241455"; // +57 321 7241455 (internacional, sin +, espacios ni paréntesis)
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Hola, buen día. ¿Cómo puedo ayudarte el día de hoy?";
 
@@ -34,6 +35,17 @@ export const OPERATIONS = [
   { value: "ARRIENDO", label: "Arrendamiento" },
 ] as const;
 
+/**
+ * Todas las operaciones que un inmueble puede tener. Incluye Permuta, que no
+ * entra en `OPERATIONS` porque en el buscador público es un acceso aparte
+ * (pestañas Venta / Arrendamiento + enlace a /permuta), no una tercera pestaña.
+ */
+export const PROPERTY_OPERATIONS = [
+  { value: "VENTA", label: "Venta" },
+  { value: "ARRIENDO", label: "Arrendamiento" },
+  { value: "PERMUTA", label: "Permuta" },
+] as const;
+
 export const PROPERTY_TYPES = [
   { value: "APARTAMENTO", label: "Apartamento" },
   { value: "CASA", label: "Casa" },
@@ -50,7 +62,7 @@ export const PROPERTY_TYPE_LABEL: Record<string, string> = Object.fromEntries(
 );
 
 export const OPERATION_LABEL: Record<string, string> = Object.fromEntries(
-  OPERATIONS.map((o) => [o.value, o.label])
+  PROPERTY_OPERATIONS.map((o) => [o.value, o.label])
 );
 
 export const STRATO_OPTIONS = [1, 2, 3, 4, 5, 6];
@@ -94,6 +106,14 @@ export const LEGAL_TOPICS = [
   "Compraventa de inmueble",
   "Revisión documental",
   "Consultoría inmobiliaria",
+  "Proceso judicial",
+  "Representación y defensa en juicio",
+  "Tutela",
+  "Derecho de petición",
+  "Negociación y conciliación",
+  "Cobro de cartera",
+  "Auditoría y revisión",
+  "Estudio de riesgo",
   "Otro asunto",
 ] as const;
 

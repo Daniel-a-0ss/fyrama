@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { OPERATION_LABEL } from "@/lib/constants";
 import { CircleCheck, CircleDot, FileQuestion } from "lucide-react";
 
 type Tone = "brand" | "gold" | "neutral" | "success" | "info" | "danger";
@@ -34,12 +35,13 @@ export function Badge({
   );
 }
 
-export function OperationBadge({ operation }: { operation: "VENTA" | "ARRIENDO" }) {
-  return (
-    <Badge tone={operation === "VENTA" ? "brand" : "gold"}>
-      {operation === "VENTA" ? "Venta" : "Arrendamiento"}
-    </Badge>
-  );
+export function OperationBadge({
+  operation,
+}: {
+  operation: "VENTA" | "ARRIENDO" | "PERMUTA";
+}) {
+  const tone = operation === "VENTA" ? "brand" : operation === "PERMUTA" ? "info" : "gold";
+  return <Badge tone={tone}>{OPERATION_LABEL[operation] ?? operation}</Badge>;
 }
 
 export function StatusBadge({ status }: { status: string }) {

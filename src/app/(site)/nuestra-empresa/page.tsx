@@ -4,10 +4,7 @@ import {
   Compass,
   Eye,
   Flag,
-  Handshake,
-  Landmark,
   ShieldCheck,
-  Sparkles,
   Target,
   Users,
 } from "lucide-react";
@@ -22,32 +19,9 @@ export const metadata: Metadata = buildMetadata({
   path: "/nuestra-empresa",
 });
 
-const PILARES = [
-  {
-    icon: Landmark,
-    title: "Confianza jurídica",
-    text: "Cada operación se revisa desde lo legal antes de dar el siguiente paso.",
-  },
-  {
-    icon: Handshake,
-    title: "Acompañamiento cercano",
-    text: "Un solo equipo te orienta del primer contacto hasta la firma final.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Transparencia",
-    text: "Términos claros, sin letra pequeña y con datos verificados de cada inmueble.",
-  },
-  {
-    icon: Sparkles,
-    title: "Curaduría real",
-    text: "Seleccionamos viviendas relevantes, no cientos de resultados irrelevantes.",
-  },
-];
-
 export default function NuestraEmpresaPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <Breadcrumbs items={[{ label: "Nuestra empresa" }]} />
 
       <div className="mt-5 max-w-3xl">
@@ -58,9 +32,27 @@ export default function NuestraEmpresaPage() {
           Fyrama, tu aliado jurídico e inmobiliario
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-ink-600">
-          Unimos el derecho y el sector inmobiliario para que compres, vendas,
-          arriendes o permutes con respaldo profesional en cada etapa de la
-          operación.
+          Integramos{" "}
+          <em className="italic text-gold-700">
+            experiencia jurídica y conocimiento del sector inmobiliario
+          </em>{" "}
+          para acompañarte, asesorarte y{" "}
+          <em className="italic text-gold-700">defender tus derechos</em> en
+          cada etapa de tus negocios y decisiones.
+        </p>
+        <p className="mt-4 leading-relaxed text-ink-600">
+          Te brindamos respaldo profesional en la{" "}
+          <em className="italic text-gold-700">
+            compra, venta, arriendo o permuta de inmuebles
+          </em>
+          , así como en diferentes{" "}
+          <strong className="font-semibold text-ink-900">áreas del derecho</strong>
+          , protegiendo tus intereses y buscando soluciones jurídicas claras,
+          estratégicas y oportunas.
+        </p>
+        <p className="mt-6 border-l-2 border-gold-500 pl-4 font-display text-lg italic leading-relaxed text-ink-900">
+          Fyrama: respaldo jurídico, gestión inmobiliaria y defensa de tus
+          derechos.
         </p>
       </div>
 
@@ -72,7 +64,7 @@ export default function NuestraEmpresaPage() {
       >
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
-            01 · ¿Quiénes somos?
+            ¿Quiénes somos?
           </p>
           <h2
             id="quienes-somos-title"
@@ -89,24 +81,8 @@ export default function NuestraEmpresaPage() {
           <p className="mt-3 leading-relaxed text-ink-600">
             Por eso acompañamos a personas, familias y empresas con orientación
             profesional en contratos, promesas, títulos, trámites y decisiones
-            de inversión en vivienda.
+            de inversión en inmueble.
           </p>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {PILARES.map((p) => (
-              <li
-                key={p.title}
-                className="rounded-2xl border border-bone-200/70 bg-white p-4 shadow-sm"
-              >
-                <span className="mb-3 inline-flex size-14 items-center justify-center rounded-xl bg-pine-100 text-pine-800">
-                  <p.icon className="size-7" aria-hidden />
-                </span>
-                <h3 className="font-display text-base font-semibold text-ink-900">
-                  {p.title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-ink-500">{p.text}</p>
-              </li>
-            ))}
-          </ul>
         </div>
         <div className="relative overflow-hidden rounded-3xl bg-pine-950 p-8 sm:p-10">
           <div
@@ -138,7 +114,7 @@ export default function NuestraEmpresaPage() {
             <Target className="size-6" aria-hidden />
           </span>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
-            02 · Nuestra misión
+            Nuestra misión
           </p>
           <h2
             id="mision-title"
@@ -159,12 +135,15 @@ export default function NuestraEmpresaPage() {
         </article>
 
         {/* Visión */}
-        <article className="rounded-3xl border border-bone-200/70 bg-white p-8 shadow-sm sm:p-10">
+        <article
+          id="vision"
+          className="rounded-3xl border border-bone-200/70 bg-white p-8 shadow-sm sm:p-10"
+        >
           <span className="mb-4 inline-flex size-12 items-center justify-center rounded-2xl bg-gold-200 text-gold-700">
             <Eye className="size-6" aria-hidden />
           </span>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
-            03 · Nuestra visión
+            Nuestra visión
           </p>
           <h2
             id="vision-title"
@@ -193,7 +172,7 @@ export default function NuestraEmpresaPage() {
       >
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">
-            04 · ¿Por qué elegirnos?
+            ¿Por qué elegirnos?
           </p>
           <h2
             id="por-que-title"
@@ -269,7 +248,7 @@ export default function NuestraEmpresaPage() {
               size="lg"
               className="border-[#ffffff]/25! text-[#fbfaf6]! hover:bg-[#ffffff]/10! hover:border-[#ffffff]/40!"
             >
-              Explorar viviendas
+              Explorar inmuebles
             </LinkButton>
           </div>
         </div>

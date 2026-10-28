@@ -7,6 +7,7 @@ import type {
   PropertyType,
 } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { mergeCityOptions } from "@/lib/colombia";
 import {
   buildOrderBy,
   buildWhereClause,
@@ -230,13 +231,18 @@ export async function getRelatedProperties(
   return rows.map((r) => toCardView(r));
 }
 
+/**
+ * Ciudades para los filtros: los municipios donde ya hay inmuebles publicados
+ * más el catálogo nacional, para poder consultar cualquier ciudad de Colombia
+ * aunque todavía no haya inventario.
+ */
 export async function getCities(): Promise<string[]> {
   const rows = await prisma.property.findMany({
     where: { status: "PUBLISHED", deletedAt: null, city: { not: null } },
     distinct: ["city"],
     select: { city: true },
   });
-  return rows.map((r) => r.city!).sort((a, b) => a.localeCompare(b));
+  return mergeCityOptions(rows.map((r) => r.city!));
 }
 
 export const PROPERTY_CARD_SELECT = cardSelect;

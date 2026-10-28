@@ -35,7 +35,7 @@ describe("WhatsAppWidget", () => {
     fireEvent.click(screen.getByLabelText("Enviar mensaje"));
 
     expect(window.open).toHaveBeenCalledWith(
-      `https://wa.me/573118870533?text=${encodeURIComponent("Buenas tardes")}`,
+      `https://wa.me/573217241455?text=${encodeURIComponent("Buenas tardes")}`,
       "_blank",
       "noopener,noreferrer"
     );
@@ -47,7 +47,7 @@ describe("WhatsAppWidget", () => {
     fireEvent.click(screen.getByLabelText("Enviar mensaje"));
 
     const url = vi.mocked(window.open).mock.calls[0][0] as string;
-    expect(url.startsWith("https://wa.me/573118870533?text=")).toBe(true);
+    expect(url.startsWith("https://wa.me/573217241455?text=")).toBe(true);
   });
 
   it("cierra con la tecla Escape", () => {

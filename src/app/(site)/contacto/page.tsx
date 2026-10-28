@@ -11,11 +11,11 @@ export async function generateMetadata({
   searchParams: Promise<Record<string, string | undefined>>;
 }): Promise<Metadata> {
   const sp = await searchParams;
-  const asunto = sp.asunto === "vender" ? "vendiendo tu vivienda" : undefined;
+  const asunto = sp.asunto === "vender" ? "vendiendo tu inmueble" : undefined;
   return buildMetadata({
     title: asunto ? `Contacto · ¿${asunto}?` : "Contacto",
     description:
-      "Contáctanos para comprar, vender o arrendar vivienda, o para solicitar asesoría jurídica inmobiliaria.",
+      "Contáctanos para comprar, vender o arrendar inmueble, o para solicitar asesoría jurídica inmobiliaria.",
     path: "/contacto",
   });
 }
@@ -24,7 +24,7 @@ export default async function ContactoPage() {
   const settings = mergeSettings(await getSiteSettings());
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <Breadcrumbs items={[{ label: "Contacto" }]} />
       <div className="mt-5 max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">
@@ -34,7 +34,7 @@ export default async function ContactoPage() {
           Contáctanos
         </h1>
         <p className="mt-4 text-lg text-ink-600">
-          ¿Tienes una vivienda para vender o arrendar, buscas asesoría jurídica
+          ¿Tienes un inmueble para vender o arrendar, buscas asesoría jurídica
           o quieres información? Escríbenos.
         </p>
       </div>

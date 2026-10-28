@@ -9,7 +9,7 @@ export async function getSiteSettings(): Promise<Record<string, string>> {
 
 export const DEFAULT_SETTINGS: Record<string, string> = {
   contact_email: "fyramajuridicoeinmobiliario@gmail.com",
-  contact_phone: "+57 311 8870533",
+  contact_phone: "+57 321 7241455",
   contact_city: "Armenia, Quindío",
   legal_disclaimer:
     "El contenido de este sitio tiene fines informativos y no constituye ni reemplaza la asesoría jurídica profesional. Cada operación inmobiliaria es diferente: consulta siempre con un profesional calificado antes de firmar.",

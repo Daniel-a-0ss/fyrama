@@ -130,7 +130,7 @@ export function MediaGallery() {
           className="rounded-xl border border-ink-900/12 bg-white px-3 py-2.5 text-sm text-ink-700 outline-none focus:border-pine-700"
         >
           <option value="ALL">Todas las imágenes</option>
-          <option value="PROPERTY">Viviendas</option>
+          <option value="PROPERTY">Inmuebles</option>
           <option value="ARTICLE">Artículos</option>
           <option value="PAGE">Páginas/Generales</option>
         </select>

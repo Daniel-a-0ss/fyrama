@@ -51,11 +51,11 @@ function ResultsGrid({
     return (
       <EmptyState
         kind="empty"
-        title="No encontramos viviendas con esos filtros"
+        title="No encontramos inmuebles con esos filtros"
         description="Prueba ampliar el rango de precios, quitar algunas características o revisar otra ciudad."
         action={
           <LinkButton href="/viviendas" variant="outline">
-            Ver todas las viviendas
+            Ver todas los inmuebles
           </LinkButton>
         }
       />
@@ -65,7 +65,9 @@ function ResultsGrid({
     <>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {result.items.map((p) => (
-          <PropertyCard key={p.id} property={p} />
+          <div key={p.id} className="min-w-0">
+            <PropertyCard property={p} />
+          </div>
         ))}
       </div>
       <Pagination
@@ -115,39 +117,43 @@ export async function ViviendasListing({
   const activeCount = Object.entries(merged).filter(([k, v]) => v && k !== "page" && k !== "sort").length;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:px-8 lg:pt-40 2xl:pt-44">
       <Breadcrumbs
         items={[
           {
-            label: title ?? "Viviendas",
+            label: title ?? "Inmuebles",
             ...(basePath && basePath !== "/viviendas" ? { href: "/viviendas" } : {}),
           },
         ]}
       />
 
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            {title ?? "Viviendas en venta y arrendamiento"}
+      <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
+        <div className="min-w-0">
+          <h1 className="text-balance font-display text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            {title ?? "Inmuebles disponibles"}
           </h1>
           {description && <p className="mt-2 max-w-2xl text-ink-500">{description}</p>}
         </div>
-        <div className="flex items-center gap-3">
-          <MobileFiltersSheet cities={cities} current={merged} activeCount={activeCount} />
-          <SortSelect current={sort} basePath={basePath} />
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:w-auto lg:shrink-0">
+          <div className="sm:flex-1 lg:flex-none">
+            <MobileFiltersSheet cities={cities} current={merged} activeCount={activeCount} />
+          </div>
+          <div className="sm:flex-1 lg:flex-none">
+            <SortSelect current={sort} basePath={basePath} />
+          </div>
         </div>
       </div>
 
       {intro && <div className="mt-8">{intro}</div>}
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+      <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside className="hidden lg:block">
-          <div className="sticky top-24">
+          <div className="sticky top-32 max-h-[calc(100vh-9rem)] overflow-y-auto pb-2 2xl:top-36">
             <FilterSidebar current={merged} cities={cities} />
           </div>
         </aside>
 
-        <section aria-label="Resultados de viviendas">
+        <section aria-label="Resultados de inmuebles">
           <Suspense fallback={<SkeletonGrid />}>
             <Results
               params={merged}

@@ -19,7 +19,9 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 import { buildMetadata } from "@/lib/seo";
+import { realEstateServiceAnchor } from "@/lib/services/nav";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 
@@ -30,99 +32,141 @@ export const metadata: Metadata = buildMetadata({
   path: "/servicios-inmobiliarios",
 });
 
-const SERVICES = [
+/** Iconos disponibles para los servicios guardados en la base de datos.
+ *  La clave es la que se elige en el panel (campo "Ícono"). */
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  home: Home,
+  key: KeyRound,
+  repeat: Repeat,
+  handshake: Handshake,
+  filesearch: FileSearch,
+  penline: PenLine,
+  filetext: FileText,
+  building: Building2,
+  trending: TrendingUp,
+  badgecheck: BadgeCheck,
+  stamp: Stamp,
+  megaphone: Megaphone,
+  piggybank: PiggyBank,
+  ruler: Ruler,
+  users: Users,
+  landmark: Landmark,
+};
+
+const FALLBACK_SERVICES = [
   {
-    id: "inmuebles-en-venta",
     title: "Inmuebles en venta",
     icon: Home,
     text: "Casas, apartamentos, lotes, oficinas y locales en venta, con asesoría integral para comprar o vender tu inmueble.",
     href: "/viviendas?operacion=venta",
   },
   {
-    id: "inmuebles-en-arrendamiento",
     title: "Inmuebles en arrendamiento",
     icon: KeyRound,
     text: "Oferta verificada de arrendamientos con contratos revisados y acompañamiento desde la visita hasta la entrega del inmueble.",
     href: "/viviendas?operacion=arriendo",
   },
   {
-    id: "inmuebles-para-permutar",
     title: "Inmuebles para permutar",
     icon: Repeat,
-    text: "Selección de inmuebles disponibles para permuta y asesoría para valorar, negociar y formalizar el cambio de vivienda.",
+    text: "Selección de inmuebles disponibles para permuta y asesoría para valorar, negociar y formalizar el cambio de inmueble.",
     href: "/permuta",
   },
   {
-    id: "negociacion-de-inmuebles",
     title: "Asesoría en negociación de inmuebles",
     icon: Handshake,
     text: "Acompañamiento en cada etapa de la negociación: ofertas, contrapuestas y acuerdos con respaldo profesional.",
   },
   {
-    id: "estudio-juridico",
     title: "Estudio jurídico de inmuebles",
     icon: FileSearch,
     text: "Revisión del certificado de tradición y libertad, gravámenes, hipotecas y situación jurídica del inmueble.",
   },
   {
-    id: "promesas-y-contratos",
     title: "Elaboración de promesas y contratos inmobiliarios",
     icon: PenLine,
     text: "Redacción y revisión de promesas de compraventa y contratos de arrendamiento a medida de tu operación.",
   },
   {
-    id: "administracion-contratos",
     title: "Administración de contratos de arrendamiento",
     icon: FileText,
     text: "Gestión de contratos, cánones, renovaciones, cláusulas y requerimientos legales del arrendamiento.",
   },
   {
-    id: "administracion-gestion",
     title: "Administración y gestión inmobiliaria",
     icon: Building2,
     text: "Administramos tus inmuebles: control de ingresos, mantenimientos, pagos y gestión con arrendatarios.",
   },
   {
-    id: "inversion-inmobiliaria",
     title: "Asesoría en inversión inmobiliaria",
     icon: TrendingUp,
-    text: "Análisis de mercado, rentabilidad y valorización para invertir en vivienda con criterio y seguridad.",
+    text: "Análisis de mercado, rentabilidad y valorización para invertir en inmueble con criterio y seguridad.",
   },
   {
-    id: "saneamiento-juridico",
     title: "Saneamiento jurídico de inmuebles",
     icon: BadgeCheck,
     text: "Regularización de títulos, superación de vicios y trámites para dejar tu inmueble en orden legal.",
   },
   {
-    id: "tramites-notariales",
     title: "Trámites notariales y registrales",
     icon: Stamp,
     text: "Coordinación de escrituras, registro, tradición y demás trámites ante notarías y registro de instrumentos públicos.",
   },
   {
-    id: "marketing-publicidad",
     title: "Marketing y publicidad inmobiliaria",
     icon: Megaphone,
     text: "Publicación profesional de tu inmueble en portales y redes para llegar a los compradores y arrendatarios correctos.",
   },
   {
-    id: "subsidios-y-creditos",
     title: "Subsidios y créditos inmobiliarios",
     icon: PiggyBank,
-    text: "Acompañamiento integral en la gestión de subsidios de vivienda y créditos hipotecarios o de leasing.",
+    text: "Acompañamiento integral en la gestión de subsidios de inmueble y créditos hipotecarios o de leasing.",
   },
   {
-    id: "avaluo-y-peritaje",
     title: "Avalúo y peritaje de inmuebles",
     icon: Ruler,
     text: "Avalúos comerciales y peritajes técnicos del inmueble para negociar, invertir o resolver controversias.",
   },
 ];
 
-export default function ServiciosInmobiliariosPage() {
+type Service = {
+  title: string;
+  text: string;
+  href?: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+/**
+ * Los servicios salen de la base de datos para que se puedan crear, editar y
+ * eliminar desde el panel. Si la tabla todavia no existe (o esta vacia) se usa
+ * la lista del codigo, de modo que la pagina nunca se queda sin contenido.
+ */
+async function loadServices(): Promise<Service[]> {
+  try {
+    const rows = await prisma.realEstateService.findMany({
+      where: { active: true },
+      orderBy: { sortOrder: "asc" },
+    });
+
+    if (rows.length === 0) return FALLBACK_SERVICES;
+
+    return rows.map((row) => ({
+      title: row.title,
+      text: row.description,
+      href: row.href || undefined,
+      icon: ICON_MAP[row.icon ?? "home"] ?? Home,
+    }));
+  } catch (error) {
+    console.error("[servicios-inmobiliarios] se usa la lista del codigo:", error);
+    return FALLBACK_SERVICES;
+  }
+}
+
+export default async function ServiciosInmobiliariosPage() {
+  const services = await loadServices();
+
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <Breadcrumbs items={[{ label: "Servicios inmobiliarios" }]} />
 
       <div className="mt-5 max-w-3xl">
@@ -144,10 +188,10 @@ export default function ServiciosInmobiliariosPage() {
           Listado de servicios inmobiliarios
         </h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s) => (
+          {services.map((s) => (
             <article
-              key={s.id}
-              id={s.id}
+              key={realEstateServiceAnchor(s.title)}
+              id={realEstateServiceAnchor(s.title)}
               className="group flex scroll-mt-26 flex-col rounded-2xl border border-bone-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-fyrama-lg"
             >
               <span className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-pine-100 text-pine-800 transition-colors group-hover:bg-pine-950 group-hover:text-gold-400">

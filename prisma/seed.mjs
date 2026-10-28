@@ -3,7 +3,7 @@
  *
  * Genera:
  *  - Usuarios admin/editor (contraseña con hash bcrypt; nunca texto plano).
- *  - Viviendas de prueba claramente marcadas como DEMO con fotografías locales.
+ *  - Inmuebles de prueba claramente marcadas como DEMO con fotografías locales.
  *    Las fotos se descargan de Unsplash (licencia de uso gratuito) y se guardan
  *    en public/media/. Si la descarga falla, se genera un placeholder premium SVG.
  *  - Contenido: blog, categorías, servicios jurídicos, páginas de ciudad (SEO local).
@@ -113,7 +113,7 @@ async function ensureImage(url, relPath, { label, width = 1600, quality = 80 }) 
   return "/media/" + relPath;
 }
 
-// Fotos Unsplash con licencia de uso gratuito (arquitectura / vivienda).
+// Fotos Unsplash con licencia de uso gratuito (arquitectura / inmueble).
 const PHOTOS = {
   hero: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
   casa1: [
@@ -170,7 +170,7 @@ const PHOTOS = {
 async function upsertSettings() {
   const settings = {
     contact_email: "fyramajuridicoeinmobiliario@gmail.com",
-    contact_phone: "+57 311 8870533",
+    contact_phone: "+57 321 7241455",
     contact_city: "Armenia, Quindío — Colombia",
     legal_disclaimer:
       "El contenido de este sitio tiene fines informativos y no constituye ni reemplaza la asesoría jurídica profesional. Cada operación inmobiliaria es distinta: consulta siempre con un profesional calificado antes de firmar cualquier documento.",
@@ -373,7 +373,7 @@ const PROPERTIES = [
     featured: false,
     desc:
       DEMO +
-      "Terreno plano con servicios cercanos, apto para vivienda campestre o proyecto pequeño. Excelente potencial de valorización en la zona.",
+      "Terreno plano con servicios cercanos, apto para inmueble campestre o proyecto pequeño. Excelente potencial de valorización en la zona.",
   },
 ];
 
@@ -387,11 +387,27 @@ const SERVICES = [
   { icon: "coins", title: "Cobro de cartera", description: "Gestión jurídica para el cobro de deudas y acreencias con comunicación estratégica y procesos formales." },
   { icon: "clipboard", title: "Auditoría y revisión jurídica", description: "Revisión integral de documentos, contratos y procesos para identificar riesgos y oportunidades de mejora." },
   { icon: "filesearch", title: "Estudio de riesgo jurídico", description: "Análisis preventivo del riesgo legal de operaciones, proyectos o decisiones antes de comprometer tu patrimonio." },
-  { icon: "book", title: "Áreas del derecho", description: "Orientación en distintas ramas del derecho: civil, penal, laboral, administrativo, familiar y más." },
+];
+
+const REAL_ESTATE_SERVICES = [
+  { icon: "home", title: "Inmuebles en venta", description: "Casas, apartamentos, lotes, oficinas y locales en venta, con asesoría integral para comprar o vender tu inmueble.", href: "/viviendas?operacion=venta" },
+  { icon: "key", title: "Inmuebles en arrendamiento", description: "Oferta verificada de arrendamientos con contratos revisados y acompañamiento desde la visita hasta la entrega del inmueble.", href: "/viviendas?operacion=arriendo" },
+  { icon: "repeat", title: "Inmuebles para permutar", description: "Selección de inmuebles disponibles para permuta y asesoría para valorar, negociar y formalizar el cambio de inmueble.", href: "/permuta" },
+  { icon: "handshake", title: "Asesoría en negociación de inmuebles", description: "Acompañamiento en cada etapa de la negociación: ofertas, contrapuestas y acuerdos con respaldo profesional.", href: "" },
+  { icon: "filesearch", title: "Estudio jurídico de inmuebles", description: "Revisión del certificado de tradición y libertad, gravámenes, hipotecas y situación jurídica del inmueble.", href: "" },
+  { icon: "penline", title: "Elaboración de promesas y contratos inmobiliarios", description: "Redacción y revisión de promesas de compraventa y contratos de arrendamiento a medida de tu operación.", href: "" },
+  { icon: "filetext", title: "Administración de contratos de arrendamiento", description: "Gestión de contratos, cánones, renovaciones, cláusulas y requerimientos legales del arrendamiento.", href: "" },
+  { icon: "building", title: "Administración y gestión inmobiliaria", description: "Administramos tus inmuebles: control de ingresos, mantenimientos, pagos y gestión con arrendatarios.", href: "" },
+  { icon: "trending", title: "Asesoría en inversión inmobiliaria", description: "Análisis de mercado, rentabilidad y valorización para invertir en inmueble con criterio y seguridad.", href: "" },
+  { icon: "badgecheck", title: "Saneamiento jurídico de inmuebles", description: "Regularización de títulos, superación de vicios y trámites para dejar tu inmueble en orden legal.", href: "" },
+  { icon: "stamp", title: "Trámites notariales y registrales", description: "Coordinación de escrituras, registro, tradición y demás trámites ante notarías y registro de instrumentos públicos.", href: "" },
+  { icon: "megaphone", title: "Marketing y publicidad inmobiliaria", description: "Publicación profesional de tu inmueble en portales y redes para llegar a los compradores y arrendatarios correctos.", href: "" },
+  { icon: "piggybank", title: "Subsidios y créditos inmobiliarios", description: "Acompañamiento integral en la gestión de subsidios de inmueble y créditos hipotecarios o de leasing.", href: "" },
+  { icon: "ruler", title: "Avalúo y peritaje de inmuebles", description: "Avalúos comerciales y peritajes técnicos del inmueble para negociar, invertir o resolver controversias.", href: "" },
 ];
 
 const CATEGORIES = {
-  vivienda: "Vivienda",
+  vivienda: "Inmueble",
   compra: "Compra",
   arriendo: "Arriendo",
   legal: "Legal",
@@ -405,12 +421,12 @@ const ARTICLES = [
     slug: "guia-para-comprar-vivienda-primera-vez",
     category: "compra",
     image: "compra",
-    title: "Guía para comprar tu vivienda por primera vez",
-    excerpt: "Del ahorro inicial a la firma de la promesa de compraventa: los pasos esenciales para comprar vivienda sin errores costosos.",
+    title: "Guía para comprar tu inmueble por primera vez",
+    excerpt: "Del ahorro inicial a la firma de la promesa de compraventa: los pasos esenciales para comprar inmueble sin errores costosos.",
     content: `
 ## 1. Define tu presupuesto real
 
-Antes de ver viviendas, calcula tu capacidad de pago. Considera el pie, los costos de cierre, notaría, impuestos y la cuota mensual. **No te guíes solo por el precio de venta.**
+Antes de ver inmuebles, calcula tu capacidad de pago. Considera el pie, los costos de cierre, notaría, impuestos y la cuota mensual. **No te guíes solo por el precio de venta.**
 
 ## 2. Revisa la documentación del inmueble
 
@@ -444,7 +460,7 @@ Confirma cuáles servicios incluye el canon y cuáles se pagan por separado. En 
 
 ## El estado del inmueble
 
-Haz un inventario fotográfico al entrar y salir. Documenta el estado de los acabados para evitar descuentos injustificados al entregar la vivienda.
+Haz un inventario fotográfico al entrar y salir. Documenta el estado de los acabados para evitar descuentos injustificados al entregar el inmueble.
 
 ## Tu firma importa
 
@@ -485,12 +501,12 @@ Comprar sin revisar este documento es uno de los riesgos más comunes. Un estudi
     slug: "invertir-en-vivienda-en-el-eje-cafetero",
     category: "inversion",
     image: "inversion",
-    title: "Invertir en vivienda en el Eje Cafetero",
+    title: "Invertir en inmueble en el Eje Cafetero",
     excerpt: "Tasas, demanda turística y valorización: claves para decidir dónde y cómo invertir en la región.",
     content: `
 ## Una región en crecimiento
 
-El Eje Cafetero combina atractivo turístico, clima y calidad de vida. Esa demanda se refleja en el mercado de vivienda, tanto para venta como para arriendo.
+El Eje Cafetero combina atractivo turístico, clima y calidad de vida. Esa demanda se refleja en el mercado de inmueble, tanto para venta como para arriendo.
 
 ## Qué tener en cuenta
 
@@ -514,7 +530,7 @@ La combinación de análisis de mercado y asesoría jurídica reduce el riesgo d
     category: "consejos",
     image: "consejos",
     title: "Checklist para revisar una casa antes de decidir",
-    excerpt: "Estructura, humedades, acabados y documentación: lo que debes revisar en cada visita a una vivienda.",
+    excerpt: "Estructura, humedades, acabados y documentación: lo que debes revisar en cada visita a un inmueble.",
     content: `
 ## En la estructura
 
@@ -593,29 +609,29 @@ async function seed() {
       cityName: "Armenia",
       department: "Quindío",
       operation: null,
-      title: "Viviendas en Armenia, Quindío",
+      title: "Inmuebles en Armenia, Quindío",
       intro:
-        "Armenia combina vida urbana y cercanía al paisaje cafetero. Desde casas familiares en el centro hasta apartamentos modernos en el norte, Fyrama te ayuda a encontrar y asesorar la compra o arriendo de tu vivienda en la capital del Quindío.",
+        "Armenia combina vida urbana y cercanía al paisaje cafetero. Desde casas familiares en el centro hasta apartamentos modernos en el norte, Fyrama te ayuda a encontrar y asesorar la compra o arriendo de tu inmueble en la capital del Quindío.",
       body:
-        "### Vive cerca de todo\nEl municipio concentra comercio, universidades, salud y una oferta gastronómica creciente. Los sectores de Fundadores, Uribe, El Campestre y La Patria concentran buena parte de la oferta de vivienda nueva y usada.\n\n### Mercado de referencia\nLos precios varían según la zona, la tipología y la antigüedad del inmueble. Siempre verifica el certificado de tradición y las condiciones reales de cada proyecto.",
+        "### Vive cerca de todo\nEl municipio concentra comercio, universidades, salud y una oferta gastronómica creciente. Los sectores de Fundadores, Uribe, El Campestre y La Patria concentran buena parte de la oferta de inmueble nuevo y usada.\n\n### Mercado de referencia\nLos precios varían según la zona, la tipología y la antigüedad del inmueble. Siempre verifica el certificado de tradición y las condiciones reales de cada proyecto.",
     },
     {
       citySlug: "salento",
       cityName: "Salento",
       department: "Quindío",
       operation: null,
-      title: "Viviendas en Salento, Quindío",
+      title: "Inmuebles en Salento, Quindío",
       intro:
-        "Salento es el corazón del paisaje cultural cafetero. Una oferta de casas de campo, fincas y vivienda tradicional para quienes buscan tranquilidad e inversión turística en el corazón del Quindío.",
+        "Salento es el corazón del paisaje cultural cafetero. Una oferta de casas de campo, fincas y inmueble tradicional para quienes buscan tranquilidad e inversión turística en el corazón del Quindío.",
       body:
-        "### Un destino con valorización\nLa actividad turística de Salento y el acceso al Valle de Cocora mantienen activo el mercado de vivienda campestre y hospedaje. Verifica siempre la documentación del predio y las normas de uso del suelo.",
+        "### Un destino con valorización\nLa actividad turística de Salento y el acceso al Valle de Cocora mantienen activo el mercado de inmueble campestre y hospedaje. Verifica siempre la documentación del predio y las normas de uso del suelo.",
     },
   ];
   for (const c of cityLandings) {
     await prisma.cityLanding.create({ data: c });
   }
 
-  // --- Viviendas ---
+  // --- Inmuebles ---
   const mediaCache = {};
   for (const p of PROPERTIES) {
     const existing = await prisma.property.findUnique({ where: { slug: p.key } });
@@ -727,9 +743,28 @@ async function seed() {
       data: {
         title: s.title,
         slug: slugify(s.title),
-        description: `${DEMO}${s.description}`,
-        content: `## ${s.title}\n\n### ¿En qué consiste?\n${s.description}\n\n> Servicio de demostración. La descripción definitiva la configura el propietario desde el panel de administración.`,
+        description: s.description,
+        content: `## ${s.title}\n\n${s.description}`,
         icon: s.icon,
+        sortOrder: i,
+        active: true,
+      },
+    });
+  }
+
+  // --- Servicios inmobiliarios ---
+  const existingRealEstate = await prisma.realEstateService.findMany();
+  for (const s of existingRealEstate) await prisma.realEstateService.delete({ where: { id: s.id } });
+  for (let i = 0; i < REAL_ESTATE_SERVICES.length; i++) {
+    const s = REAL_ESTATE_SERVICES[i];
+    await prisma.realEstateService.create({
+      data: {
+        title: s.title,
+        slug: slugify(s.title),
+        description: s.description,
+        content: s.description,
+        icon: s.icon,
+        href: s.href,
         sortOrder: i,
         active: true,
       },

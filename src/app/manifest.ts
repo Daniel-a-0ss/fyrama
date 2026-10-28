@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Fyrama — Vivienda y asesoría inmobiliaria",
+    name: "Fyrama — Inmueble y asesoría inmobiliaria",
     short_name: "Fyrama",
     description: "Plataforma inmobiliaria con acompañamiento jurídico profesional.",
     start_url: "/",
@@ -10,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#fbfaf6",
     theme_color: "#0b2019",
     icons: [
-      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+      { src: "/icon.png", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
   };
 }

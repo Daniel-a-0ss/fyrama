@@ -35,7 +35,7 @@ export function MobileFiltersSheet({
           <div className="animate-fade-up absolute inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-3xl bg-bone-50 p-4 pb-6 shadow-fyrama-lg">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-display text-lg font-semibold text-ink-900">
-                Filtrar viviendas
+                Filtrar inmuebles
               </h2>
               <button
                 type="button"
@@ -50,7 +50,7 @@ export function MobileFiltersSheet({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-xl bg-pine-950 text-sm font-medium text-bone-50"
+              className="mt-3 inline-flex h-11 w-full min-w-0 items-center justify-center gap-2 rounded-xl bg-pine-950 px-4 text-center text-sm font-medium text-bone-50"
             >
               Ver resultados
             </button>

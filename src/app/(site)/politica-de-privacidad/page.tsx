@@ -9,7 +9,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function PoliticaPrivacidad() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 pt-28 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40">
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink-900">
         Política de privacidad
       </h1>

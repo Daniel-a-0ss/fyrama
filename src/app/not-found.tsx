@@ -5,7 +5,7 @@ import { BrandMark } from "@/components/site/Logo";
 export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-bone-50 px-4 text-center">
-      <BrandMark className="mb-6 size-14" />
+      <BrandMark className="mb-6" />
       <p className="font-display text-7xl font-semibold tracking-tight text-pine-950">
         4<span className="text-gold-500">0</span>4
       </p>
@@ -14,7 +14,7 @@ export default function NotFound() {
       </h1>
       <p className="mt-2 max-w-md text-ink-500">
         La dirección que buscaste pudo haber cambiado o moverse. Vuelve al
-        inicio o explora las viviendas disponibles.
+        inicio o explora los inmuebles disponibles.
       </p>
       <div className="mt-7 flex flex-col gap-3 sm:flex-row">
         <Link
@@ -29,7 +29,7 @@ export default function NotFound() {
           className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-ink-900/15 px-6 text-sm font-medium text-ink-800 hover:bg-white"
         >
           <Search className="size-4" aria-hidden />
-          Buscar viviendas
+          Buscar inmuebles
         </Link>
       </div>
     </main>

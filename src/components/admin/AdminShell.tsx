@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { AdminSidebar } from "./AdminSidebar";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function AdminShell({
   userName,
@@ -54,9 +53,6 @@ export function AdminShell({
 
       <main className="min-w-0 flex-1 overflow-x-hidden pt-14 lg:pt-0">
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="mb-4 flex justify-end">
-            <ThemeToggle className="grid size-10 place-items-center rounded-full border border-bone-200 bg-white text-ink-700 hover:bg-bone-100" />
-          </div>
           {children}
         </div>
       </main>

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings, mergeSettings } from "@/lib/services/settings";
+import { legalServiceAnchor } from "@/lib/services/nav";
 import { buildMetadata } from "@/lib/seo";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -49,17 +50,6 @@ const iconMap: Record<IconKey, React.ComponentType<{ className?: string }>> = {
   book: BookOpen,
 };
 
-function slugify(text: string) {
-  return text
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 const AREAS_DEL_DERECHO = [
   "Derecho constitucional",
   "Derecho procesal",
@@ -91,20 +81,40 @@ export default async function AsesoriaJuridicaPage() {
   const cfg = mergeSettings(settings);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
       <Breadcrumbs items={[{ label: "Asesoría jurídica" }]} />
 
       <div className="mt-5 max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">
-          Servicios jurídicos inmobiliarios
-        </p>
-        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
-          Tu respaldo antes de firmar
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+          Servicios Jurídicos
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-ink-600">
-          Fyrama te acompaña en las decisiones jurídicas de tu operación
-          inmobiliaria: revisamos documentos, contratos y procesos para que
-          compres, vendas o arriendes con confianza.
+        <p className="mt-3 font-display text-xl italic leading-snug text-gold-700 sm:text-2xl">
+          Respaldo jurídico para proteger lo que más importa.
+        </p>
+        <p className="mt-6 text-lg leading-relaxed text-ink-600">
+          En <em className="italic text-gold-700">Fyrama</em> ofrecemos asesoría,
+          acompañamiento y representación jurídica integral para personas,
+          empresas e inversiones. Nuestro enfoque combina{" "}
+          <em className="italic text-gold-700">
+            experiencia, prevención y estrategia
+          </em>
+          , buscando anticipar riesgos, proteger derechos, resolver conflictos y
+          brindar seguridad jurídica en cada decisión.
+        </p>
+        <p className="mt-4 leading-relaxed text-ink-600">
+          Desde la{" "}
+          <em className="italic text-gold-700">
+            asesoría preventiva y revisión de contratos
+          </em>
+          , hasta la{" "}
+          <strong className="font-semibold text-ink-900">
+            representación en procesos y solución de controversias
+          </strong>
+          , ponemos el conocimiento jurídico al servicio de tus intereses y de
+          la protección de tu patrimonio.
+        </p>
+        <p className="mt-6 border-l-2 border-gold-500 pl-4 font-display text-lg italic leading-relaxed text-ink-900">
+          Más que resolver problemas, trabajamos para prevenirlos.
         </p>
       </div>
 
@@ -114,7 +124,7 @@ export default async function AsesoriaJuridicaPage() {
           id="servicios-title"
           className="mb-6 font-display text-2xl font-semibold text-ink-900"
         >
-          Servicios de asesoría
+          Servicios
         </h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => {
@@ -122,7 +132,7 @@ export default async function AsesoriaJuridicaPage() {
             return (
               <article
                 key={s.id}
-                id={slugify(s.title)}
+                id={legalServiceAnchor(s.title)}
                 className="group flex scroll-mt-26 flex-col rounded-2xl border border-bone-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-fyrama-lg"
               >
                 <span className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-pine-100 text-pine-800 transition-colors group-hover:bg-pine-950 group-hover:text-gold-400">
@@ -191,49 +201,41 @@ export default async function AsesoriaJuridicaPage() {
         </div>
       </section>
 
-      {/* Cómo trabajamos */}
-      <section aria-labelledby="como-title" className="mt-14">
-        <h2 id="como-title" className="mb-6 font-display text-2xl font-semibold text-ink-900">
-          Cómo trabajamos
-        </h2>
-        <ol className="grid grid-cols-1 gap-5 md:grid-cols-4">
-          {[
-            { step: "01", text: "Cuéntanos tu caso con el formulario de asesoría." },
-            { step: "02", text: "Revisamos tu documentación y la situación de la operación." },
-            { step: "03", text: "Recibes orientación clara y pasos a seguir." },
-            { step: "04", text: "Acompañamos la revisión previa a la firma." },
-          ].map((s) => (
-            <li
-              key={s.step}
-              className="rounded-2xl border border-bone-200/80 bg-white p-5 shadow-sm"
-            >
-              <span className="font-display text-3xl font-semibold text-gold-500">{s.step}</span>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">{s.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
       {/* Formulario de solicitud */}
       <section id="solicitar" aria-labelledby="solicitar-title" className="mt-14">
         <div className="grid gap-8 rounded-3xl border border-bone-200/80 bg-white p-6 shadow-sm sm:p-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <h2 id="solicitar-title" className="font-display text-2xl font-semibold text-ink-900">
-              Solicitar asesoría
+              Agenda tu asesoría
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-500">
-              Completa el formulario con tu consulta y la preferencia de
-              contacto. Un asesor de Fyrama te responderá con orientación
-              inicial. Liberación a contactar según disponibilidad.
+              Completa el formulario con tus datos y cuéntanos brevemente el
+              motivo de tu consulta. Recibiremos tu solicitud y nos
+              pondremos en contacto contigo para{" "}
+              <em className="italic text-gold-700">
+                coordinar la fecha y hora de tu cita con un profesional de
+                Fyrama
+              </em>
+              .
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-ink-500">
+              <em className="italic text-gold-700">
+                El valor de la asesoría dependerá del tipo de consulta, su
+                complejidad y el alcance del servicio requerido
+              </em>
+              . Antes de la cita te informaremos las condiciones y el valor
+              correspondiente.
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                "Respuesta en 1–2 días hábiles",
-                "Consulta inicial orientada a tu operación",
-                "Tratamiento confidencial de tus datos",
+                "Solicitud y agendamiento de la cita",
+                "Atención personalizada con un profesional",
+                "Asesoría jurídica e inmobiliaria según tu necesidad",
+                "Valor definido de acuerdo con el tipo de asesoría",
+                "Información tratada de manera confidencial",
               ].map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm text-ink-600">
-                  <CheckCircle2 className="size-4 text-pine-600" aria-hidden />
+                <li key={t} className="flex items-start gap-2 text-sm text-ink-600">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-pine-600" aria-hidden />
                   {t}
                 </li>
               ))}
@@ -241,9 +243,9 @@ export default async function AsesoriaJuridicaPage() {
           </div>
           <ContactForm
             type="LEGAL"
-            submitLabel="Solicitar asesoría"
+            submitLabel="Agendar asesoría"
             title="¡Asesoría solicitada!"
-            description="Recibimos tu solicitud. Te contactaremos por tu preferencia indicada. (DEMO)"
+            description="Recibimos tu solicitud. Te contactaremos por tu preferencia indicada."
             buttonTone="gold"
           />
         </div>

@@ -1,11 +1,8 @@
 import { Fraunces, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { absoluteUrl } from "@/lib/utils";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ThemeScript } from "@/components/theme/ThemeScript";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "@/app/globals.css";
 
 const fraunces = Fraunces({
@@ -24,13 +21,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: `${SITE_NAME} | Vivienda y asesoría inmobiliaria`,
+    default: `${SITE_NAME} | Inmueble y asesoría inmobiliaria`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   keywords: [
     "inmobiliaria",
-    "vivienda",
+    "inmueble",
     "comprar casa",
     "arrendar apartamento",
     "asesoría jurídica inmobiliaria",
@@ -45,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b2019",
+  themeColor: "#fbfaf6",
   width: "device-width",
   initialScale: 1,
 };
@@ -53,8 +50,6 @@ export const viewport: Viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const h = await headers();
-  const nonce = h.get("x-nonce") ?? undefined;
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -65,15 +60,10 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="es" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
-      <head>
-        <ThemeScript nonce={nonce} />
-      </head>
+    <html lang="es" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="min-h-screen">
-        <ThemeProvider>
-          <JsonLd data={orgSchema} />
-          {children}
-        </ThemeProvider>
+        <JsonLd data={orgSchema} />
+        {children}
       </body>
     </html>
   );

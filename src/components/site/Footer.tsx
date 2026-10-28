@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 import { SOCIAL_LINKS } from "@/lib/constants";
+import { realEstateServiceAnchor } from "@/lib/navigation";
 import { WhatsAppIcon } from "@/components/site/whatsapp/WhatsAppIcon";
 import { TikTokIcon } from "@/components/site/social/TikTokIcon";
 
@@ -10,13 +11,13 @@ const explore = [
   { label: "Permuta", href: "/permuta" },
   { label: "Nosotros", href: "/nuestra-empresa" },
   { label: "Servicios inmobiliarios", href: "/servicios-inmobiliarios" },
-  { label: "Viviendas en Armenia", href: "/viviendas?ciudad=armenia" },
+  { label: "Inmuebles en Armenia", href: "/viviendas?ciudad=armenia" },
 ];
 
 const legalServices = [
   { label: "Asesoría jurídica", href: "/asesoria-juridica" },
   { label: "Áreas del derecho", href: "/asesoria-juridica#areas-del-derecho" },
-  { label: "Inmuebles para permutar", href: "/servicios-inmobiliarios#inmuebles-para-permutar" },
+  { label: "Inmuebles para permutar", href: `/servicios-inmobiliarios#${realEstateServiceAnchor("Inmuebles para permutar")}` },
   { label: "Solicitar asesoría", href: "/asesoria-juridica#solicitar" },
 ];
 
@@ -39,9 +40,9 @@ const socials = [
 export function Footer() {
   return (
     <footer className="mt-8 bg-pine-950 text-bone-200">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1fr] lg:px-8">
         <div className="space-y-4">
-          <Logo tone="light" />
+          <Logo size="lg" />
           <p className="max-w-xs text-sm leading-relaxed text-bone-200/70">
             Compra, vende, arrienda y permuta con acompañamiento jurídico
             profesional. Una sola firma para todo el proceso.
@@ -55,7 +56,7 @@ export function Footer() {
               fyramajuridicoeinmobiliario@gmail.com
             </p>
             <p className="flex items-center gap-2">
-              <Phone className="size-5 text-gold-500" aria-hidden /> +57 311 8870533
+              <Phone className="size-5 text-gold-500" aria-hidden /> +57 321 7241455
             </p>
           </div>
           <div className="flex gap-2 pt-1">

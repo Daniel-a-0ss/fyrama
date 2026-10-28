@@ -43,7 +43,7 @@ export function RequestRow({
   }
 
   const TYPE_LABELS: Record<string, string> = {
-    PROPERTY: "Vivienda",
+    PROPERTY: "Inmueble",
     GENERAL: "General",
     LEGAL: "Asesoría jurídica",
   };
@@ -106,7 +106,7 @@ export function RequestRow({
         )}
         {request.property && (
           <div className="flex gap-1.5">
-            <dt className="shrink-0 text-ink-400">Vivienda:</dt>
+            <dt className="shrink-0 text-ink-400">Inmueble:</dt>
             <dd className="truncate" title={request.property.title}>
               <a href={`/viviendas/${request.property.slug}`} className="text-pine-800 hover:underline" target="_blank" rel="noopener noreferrer">
                 {request.property.title}

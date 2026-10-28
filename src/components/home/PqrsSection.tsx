@@ -22,7 +22,7 @@ const PQRS_TYPES = [
   {
     icon: ClipboardList,
     title: "Reclamos",
-    text: "Desacuerdos con un servicio: los revisamos y te respondemos con claridad.",
+    text: "Desacuerdos con un servicio; los revisamos y te respondemos con claridad.",
   },
   {
     icon: Lightbulb,

@@ -5,11 +5,16 @@ const isProduction = () => process.env.NODE_ENV === "production";
  * En desarrollo se relajan para no bloquear React DevTools ni source maps.
  * En producción se usa nonce por petición (ver middleware.ts) para cumplir CSP.
  */
-export function getSecurityHeaders(nonce?: string): Record<string, string> {
+export function getSecurityHeaders(_nonce?: string): Record<string, string> {
   const csp = isProduction()
     ? [
         "default-src 'self'",
-        `script-src 'self' ${nonce ? `'nonce-${nonce}'` : ""}`,
+        // Sin nonce. Next.js hornea los scripts de hidratación de las páginas
+        // estáticas en el build, sin petición de la que sacar un nonce, y al
+        // incluir un nonce el navegador IGNORA 'unsafe-inline' y los bloquea:
+        // la página se ve pero el JS no corre (login del admin muerto).
+        // 'unsafe-inline' es el único valor que funciona con prerender.
+        "script-src 'self' 'unsafe-inline'",
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data: blob:",
         "font-src 'self' data:",

@@ -2,6 +2,28 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Header } from "@/components/site/Header";
+import { NAV_ITEMS, type NavItem } from "@/lib/navigation";
+
+/** El layout real pasa el menú armado desde la base de datos. Estos tests
+ *  reproducen esa situación con los dos grupos de servicios ya despliegueables. */
+const ITEMS: NavItem[] = NAV_ITEMS.map((item) =>
+  item.label === "Servicios jurídicos"
+    ? {
+        ...item,
+        children: [
+          { label: "Acciones de tutela", href: "/asesoria-juridica#servicio-acciones-de-tutela" },
+          { label: "Estudio de títulos", href: "/asesoria-juridica#servicio-estudio-de-titulos" },
+        ],
+      }
+    : item.label === "Servicios inmobiliarios"
+      ? {
+          ...item,
+          children: [
+            { label: "Inmuebles en venta", href: "/servicios-inmobiliarios#servicio-inmobiliario-inmuebles-en-venta" },
+          ],
+        }
+      : item
+);
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/",
@@ -19,24 +41,20 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-vi.mock("@/components/theme/ThemeProvider", () => ({
-  useTheme: () => ({ theme: "light", toggle: vi.fn() }),
-}));
-
 describe("Header menú desplegable", () => {
   afterEach(() => {
     vi.useRealTimers();
   });
 
   it("abre el panel al pulsar Nuestra empresa", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /nosotros/i });
     fireEvent.click(btn);
     expect(screen.getByRole("menu")).toBeInTheDocument();
   });
 
   it("abre Servicios jurídicos", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /servicios jurídicos/i });
     fireEvent.click(btn);
     expect(screen.getByRole("menu")).toBeInTheDocument();
@@ -44,14 +62,14 @@ describe("Header menú desplegable", () => {
   });
 
   it("abre Servicios inmobiliarios", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /servicios inmobiliarios/i });
     fireEvent.click(btn);
     expect(screen.getByRole("menu")).toBeInTheDocument();
   });
 
   it("se cierra al hacer clic fuera", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /nosotros/i });
     fireEvent.click(btn);
     expect(screen.getByRole("menu")).toBeInTheDocument();
@@ -60,7 +78,7 @@ describe("Header menú desplegable", () => {
   });
 
   it("abre Vitrina inmobiliaria con venta, arrendamiento y permuta", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /vitrina inmobiliaria/i });
     fireEvent.click(btn);
     expect(screen.getByRole("menu")).toBeInTheDocument();
@@ -73,7 +91,7 @@ describe("Header menú desplegable", () => {
   });
 
   it("mantiene el panel pegado al botón, sin hueco que lo cierre", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const btn = screen.getByRole("button", { name: /nosotros/i });
     fireEvent.click(btn);
     const menu = screen.getByRole("menu");
@@ -84,7 +102,7 @@ describe("Header menú desplegable", () => {
 
   it("no se cierra al pasar el cursor del botón al panel", () => {
     vi.useFakeTimers();
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     const item = screen.getByRole("button", { name: /nosotros/i }).closest("li")!;
     fireEvent.mouseEnter(item);
     expect(screen.getByRole("menu")).toBeInTheDocument();
@@ -100,7 +118,7 @@ describe("Header menú desplegable", () => {
   });
 
   it("cierra el panel al elegir una opción", () => {
-    render(<Header />);
+    render(<Header items={ITEMS} />);
     fireEvent.click(screen.getByRole("button", { name: /vitrina inmobiliaria/i }));
     fireEvent.click(screen.getByRole("menuitem", { name: "Permuta" }));
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();

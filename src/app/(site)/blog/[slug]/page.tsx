@@ -62,7 +62,7 @@ export default async function ArticlePage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 pt-28 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40">
       <JsonLd data={articleSchema} />
       <Breadcrumbs
         items={[
@@ -124,7 +124,7 @@ export default async function ArticlePage({ params }: Props) {
           ¿Necesitas acompañamiento en tu operación?
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-ink-600">
-          Solicita asesoría jurídica o plan de visita a una vivienda.
+          Solicita asesoría jurídica o plan de visita a un inmueble.
         </p>
         <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
           <a
@@ -137,7 +137,7 @@ export default async function ArticlePage({ params }: Props) {
             href="/viviendas"
             className="inline-flex h-11 items-center justify-center rounded-xl border border-ink-900/15 px-6 text-sm font-medium text-ink-800 hover:bg-white"
           >
-            Ver viviendas
+            Ver inmuebles
           </Link>
         </div>
       </div>

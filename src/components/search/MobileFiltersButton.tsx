@@ -13,7 +13,10 @@ export function MobileFiltersButton({
     <button
       type="button"
       onClick={onOpen}
-      className="inline-flex h-11 items-center gap-2 rounded-xl border border-ink-900/12 bg-white px-4 text-sm font-medium text-ink-800 shadow-sm"
+      // El panel que abre es `lg:hidden` (en escritorio ya está la barra
+      // lateral), así que el botón tampoco debe verse ahí: si se viera,
+      // al pulsarlo se abriría un panel invisible y parecería que no funciona.
+      className="inline-flex h-11 items-center gap-2 rounded-xl border border-ink-900/12 bg-white px-4 text-sm font-medium text-ink-800 shadow-sm lg:hidden"
       aria-haspopup="dialog"
     >
       <SlidersHorizontal className="size-4" aria-hidden />
