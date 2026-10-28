@@ -43,7 +43,7 @@ export function Footer() {
     <footer className="mt-8 bg-pine-950 text-bone-200">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1fr] lg:px-8">
         <div className="space-y-4">
-          <Logo size="lg" variant="on-dark" />
+          <Logo variant="on-dark" />
           <p className="max-w-xs text-sm leading-relaxed text-bone-200/70">
             Compra, vende, arrienda y permuta con acompañamiento jurídico
             profesional. Una sola firma para todo el proceso.
