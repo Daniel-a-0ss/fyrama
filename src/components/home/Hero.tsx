@@ -6,6 +6,15 @@ import type { SearchParamsRecord } from "@/lib/search";
 
 const DEFAULT_HERO_IMAGE = "/media/brand/hero.webp";
 
+/** Los archivos de /media se sirven con caché larga; el sufijo fuerza la
+ *  recarga cuando se reemplaza el banner conservando el mismo nombre. */
+const HERO_ASSET_VERSION = "2";
+
+function versionedHero(src: string) {
+  if (!src.startsWith("/media/")) return src;
+  return `${src}${src.includes("?") ? "&" : "?"}v=${HERO_ASSET_VERSION}`;
+}
+
 export function Hero({
   cities,
   initial,
@@ -19,12 +28,13 @@ export function Hero({
     image?.trim() ||
     process.env.NEXT_PUBLIC_HERO_IMAGE?.trim() ||
     DEFAULT_HERO_IMAGE;
+  const heroSrc = versionedHero(heroImage);
 
   return (
     <section className="relative flex min-h-[92svh] items-center overflow-hidden">
       <div className="absolute inset-0 bg-pine-950" aria-hidden>
         <img
-          src={heroImage}
+          src={heroSrc}
           alt=""
           className="h-full w-full object-cover opacity-85"
           fetchPriority="high"
