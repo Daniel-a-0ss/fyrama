@@ -85,7 +85,7 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-bone-200/80 bg-bone-50">
-      <div className="mx-auto flex h-28 max-w-[88rem] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 2xl:h-32 2xl:px-10">
+      <div className="mx-auto flex h-32 max-w-[88rem] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 2xl:px-10">
         <Link href="/" className="shrink-0" aria-label="Fyrama — inicio">
           <Logo />
         </Link>

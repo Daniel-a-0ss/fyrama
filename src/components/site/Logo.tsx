@@ -55,7 +55,7 @@ export function Logo({
         height={height}
         className={cn(
           "w-auto",
-          size === "lg" ? "h-20 sm:h-24 xl:h-28" : "h-16 sm:h-20 lg:h-24 2xl:h-28"
+          "h-20 sm:h-24 xl:h-28"
         )}
       />
     </span>
