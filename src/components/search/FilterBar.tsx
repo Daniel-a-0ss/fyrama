@@ -57,17 +57,17 @@ export function FilterBar({
     <form
       id={formId}
       onSubmit={submit}
-      className="mx-auto w-full max-w-2xl rounded-3xl border border-bone-200/70 bg-white/95 p-4 shadow-fyrama-lg backdrop-blur-sm sm:p-6"
+      className="w-full max-w-2xl rounded-3xl border border-bone-200/70 bg-white/95 p-4 shadow-fyrama-lg backdrop-blur-sm sm:p-6"
       aria-label="Buscador de inmuebles"
       aria-busy={pending || undefined}
     >
       {/* Encabezado del buscador */}
-      <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.25em] text-ink-500">
+      <p className="mb-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-ink-500">
         Busca tu propiedad
       </p>
 
       {/* Tabs Venta / Arrendamiento + acceso a Permuta */}
-      <div className="mb-4 flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:justify-start">
+      <div className="mb-4 flex w-full flex-wrap items-center justify-start gap-2">
         <div
           className="inline-flex justify-center rounded-full bg-bone-100 p-1"
           role="radiogroup"
