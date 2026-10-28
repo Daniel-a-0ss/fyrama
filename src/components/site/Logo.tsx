@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils";
  *
  * - logo-header.webp: LOGO FRANK-25 (tinta oscura, horizontal), con el fondo
  *   blanco convertido en transparencia para el header claro.
- * - logo-footer.webp: LOGO FRANK SIN FONDO-25 (tinta clara, cuadrada), footer.
+ * - logo-footer-v2.webp: LOGO FRANK SIN FONDO-25 (tinta clara, horizontal), footer.
  *
  * Nombres nuevos para que el navegador y la CDN no sirvan la versión anterior
  * en caché.
  */
 const LOGOS = {
   "on-light": { src: "/media/logos/logo-header.webp", ratio: 1600 / 511 },
-  "on-dark": { src: "/media/logos/logo-footer.webp", ratio: 1000 / 800 },
+  "on-dark": { src: "/media/logos/logo-footer-v2.webp", ratio: 1400 / 399 },
 } as const;
 
 export function BrandMark({ className }: { className?: string }) {
@@ -45,7 +45,7 @@ export function Logo({
 }) {
   // md: header; lg: footer (208px / 256px en pantallas muy grandes).
   const logo = LOGOS[variant];
-  const height = size === "lg" ? 256 : 96;
+  const height = size === "lg" ? 112 : 96;
   return (
     <span className={cn("inline-flex items-center", className)}>
       <img
@@ -55,7 +55,7 @@ export function Logo({
         height={height}
         className={cn(
           "w-auto",
-          size === "lg" ? "h-52 xl:h-64" : "h-14 sm:h-16 lg:h-20 2xl:h-24"
+          size === "lg" ? "h-20 sm:h-24 xl:h-28" : "h-14 sm:h-16 lg:h-20 2xl:h-24"
         )}
       />
     </span>
