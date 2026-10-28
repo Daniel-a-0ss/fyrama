@@ -5,15 +5,16 @@ import { cn } from "@/lib/utils";
  * Fuente: public/media/logos (archivos entregados por el cliente).
  * No se recolorean, deforman, rotan ni se les aplican filtros.
  *
- * - logo-on-light-v2.webp: tinta oscura, horizontal, para fondos claros.
- * - logo-on-dark-v2.webp:  tinta clara, para fondos oscuros (footer).
+ * - logo-header.webp: LOGO FRANK-25 (tinta oscura, horizontal), con el fondo
+ *   blanco convertido en transparencia para el header claro.
+ * - logo-footer.webp: LOGO FRANK SIN FONDO-25 (tinta clara, cuadrada), footer.
  *
- * Los nombres "-v2" cambian la URL para evitar que el navegador o la CDN
- * sigan sirviendo la versión anterior en caché.
+ * Nombres nuevos para que el navegador y la CDN no sirvan la versión anterior
+ * en caché.
  */
 const LOGOS = {
-  "on-light": { src: "/media/logos/logo-on-light-v2.webp", ratio: 1400 / 399 },
-  "on-dark": { src: "/media/logos/logo-on-dark-v2.webp", ratio: 1000 / 800 },
+  "on-light": { src: "/media/logos/logo-header.webp", ratio: 1600 / 511 },
+  "on-dark": { src: "/media/logos/logo-footer.webp", ratio: 1000 / 800 },
 } as const;
 
 export function BrandMark({ className }: { className?: string }) {
