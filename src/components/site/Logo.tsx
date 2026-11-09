@@ -42,6 +42,10 @@ export function Logo({
 }) {
   const logo = LOGOS[variant];
   const height = 120;
+  const sizeClass =
+    variant === "on-light"
+      ? "h-20 w-auto min-[420px]:h-24 sm:h-[110px]"
+      : "h-16 w-auto min-[420px]:h-20 sm:h-28 xl:h-[7.5rem]";
   return (
     <span className={cn("inline-flex items-center", className)}>
       <img
@@ -49,7 +53,7 @@ export function Logo({
         alt="Fyrama"
         width={Math.round(height * logo.ratio)}
         height={height}
-        className="h-20 w-auto min-[420px]:h-24 sm:h-[110px]"
+        className={cn(sizeClass, "max-w-full object-contain")}
       />
     </span>
   );
