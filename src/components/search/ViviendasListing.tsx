@@ -148,7 +148,7 @@ export async function ViviendasListing({
 
       <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside className="hidden lg:block">
-          <div className="sticky top-32 max-h-[calc(100vh-9rem)] overflow-y-auto pb-2 2xl:top-36">
+          <div className="sticky top-32 max-h-[calc(100vh-8rem)] overflow-y-auto pb-2 sm:top-36 sm:max-h-[calc(100vh-9rem)]">
             <FilterSidebar current={merged} cities={cities} />
           </div>
         </aside>

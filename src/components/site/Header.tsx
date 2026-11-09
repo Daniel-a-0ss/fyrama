@@ -85,7 +85,7 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-bone-200/80 bg-bone-50">
-      <div className="mx-auto flex h-32 max-w-[96rem] items-center justify-between gap-2 pl-3 pr-4 sm:pl-5 sm:pr-6 lg:pl-6 lg:pr-8 2xl:pl-8 2xl:pr-10">
+      <div className="mx-auto flex h-32 max-w-[96rem] items-center justify-between gap-2 pl-3 pr-4 sm:h-36 sm:pl-5 sm:pr-6 lg:pl-6 lg:pr-8 2xl:pl-8 2xl:pr-10">
         <Link href="/" className="shrink-0" aria-label="Fyrama — inicio">
           <Logo />
         </Link>
@@ -121,7 +121,7 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
                         aria-expanded={activeMenu}
                         onClick={() => openGroup(item.label)}
                         className={cn(
-                          "inline-flex h-32 items-center gap-1 whitespace-nowrap px-0.5 text-[13px] font-medium transition-colors 2xl:gap-1.5 2xl:px-1 2xl:text-base",
+                          "inline-flex h-32 items-center gap-1 whitespace-nowrap px-0.5 text-[13px] font-medium transition-colors sm:h-36 2xl:gap-1.5 2xl:px-1 2xl:text-base",
                           activeMenu
                             ? "text-pine-900"
                             : "text-ink-700 hover:text-pine-900"
@@ -183,7 +183,7 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
                         "whitespace-nowrap transition-colors",
                         isCta
                           ? "group ml-2 inline-flex h-10 items-center gap-1.5 rounded-full bg-pine-950 px-4 text-[13px] font-semibold text-bone-50 shadow-fyrama ring-1 ring-inset ring-white/15 transition-all hover:-translate-y-0.5 hover:bg-pine-800 hover:shadow-fyrama-lg 2xl:ml-3 2xl:h-12 2xl:gap-2 2xl:px-6 2xl:text-base"
-                          : "h-32 px-0.5 text-[13px] font-medium text-ink-700 hover:text-pine-900 2xl:px-1 2xl:text-base"
+                          : "h-32 px-0.5 text-[13px] font-medium text-ink-700 hover:text-pine-900 sm:h-36 2xl:px-1 2xl:text-base"
                       )}
                     >
                       {isCta && (
@@ -224,11 +224,11 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
           aria-label="Menú de navegación"
         >
           <div
-            className="fixed inset-0 top-32 bg-pine-950/30 backdrop-blur-sm"
+            className="fixed inset-0 top-32 bg-pine-950/30 backdrop-blur-sm sm:top-36"
             onClick={() => setOpen(false)}
           />
           <nav
-            className="fixed inset-x-0 top-32 z-10 max-h-[calc(100dvh-8rem)] overflow-y-auto border-b border-bone-200 bg-bone-50 px-4 pb-6 pt-3 shadow-fyrama-lg"
+            className="fixed inset-x-0 top-32 z-10 max-h-[calc(100dvh-8rem)] overflow-y-auto border-b border-bone-200 bg-bone-50 px-4 pb-6 pt-3 shadow-fyrama-lg sm:top-36 sm:max-h-[calc(100dvh-9rem)]"
             aria-label="Principal móvil"
           >
             <ul className="space-y-1.5">
