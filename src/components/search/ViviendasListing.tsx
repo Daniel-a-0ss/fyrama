@@ -117,7 +117,7 @@ export async function ViviendasListing({
   const activeCount = Object.entries(merged).filter(([k, v]) => v && k !== "page" && k !== "sort").length;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:px-8 lg:pt-40 2xl:pt-44">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 sm:pt-40 lg:px-8 lg:pt-40 2xl:pt-44">
       <Breadcrumbs
         items={[
           {
@@ -148,7 +148,7 @@ export async function ViviendasListing({
 
       <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside className="hidden lg:block">
-          <div className="sticky top-32 max-h-[calc(100vh-8rem)] overflow-y-auto pb-2 sm:top-36 sm:max-h-[calc(100vh-9rem)]">
+          <div className="sticky top-32 max-h-[calc(100vh-8rem)] overflow-y-auto pb-2 sm:top-40 sm:max-h-[calc(100vh-10rem)]">
             <FilterSidebar current={merged} cities={cities} />
           </div>
         </aside>

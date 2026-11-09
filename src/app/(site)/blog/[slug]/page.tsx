@@ -62,7 +62,7 @@ export default async function ArticlePage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40">
+    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:pt-40 sm:px-6 lg:pt-40">
       <JsonLd data={articleSchema} />
       <Breadcrumbs
         items={[

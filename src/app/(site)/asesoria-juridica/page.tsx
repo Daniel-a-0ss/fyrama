@@ -81,7 +81,7 @@ export default async function AsesoriaJuridicaPage() {
   const cfg = mergeSettings(settings);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:pt-40 sm:px-6 lg:px-8">
       <Breadcrumbs items={[{ label: "Asesoría jurídica" }]} />
 
       <div className="mt-5 max-w-3xl">

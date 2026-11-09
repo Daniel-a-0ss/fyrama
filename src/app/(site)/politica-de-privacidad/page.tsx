@@ -15,7 +15,7 @@ const EMAIL = DEFAULT_SETTINGS.contact_email;
 
 export default function PoliticaPrivacidad() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40">
+    <div className="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:pt-40 sm:px-6 lg:pt-40">
       <h1 className="font-display text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
         Política de privacidad
       </h1>

@@ -132,7 +132,7 @@ export default async function PropertyDetailPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:pt-40 sm:px-6 lg:px-8">
       <JsonLd data={realEstateSchema} />
       <Breadcrumbs
         items={[

@@ -26,7 +26,7 @@ export default async function ContactoPage() {
   const settings = mergeSettings(await getSiteSettings());
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:pt-40 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-36 sm:pt-40 sm:px-6 lg:px-8">
       <Breadcrumbs items={[{ label: "Contacto" }]} />
       <div className="mt-5 max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">
