@@ -49,7 +49,7 @@ export function Logo({
         alt="Fyrama"
         width={Math.round(height * logo.ratio)}
         height={height}
-        className="h-20 w-auto min-[420px]:h-24 sm:h-40"
+        className="h-20 w-auto min-[420px]:h-24 sm:h-36"
       />
     </span>
   );
