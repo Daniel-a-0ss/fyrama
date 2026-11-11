@@ -95,7 +95,7 @@ export function Header({ items = NAV_ITEMS }: { items?: NavItem[] }) {
           className="hidden items-center 2xl:flex"
           aria-label="Principal"
         >
-          <ul className="flex items-center gap-3 2xl:gap-4">
+          <ul className="flex items-center gap-6 2xl:gap-8">
             {items.map((item) => {
               const group = isGroup(item);
               const isCta = item.label === "Contáctanos";
