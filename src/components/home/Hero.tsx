@@ -42,7 +42,7 @@ export function Hero({
         <div className="absolute inset-0 bg-gradient-to-b from-pine-950/70 via-pine-950/45 to-pine-950/80" />
       </div>
 
-      <div className="relative z-10 w-full px-4 pb-16 pt-40 sm:px-6 lg:px-8 lg:pt-44">
+      <div className="relative z-10 w-full px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36 2xl:pt-40">
         <div className="max-w-2xl text-left">
           <p className="animate-fade-up mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-gold-400 sm:text-sm sm:tracking-[0.2em]">
             Abogados especializados y expertos inmobiliarios

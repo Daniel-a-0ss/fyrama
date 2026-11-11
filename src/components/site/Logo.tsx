@@ -44,7 +44,7 @@ export function Logo({
   const height = 120;
   const sizeClass =
     variant === "on-light"
-      ? "h-[4.5rem] w-auto min-[420px]:h-[5.5rem] sm:h-[6.5rem]"
+      ? "h-16 w-auto sm:h-20 2xl:h-24"
       : "h-16 w-auto min-[420px]:h-20 sm:h-28 xl:h-[7.5rem]";
   return (
     <span className={cn("inline-flex items-center", className)}>
